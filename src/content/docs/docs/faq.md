@@ -1,6 +1,6 @@
 ---
 title: Frequently asked questions
-description: Common questions about Total Recall and the Theo app — privacy, what it can do, phone access, and getting started.
+description: "Common questions about Total Recall and the Theo app: privacy, what it can do, phone access, and getting started."
 ---
 
 ## What is Total Recall?

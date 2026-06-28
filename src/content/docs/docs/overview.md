@@ -28,9 +28,9 @@ heart of the product.
 
 Your brain is portable, so you are not locked to one place:
 
-- **Theo, your agent** — at full strength in the Theo app, and with you in messaging channels like
+- **Theo, your agent**: at full strength in the Theo app, and with you in messaging channels like
   Telegram, Slack, and WhatsApp.
-- **Any AI you already use** — plug your brain into Claude, ChatGPT, Gemini, or any MCP-capable tool.
+- **Any AI you already use**: plug your brain into Claude, ChatGPT, Gemini, or any MCP-capable tool.
 
 ## Private by design
 

@@ -1,6 +1,6 @@
 ---
 title: Synthesis
-description: Synthesis is the heart of Total Recall — it connects everything you know to surface patterns, blind spots, and decisions, not just answers.
+description: "Synthesis is the heart of Total Recall: it connects everything you know to surface patterns, blind spots, and decisions, not just answers."
 ---
 
 Most tools help you *store* and *find* things. Total Recall does that, but the real point is
@@ -12,12 +12,12 @@ connect the dots across every corner of your life.
 Synthesis is the brain reasoning *across* everything at once, instead of answering one question
 from one source. It is the difference between a filing cabinet and a thinking partner.
 
-- **Patterns** — your strongest months line up with better sleep and time at home; your hardest
+- **Patterns**: your strongest months line up with better sleep and time at home; your hardest
   weeks cluster around travel. The signals lived in three different places. Now you see them.
-- **Blind spots** — the things your own biases hide. The brain surfaces what you would not think
+- **Blind spots**: the things your own biases hide. The brain surfaces what you would not think
   to ask.
-- **Decisions** — pressure-test a choice against every relevant note, call, and outcome you have.
-- **Connections across time** — advice from an email three years ago meets this week's metrics.
+- **Decisions**: pressure-test a choice against every relevant note, call, and outcome you have.
+- **Connections across time**: advice from an email three years ago meets this week's metrics.
 
 ## How you experience it
 

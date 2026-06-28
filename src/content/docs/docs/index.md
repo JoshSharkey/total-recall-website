@@ -19,8 +19,8 @@ relevant answers will surface. The most common questions are below.
 
 That lives on the product pages, not here:
 
-- **[Features](/features/)** — capabilities, synthesis, and integrations.
-- **[Plans](/plans/)** — what you can turn on, and how to get started.
+- **[Features](/features/)**: capabilities, synthesis, and integrations.
+- **[Plans](/plans/)**: what you can turn on, and how to get started.
 
 ## Still stuck?
 
