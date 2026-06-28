@@ -349,7 +349,7 @@ import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/co
         }
         function drawBg() {
           const g = ctx.createRadialGradient(cx + parallax.x, cy + parallax.y, coreR * 0.3, cx, cy, ring * 1.7);
-          g.addColorStop(0, 'rgba(36,52,44,0.55)'); g.addColorStop(0.4, 'rgba(20,24,32,0.5)'); g.addColorStop(1, 'rgba(10,11,14,0)');
+          g.addColorStop(0, 'rgba(60,44,22,0.5)'); g.addColorStop(0.4, 'rgba(26,22,18,0.5)'); g.addColorStop(1, 'rgba(10,11,14,0)');
           ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
         }
         function nodePos(n) { return { x: n.x + parallax.x * 1.2, y: n.y + parallax.y * 1.2 }; }
@@ -378,7 +378,7 @@ import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/co
         function drawCore(now) {
           const x = cx + parallax.x, y = cy + parallax.y, r = coreR * (0.85 + 0.15 * Math.sin(now * 0.0016));
           let g = ctx.createRadialGradient(x, y, 0, x, y, r * 2.6);
-          g.addColorStop(0, 'rgba(245,238,210,0.95)'); g.addColorStop(0.18, 'rgba(120,210,150,0.7)'); g.addColorStop(0.5, 'rgba(47,111,79,0.28)'); g.addColorStop(1, 'rgba(47,111,79,0)');
+          g.addColorStop(0, 'rgba(255,245,220,0.95)'); g.addColorStop(0.18, 'rgba(224,151,63,0.7)'); g.addColorStop(0.5, 'rgba(201,122,43,0.28)'); g.addColorStop(1, 'rgba(201,122,43,0)');
           ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r * 2.6, 0, 7); ctx.fill();
           g = ctx.createRadialGradient(x, y, 0, x, y, r * 0.9);
           g.addColorStop(0, 'rgba(255,252,240,0.98)'); g.addColorStop(0.6, 'rgba(227,179,77,0.5)'); g.addColorStop(1, 'rgba(227,179,77,0)');

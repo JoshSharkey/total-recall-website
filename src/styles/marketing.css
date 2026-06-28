@@ -47,6 +47,7 @@ h1, h2, h3 { font-family: var(--serif); letter-spacing: -0.015em; font-weight: 6
 .nav { display: flex; align-items: center; gap: 26px; }
 .nav a { text-decoration: none; font-size: 14.5px; font-weight: 500; opacity: 0.85; }
 .nav a:hover { opacity: 1; color: var(--amber); }
+.site-header.on-dark { background: rgba(12, 14, 18, 0.62); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
 .site-header.on-dark .brand, .site-header.on-dark .nav a { color: var(--cream); }
 .site-header.on-dark .nav a:hover { color: var(--amber-d); }
 @media (max-width: 720px) { .nav .hide-sm { display: none; } }
@@ -77,13 +78,13 @@ h1, h2, h3 { font-family: var(--serif); letter-spacing: -0.015em; font-weight: 6
 .hero-copy { position: relative; z-index: 3; width: 42%; max-width: 580px; flex: 0 0 auto; display: flex; flex-direction: column; justify-content: center; gap: clamp(20px, 3.2vh, 32px); padding: clamp(28px, 4vw, 64px); padding-top: clamp(90px, 12vh, 130px); }
 .hero-viz { position: relative; flex: 1 1 auto; min-width: 0; align-self: stretch; }
 .hero-viz canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.home .eyebrow { color: var(--green); }
+.home .eyebrow { color: var(--gold); }
 .home h1 { font-size: clamp(34px, 5vw, 60px); line-height: 1.02; margin: 14px 0 0; font-weight: 600; }
-.home h1 .accent { background: linear-gradient(120deg, var(--green), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.home h1 .accent { background: linear-gradient(120deg, var(--amber-d), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .sub { font-size: clamp(15px, 1.55vw, 18px); color: var(--soft); margin: 16px 0 0; max-width: 36ch; }
 .outcomes { display: flex; flex-direction: column; gap: 9px; margin: 0; }
 .oc { display: flex; align-items: center; gap: 9px; font-size: 14px; color: var(--cream); }
-.oc::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 9px var(--green); flex: 0 0 auto; }
+.oc::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 9px var(--gold); flex: 0 0 auto; }
 .askeyebrow { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
 .ask { display: flex; align-items: flex-start; gap: 12px; }
 .ask .dot { flex: 0 0 auto; width: 10px; height: 10px; border-radius: 50%; margin-top: 8px; background: var(--gold); box-shadow: 0 0 14px var(--gold); }
@@ -105,13 +106,13 @@ h1, h2, h3 { font-family: var(--serif); letter-spacing: -0.015em; font-weight: 6
 @keyframes bob { 50% { transform: translate(-50%, 7px); } }
 
 /* dark sections below the hero */
-.below { position: relative; z-index: 5; background: radial-gradient(120% 70% at 50% -8%, rgba(36, 52, 44, 0.32), rgba(14, 16, 20, 0) 60%), var(--bg0); }
+.below { position: relative; z-index: 5; background: radial-gradient(120% 70% at 50% -8%, rgba(60, 44, 22, 0.34), rgba(14, 16, 20, 0) 60%), var(--bg0); }
 .sec { max-width: 940px; margin: 0 auto; padding: clamp(66px, 11vh, 128px) clamp(22px, 6vw, 40px); }
 .eyebrow.center { text-align: center; }
 .manifesto .big { font-size: clamp(23px, 3.3vw, 37px); line-height: 1.3; font-weight: 600; letter-spacing: -0.012em; color: var(--cream); margin: 0 0 0.7em; font-family: var(--serif); }
 .manifesto .big.soft { color: var(--soft); font-weight: 500; }
-.manifesto em { font-style: normal; font-weight: 700; background: linear-gradient(120deg, var(--green), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.manifesto .tag { color: var(--green); font-weight: 700; }
+.manifesto em { font-style: normal; font-weight: 700; background: linear-gradient(120deg, var(--amber-d), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.manifesto .tag { color: var(--gold); font-weight: 700; }
 .sec h2 { font-size: clamp(26px, 3.8vw, 42px); line-height: 1.08; font-weight: 700; margin: 0.3em 0 0; color: var(--cream); }
 .examples .h2wrap { text-align: center; }
 .lede2 { font-size: clamp(15px, 1.7vw, 18px); color: var(--soft); margin: 18px auto 0; max-width: 600px; text-align: center; }
