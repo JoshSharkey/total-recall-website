@@ -1,5 +1,5 @@
 ---
-import { WAITLIST_ENDPOINT, CONTACT_EMAIL } from '../consts';
+import { WAITLIST_FORM_URL, WAITLIST_ENDPOINT, CONTACT_EMAIL } from '../consts';
 interface Props {
   id?: string;
   tone?: 'dark' | 'light';
@@ -17,19 +17,29 @@ const {
   <div class="container wl-inner">
     <h2>{heading}</h2>
     <p>{sub}</p>
-    <form
-      class="wl-form"
-      data-endpoint={WAITLIST_ENDPOINT}
-      data-contact={CONTACT_EMAIL}
-    >
-      <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" />
-      <button type="submit" class="btn btn-primary">Join the waitlist</button>
-    </form>
-    <p class="wl-msg" role="status" aria-live="polite"></p>
+
+    {
+      WAITLIST_FORM_URL ? (
+        <div class="wl-cta">
+          <a class="btn btn-primary" href={WAITLIST_FORM_URL} target="_blank" rel="noopener">
+            Join the waitlist →
+          </a>
+        </div>
+      ) : (
+        <>
+          <form class="wl-form" data-endpoint={WAITLIST_ENDPOINT} data-contact={CONTACT_EMAIL}>
+            <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" />
+            <button type="submit" class="btn btn-primary">Join the waitlist</button>
+          </form>
+          <p class="wl-msg" role="status" aria-live="polite" />
+        </>
+      )
+    }
   </div>
 </section>
 
 <script>
+  // Only runs in inline-endpoint mode (no hosted form URL configured).
   document.querySelectorAll<HTMLFormElement>('.wl-form').forEach((form) => {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -42,7 +52,6 @@ const {
       const ok = (t: string) => { if (msg) { msg.textContent = t; msg.classList.add('ok'); } if (input) input.value = ''; };
       const fail = (t: string) => { if (msg) { msg.textContent = t; msg.classList.remove('ok'); } };
       if (!endpoint) {
-        // No backend configured yet — fall back to email so the CTA still works.
         window.location.href = `mailto:${contact}?subject=Total%20Recall%20waitlist&body=Please%20add%20me%20to%20the%20waitlist:%20${encodeURIComponent(email)}`;
         ok('Opening your email client to finish.');
         return;

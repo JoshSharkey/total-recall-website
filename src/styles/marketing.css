@@ -225,3 +225,5 @@ h1, h2, h3 { font-family: var(--serif); letter-spacing: -0.015em; font-weight: 6
 .pv-sources { display: flex; flex-wrap: wrap; gap: 8px; }
 .pv-src { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; display: inline-flex; align-items: center; gap: 6px; }
 .pv-src i { width: 7px; height: 7px; border-radius: 50%; }
+
+.wl-cta { margin-top: 24px; }

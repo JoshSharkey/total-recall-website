@@ -8,6 +8,8 @@ export const SITE_DESCRIPTION =
 // The cockpit (Theo) app — link out to the product when ready.
 export const APP_URL = 'https://app.totalrecall.app'; // TODO: set real app URL
 export const CONTACT_EMAIL = 'hello@totalrecall.app'; // TODO: set real contact
-// Waitlist form POST endpoint (e.g. a Formspree / Tally / Buttondown URL).
-// Leave empty to fall back to a mailto: link so the CTA is never dead.
-export const WAITLIST_ENDPOINT = ''; // TODO: paste your form endpoint before launch
+// Waitlist: a hosted form the CTA links to (Google Form for now). Takes priority.
+export const WAITLIST_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSffNSdRkqnk3CC8HDF_OuhCtNL0jSCecwA18hVILAIf8ta8xg/viewform';
+// Optional inline POST endpoint (Formspree / Tally / Buttondown). Used only if no form URL.
+export const WAITLIST_ENDPOINT = '';
