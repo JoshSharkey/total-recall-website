@@ -1,0 +1,21 @@
+# Total Recall — allow search and AI crawlers (we want to be findable + citable).
+User-agent: *
+Allow: /
+
+# AI / generative-engine crawlers (GEO) — explicitly welcome.
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://totalrecall.app/sitemap-index.xml

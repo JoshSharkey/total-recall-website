@@ -1,0 +1,328 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '@fontsource/fraunces/400.css';
+import '@fontsource/fraunces/600.css';
+import '../styles/marketing.css';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead schema={true} />
+  </head>
+  <body class="home">
+    <Header tone="dark" />
+
+    <div id="stage">
+      <div class="hero-copy">
+        <div>
+          <p class="eyebrow">More than your mind can hold</p>
+          <h1>Connect your <span class="accent">whole world.</span></h1>
+          <p class="sub">
+            Total Recall is your private second brain. It takes in everything you know, from work
+            and people to health, ideas, and decisions, and connects it all, so you think faster,
+            catch blind spots, and act on patterns you'd never connect on your own.
+            <strong>Theo</strong> is the app you talk to.
+          </p>
+        </div>
+        <div class="outcomes">
+          <span class="oc">Sharper decisions, faster</span>
+          <span class="oc">Patterns across work, health &amp; family</span>
+          <span class="oc">Catch your blind spots</span>
+          <span class="oc">Synthesis that compounds</span>
+        </div>
+        <div>
+          <p class="askeyebrow">Ask it anything</p>
+          <div class="ask">
+            <span class="dot"></span>
+            <div class="qa"><p class="q" id="q"></p><p class="a" id="a"></p></div>
+          </div>
+        </div>
+        <div>
+          <a class="btn btn-primary" href="/docs/overview/">See how it works →</a>
+          <p class="hint">Private by design. One brain belongs to one person; your world stays yours.</p>
+        </div>
+      </div>
+
+      <div class="hero-viz" id="viz">
+        <canvas id="c"></canvas>
+        <div class="sources" id="sources"></div>
+        <div class="scrollcue">Scroll<span>↓</span></div>
+      </div>
+    </div>
+
+    <main class="below">
+      <section class="sec manifesto">
+        <p class="big">
+          What if you could remember <em>everything</em>. Everything you've read, seen, done, filed,
+          written, or even thought, plus anything you choose to bring in.
+        </p>
+        <p class="big soft">
+          And what if all of it could think together: pattern-matching and synthesizing across every
+          disparate corner of your life, so you decide better and faster, and surface the blind
+          spots, threats, and opportunities your own biases keep hidden.
+        </p>
+        <p class="big tag">That's Total Recall.</p>
+      </section>
+
+      <section class="sec examples">
+        <div class="h2wrap">
+          <p class="eyebrow center">See it think</p>
+          <h2>Connections you'd never make on your own.</h2>
+          <p class="lede2">
+            Your mind holds the pieces. Total Recall connects them, across years and across every
+            part of your life, exactly when a decision is on the line.
+          </p>
+        </div>
+        <div class="vigs">
+          <article class="vig">
+            <p class="vtag">A decision next week</p>
+            <p>
+              Advice an angel investor emailed you <b>three years ago</b> turns out to echo what your
+              board and team are telling you now. Total Recall ties it to last week's all-hands and
+              this week's metrics, every thread that bears on the call you have to make.
+              <span class="outcome">You decide with the whole picture instead of the last thing you remember.</span>
+            </p>
+            <div class="chips">
+              <span class="chip"><i style="background:#6aa6ef"></i>Email, 3 years ago</span>
+              <span class="chip"><i style="background:#f0a35a"></i>Board notes</span>
+              <span class="chip"><i style="background:#46c2c2"></i>All-hands</span>
+              <span class="chip"><i style="background:#e3b34d"></i>This week's metrics</span>
+            </div>
+          </article>
+          <article class="vig">
+            <p class="vtag">A pattern you couldn't see</p>
+            <p>
+              Your strongest months line up with better sleep and more time at home. Your hardest
+              weeks cluster around back-to-back travel. You never noticed.
+              <b>The signals lived in three different places.</b>
+              <span class="outcome">Now you protect what actually works.</span>
+            </p>
+            <div class="chips">
+              <span class="chip"><i style="background:#e07a8b"></i>Recovery data</span>
+              <span class="chip"><i style="background:#46c2c2"></i>Calendar</span>
+              <span class="chip"><i style="background:#a78be6"></i>Journal</span>
+            </div>
+          </article>
+          <article class="vig">
+            <p class="vtag">A risk before it lands</p>
+            <p>
+              An offhand remark a customer made on a call <b>three months ago</b> matches a churn
+              pattern you've seen before, and their usage just dipped. Total Recall connects the
+              three and flags it <span class="outcome">while there's still time to save the account.</span>
+            </p>
+            <div class="chips">
+              <span class="chip"><i style="background:#46c2c2"></i>Call transcript</span>
+              <span class="chip"><i style="background:#e3b34d"></i>Usage metrics</span>
+              <span class="chip"><i style="background:#3fae74"></i>Past accounts</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="sec closer">
+        <h2>Your whole world, working for you.</h2>
+        <p class="lede2">Set it up once. It compounds every day after.</p>
+        <div style="margin-top:30px">
+          <a class="btn btn-primary" href="/docs/">Explore Total Recall →</a>
+          <p class="hint">Read the docs, or see the <a href="/plans/" style="color:var(--gold)">plans</a>.</p>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+
+    <script>
+      (() => {
+        const vp = document.getElementById('viz');
+        const canvas = document.getElementById('c');
+        if (!vp || !canvas) return;
+        const ctx = canvas.getContext('2d');
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const CAT = {
+          conv: '#46c2c2', comms: '#6aa6ef', know: '#3fae74', biz: '#e3b34d',
+          people: '#f0a35a', mind: '#a78be6', health: '#e07a8b',
+        };
+        const GROUPS = ['Conversations', 'Knowledge', 'Work', 'People', 'You'];
+        const SOURCES = [
+          { l: 'Meetings', c: 'conv', g: 0 }, { l: 'Email', c: 'comms', g: 0 },
+          { l: 'Slack', c: 'comms', g: 0 }, { l: 'Messages', c: 'comms', g: 0 },
+          { l: 'Notes', c: 'know', g: 1 }, { l: 'Files', c: 'know', g: 1 },
+          { l: 'Documents', c: 'know', g: 1 }, { l: 'Books', c: 'know', g: 1 },
+          { l: 'Strategy', c: 'biz', g: 2 }, { l: 'Financials', c: 'biz', g: 2 },
+          { l: 'Metrics', c: 'biz', g: 2 }, { l: 'Contracts', c: 'biz', g: 2 },
+          { l: 'Designs', c: 'biz', g: 2 }, { l: 'Style guides', c: 'biz', g: 2 },
+          { l: 'Goals', c: 'biz', g: 2 }, { l: 'People & network', c: 'people', g: 3 },
+          { l: 'CRM', c: 'people', g: 3 }, { l: 'Journal', c: 'mind', g: 4 },
+          { l: 'Ideas', c: 'mind', g: 4 }, { l: 'Dreams', c: 'mind', g: 4 },
+          { l: 'Health', c: 'health', g: 4 },
+        ];
+
+        let W = 0, H = 0, DPR = 1, cx = 0, cy = 0, ring = 0, coreR = 0;
+        let highlight = null, mouse = { x: 0, y: 0, active: false }, parallax = { x: 0, y: 0 };
+
+        const srcEls = [], sourcesWrap = document.getElementById('sources');
+        SOURCES.forEach((s) => {
+          const el = document.createElement('div'); el.className = 'src';
+          el.innerHTML = `<span class="sd" style="background:${CAT[s.c]};"></span>${s.l}`;
+          el.addEventListener('mouseenter', () => (highlight = s.c));
+          el.addEventListener('mouseleave', () => (highlight = null));
+          sourcesWrap.appendChild(el); srcEls.push(el);
+        });
+        const catsWrap = document.createElement('div'); catsWrap.className = 'cats'; vp.appendChild(catsWrap);
+        const catEls = GROUPS.map((g) => { const el = document.createElement('div'); el.className = 'cat'; el.textContent = g; catsWrap.appendChild(el); return el; });
+
+        function layout() {
+          DPR = Math.min(devicePixelRatio || 1, 2);
+          W = vp.clientWidth; H = vp.clientHeight;
+          canvas.width = W * DPR; canvas.height = H * DPR;
+          ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+          cx = W * 0.5; cy = H * 0.5;
+          ring = Math.min(W, H) * 0.4;
+          coreR = Math.max(30, Math.min(W, H) * 0.05);
+          const n = SOURCES.length;
+          SOURCES.forEach((s, i) => {
+            const a = -Math.PI / 2 + (i / n) * Math.PI * 2;
+            const rx = Math.min(W * 0.42, ring * 1.14), ry = Math.min(H * 0.42, ring * 1.08);
+            s.x = cx + Math.cos(a) * rx; s.y = cy + Math.sin(a) * ry; s.a = a;
+            srcEls[i].style.left = s.x + 'px'; srcEls[i].style.top = s.y + 'px';
+          });
+          GROUPS.forEach((_, gi) => {
+            let sx = 0, sy = 0;
+            SOURCES.forEach((s, k) => { if (s.g === gi) { const a = -Math.PI / 2 + (k / n) * Math.PI * 2; sx += Math.cos(a); sy += Math.sin(a); } });
+            const a = Math.atan2(sy, sx);
+            const lrx = Math.min(W * 0.27, ring * 0.72), lry = Math.min(H * 0.27, ring * 0.7);
+            catEls[gi].style.left = cx + Math.cos(a) * lrx + 'px';
+            catEls[gi].style.top = cy + Math.sin(a) * lry + 'px';
+          });
+        }
+        addEventListener('resize', layout);
+
+        const nodes = [];
+        let MAXN = 40;
+        function spawnNode(c) {
+          if (nodes.length >= MAXN) { nodes.sort((a, b) => a.born - b.born); nodes.shift(); }
+          const ang = Math.random() * Math.PI * 2, rr = coreR * 1.2 + Math.pow(Math.random(), 0.7) * ring * 0.72;
+          nodes.push({ bx: Math.cos(ang), by: Math.sin(ang) * 0.92, rr, x: cx, y: cy, c, r: 1.6 + Math.random() * 2.4, born: performance.now(), drift: Math.random() * 7, ds: 0.2 + Math.random() * 0.5, pulse: Math.random() * 7 });
+        }
+        const parts = [];
+        function emit() { const s = SOURCES[(Math.random() * SOURCES.length) | 0]; parts.push({ ox: s.x, oy: s.y, c: s.c, t: 0, sp: 0.0048 + Math.random() * 0.004, wob: (Math.random() - 0.5) * 0.5, ph: Math.random() * 7, sz: 1.1 + Math.random() * 1.7 }); }
+        const out = [];
+        function emitOut() { out.push({ a: Math.random() * Math.PI * 2, t: 0, sp: 0.012 + Math.random() * 0.006 }); }
+
+        const QA = [
+          ['What’s quietly driving my best months?', 'Correlated your sleep, your calendar, and who you spent time with.'],
+          ['What am I not seeing about this deal?', 'Surfaced three risks buried across past meetings and emails.'],
+          ['Where am I drifting from what I said matters?', 'Compared the last month against your stated goals.'],
+          ['What connects my hardest weeks?', 'Found the thread across travel, family time, and recovery.'],
+          ['Pressure-test this decision against what I know.', 'Weighed it against every relevant note, call, and outcome.'],
+          ['Who should I reconnect with, and why now?', 'Cross-referenced your CRM, your goals, and six months of signals.'],
+        ];
+        let qi = -1, beam = null, typeTimer = null;
+        const qEl = document.getElementById('q'), aEl = document.getElementById('a');
+        function dist2(n) { return (n.x - cx) ** 2 + (n.y - cy) ** 2; }
+        function tracePath() {
+          if (nodes.length < 4) return null;
+          const pool = nodes.slice().sort((a, b) => dist2(a) - dist2(b)), path = [], used = new Set();
+          let cur = { x: cx, y: cy };
+          for (let k = 0; k < 4; k++) { let best = null, bd = Infinity; for (const n of pool) { if (used.has(n)) continue; const d = (n.x - cur.x) ** 2 + (n.y - cur.y) ** 2; if (d < bd) { bd = d; best = n; } } if (!best) break; used.add(best); path.push(best); cur = best; }
+          return path.length >= 3 ? path : null;
+        }
+        function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+        function typeQuestion(text, then) {
+          clearInterval(typeTimer);
+          if (reduce) { qEl.innerHTML = esc(text); setTimeout(then, 200); return; }
+          let i = 0; const caret = '<span class="caret"></span>'; qEl.innerHTML = caret;
+          typeTimer = setInterval(() => { i++; qEl.innerHTML = esc(text.slice(0, i)) + caret; if (i >= text.length) { clearInterval(typeTimer); setTimeout(then, 420); } }, 24);
+        }
+        function runQuery() {
+          qi = (qi + 1) % QA.length; aEl.classList.remove('show');
+          typeQuestion(QA[qi][0], () => { const p = tracePath(); if (p) beam = { path: p, t: 0 }; setTimeout(() => { aEl.textContent = QA[qi][1]; aEl.classList.add('show'); }, reduce ? 200 : 900); });
+        }
+
+        addEventListener('pointermove', (e) => { const r = vp.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; mouse.active = mouse.x >= 0 && mouse.y >= 0 && mouse.x <= r.width && mouse.y <= r.height; });
+        addEventListener('pointerleave', () => (mouse.active = false));
+        vp.addEventListener('click', (e) => { if (e.target.closest('a')) return; runQuery(); });
+
+        let last = performance.now(), emitAcc = 0, outAcc = 0, qAcc = 0;
+        function frame(now) {
+          const dt = Math.min(40, now - last); last = now;
+          const tx = mouse.active ? (mouse.x - cx) / W : 0, ty = mouse.active ? (mouse.y - cy) / H : 0;
+          parallax.x += (tx * 18 - parallax.x) * 0.05; parallax.y += (ty * 18 - parallax.y) * 0.05;
+          emitAcc += dt; const rate = reduce ? 260 : 95; while (emitAcc > rate) { emitAcc -= rate; emit(); }
+          outAcc += dt; if (outAcc > 2200) { outAcc = 0; if (!reduce) emitOut(); }
+          qAcc += dt; if (qAcc > 6600) { qAcc = 0; runQuery(); }
+          ctx.clearRect(0, 0, W, H);
+          drawBg(); drawLinks(); drawNodes(now); drawCore(now); drawParts(dt); drawOut(dt); drawBeam(dt);
+          requestAnimationFrame(frame);
+        }
+        function drawBg() {
+          const g = ctx.createRadialGradient(cx + parallax.x, cy + parallax.y, coreR * 0.3, cx, cy, ring * 1.7);
+          g.addColorStop(0, 'rgba(36,52,44,0.55)'); g.addColorStop(0.4, 'rgba(20,24,32,0.5)'); g.addColorStop(1, 'rgba(10,11,14,0)');
+          ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+        }
+        function nodePos(n) { return { x: n.x + parallax.x * 1.2, y: n.y + parallax.y * 1.2 }; }
+        function drawLinks() {
+          ctx.lineWidth = 1;
+          for (let i = 0; i < nodes.length; i++) {
+            const a = nodes[i], pa = nodePos(a); let cnt = 0;
+            for (let j = i + 1; j < nodes.length && cnt < 2; j++) { const b = nodes[j]; if ((a.x - b.x) ** 2 + (a.y - b.y) ** 2 < (ring * 0.46) ** 2) { const pb = nodePos(b); const dim = highlight && a.c !== highlight && b.c !== highlight; ctx.strokeStyle = `rgba(150,180,165,${dim ? 0.04 : 0.13})`; ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke(); cnt++; } }
+            const dimc = highlight && a.c !== highlight;
+            ctx.strokeStyle = `rgba(120,160,140,${dimc ? 0.03 : 0.07})`;
+            ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(cx + parallax.x, cy + parallax.y); ctx.stroke();
+          }
+        }
+        function drawNodes(now) {
+          for (const n of nodes) {
+            n.drift += reduce ? 0.001 : 0.006;
+            const wob = reduce ? 0 : Math.sin(n.drift) * 4;
+            n.x = cx + n.bx * (n.rr + wob); n.y = cy + n.by * (n.rr + wob);
+            const p = nodePos(n), dim = highlight && n.c !== highlight;
+            const age = Math.min(1, (now - n.born) / 900), pulse = 0.6 + 0.4 * Math.sin(now * 0.002 + n.pulse), col = CAT[n.c];
+            ctx.globalAlpha = (dim ? 0.22 : 1) * age; ctx.shadowColor = col; ctx.shadowBlur = dim ? 2 : 10 * pulse; ctx.fillStyle = col;
+            ctx.beginPath(); ctx.arc(p.x, p.y, n.r * (0.8 + 0.3 * pulse), 0, 7); ctx.fill();
+            ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+          }
+        }
+        function drawCore(now) {
+          const x = cx + parallax.x, y = cy + parallax.y, r = coreR * (0.85 + 0.15 * Math.sin(now * 0.0016));
+          let g = ctx.createRadialGradient(x, y, 0, x, y, r * 2.6);
+          g.addColorStop(0, 'rgba(245,238,210,0.95)'); g.addColorStop(0.18, 'rgba(120,210,150,0.7)'); g.addColorStop(0.5, 'rgba(47,111,79,0.28)'); g.addColorStop(1, 'rgba(47,111,79,0)');
+          ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r * 2.6, 0, 7); ctx.fill();
+          g = ctx.createRadialGradient(x, y, 0, x, y, r * 0.9);
+          g.addColorStop(0, 'rgba(255,252,240,0.98)'); g.addColorStop(0.6, 'rgba(227,179,77,0.5)'); g.addColorStop(1, 'rgba(227,179,77,0)');
+          ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r * 0.9, 0, 7); ctx.fill();
+        }
+        function drawParts(dt) {
+          const speed = reduce ? 0.5 : 1;
+          for (let i = parts.length - 1; i >= 0; i--) { const p = parts[i]; p.t = Math.min(1, p.t + p.sp * dt * speed); const e = p.t * p.t * (3 - 2 * p.t), bx = p.ox + (cx - p.ox) * e, by = p.oy + (cy - p.oy) * e; const ang = Math.atan2(cy - p.oy, cx - p.ox) + Math.PI / 2; const w = reduce ? 0 : Math.sin(p.t * Math.PI) * p.wob * 40 * Math.sin(p.ph + p.t * 6); const x = bx + Math.cos(ang) * w + parallax.x, y = by + Math.sin(ang) * w + parallax.y; const dim = highlight && p.c !== highlight, fade = Math.sin(p.t * Math.PI), col = CAT[p.c]; ctx.globalAlpha = (dim ? 0.12 : 0.9) * Math.max(0.15, fade); ctx.shadowColor = col; ctx.shadowBlur = dim ? 0 : 8; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, p.sz, 0, 7); ctx.fill(); ctx.shadowBlur = 0; ctx.globalAlpha = 1; if (p.t >= 1) { if (Math.random() < 0.5) spawnNode(p.c); parts.splice(i, 1); } }
+        }
+        function drawOut(dt) {
+          for (let i = out.length - 1; i >= 0; i--) { const o = out[i]; o.t += o.sp * dt * 0.06; if (o.t >= 1) { out.splice(i, 1); continue; } const r = coreR + o.t * ring * 0.95, x = cx + Math.cos(o.a) * r + parallax.x, y = cy + Math.sin(o.a) * r * 0.92 + parallax.y; ctx.globalAlpha = (1 - o.t) * 0.9; ctx.shadowColor = '#e3b34d'; ctx.shadowBlur = 12; ctx.fillStyle = '#f2d38a'; ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 7); ctx.fill(); ctx.shadowBlur = 0; ctx.globalAlpha = 1; }
+        }
+        function drawBeam(dt) {
+          if (!beam) return; beam.t += dt * 0.0016;
+          const pts = [{ x: cx, y: cy }, ...beam.path.map((n) => ({ x: n.x, y: n.y }))], total = pts.length - 1, prog = beam.t * total;
+          ctx.lineCap = 'round';
+          for (let s = 0; s < total; s++) { const a = pts[s], b = pts[s + 1]; let frac = Math.max(0, Math.min(1, prog - s)); if (frac <= 0) break; const ex = a.x + (b.x - a.x) * frac + parallax.x, ey = a.y + (b.y - a.y) * frac + parallax.y; ctx.strokeStyle = 'rgba(227,179,77,0.55)'; ctx.lineWidth = 2; ctx.shadowColor = '#e3b34d'; ctx.shadowBlur = 14; ctx.beginPath(); ctx.moveTo(a.x + parallax.x, a.y + parallax.y); ctx.lineTo(ex, ey); ctx.stroke(); ctx.shadowBlur = 0; if (frac < 1) { ctx.fillStyle = '#fff7e0'; ctx.shadowColor = '#fff'; ctx.shadowBlur = 16; ctx.beginPath(); ctx.arc(ex, ey, 3.4, 0, 7); ctx.fill(); ctx.shadowBlur = 0; } }
+          for (let k = 0; k < beam.path.length; k++) { if (prog > k + 0.6) { const n = beam.path[k]; ctx.strokeStyle = 'rgba(255,247,224,0.5)'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(n.x + parallax.x, n.y + parallax.y, n.r + 5, 0, 7); ctx.stroke(); } }
+          if (beam.t >= 1.25) beam = null;
+        }
+        function syncPills() {
+          srcEls.forEach((el, i) => el.classList.toggle('dim', highlight && SOURCES[i].c !== highlight));
+          catEls.forEach((el, gi) => el.classList.toggle('dim', highlight && !SOURCES.some((s) => s.g === gi && s.c === highlight)));
+          requestAnimationFrame(syncPills);
+        }
+
+        layout();
+        MAXN = reduce ? 34 : Math.round(Math.min(64, (W * H) / 22000));
+        for (let i = 0; i < (reduce ? 16 : 26); i++) spawnNode(SOURCES[i % SOURCES.length].c);
+        syncPills();
+        setTimeout(runQuery, 900);
+        requestAnimationFrame(frame);
+      })();
+    </script>
+  </body>
+</html>

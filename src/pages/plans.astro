@@ -1,0 +1,88 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+const plans = [
+  {
+    name: 'Self-serve',
+    tagline: 'You set it up, with our guides.',
+    price: 'Pricing coming soon',
+    featured: false,
+    features: [
+      'Your private single-owner brain',
+      'The Theo app (web + phone access)',
+      'Core sources: documents, notes, search',
+      'Daily brief & life synthesis',
+      'Step-by-step setup guides',
+    ],
+    cta: 'Get notified',
+  },
+  {
+    name: 'Plus',
+    tagline: 'More sources, more of the brain working for you.',
+    price: 'Pricing coming soon',
+    featured: true,
+    features: [
+      'Everything in Self-serve',
+      'Email, Slack & message memory',
+      'Personal CRM + meetings',
+      'Health & calendar integration',
+      'Proactive agents & reminders',
+    ],
+    cta: 'Get notified',
+  },
+  {
+    name: 'Done-for-you',
+    tagline: 'We stand it up and connect your world for you.',
+    price: 'Pricing coming soon',
+    featured: false,
+    features: [
+      'Everything in Plus',
+      'White-glove setup & connection',
+      'Source migration & onboarding',
+      'Priority support',
+    ],
+    cta: 'Talk to us',
+  },
+];
+---
+<Marketing
+  title="Plans"
+  description="Choose how you run your second brain: self-serve, plus, or done-for-you. Pricing is being finalized."
+>
+  <section class="section">
+    <div class="container" style="max-width:760px;text-align:center">
+      <p class="eyebrow center">Plans</p>
+      <h1 style="font-size:clamp(32px,4.6vw,52px);margin:10px 0 0">Run it your way.</h1>
+      <p class="lead" style="margin:18px auto 0">
+        Every plan is a private brain that belongs to you alone, used through the Theo app. Pick how
+        much you want to do yourself versus have done for you.
+      </p>
+      <p style="margin-top:14px;color:var(--amber);font-weight:600">Pricing is being finalized — exact tiers and prices are coming soon.</p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container">
+      <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:start">
+        {plans.map((p) => (
+          <div class="card" style={p.featured ? 'border-color:var(--amber);box-shadow:0 10px 30px -16px rgba(201,122,43,.5)' : ''}>
+            {p.featured && <span class="dot" style="background:var(--amber)"></span>}
+            <h3>{p.name}</h3>
+            <p style="margin:2px 0 14px">{p.tagline}</p>
+            <p style="font-family:var(--serif);font-size:20px;color:var(--ink);margin:0 0 16px">{p.price}</p>
+            <ul style="list-style:none;padding:0;margin:0 0 20px;display:flex;flex-direction:column;gap:8px">
+              {p.features.map((f) => (
+                <li style="font-size:14px;display:flex;gap:9px;align-items:flex-start">
+                  <span style="color:var(--amber);font-weight:700">›</span>{f}
+                </li>
+              ))}
+            </ul>
+            <a class={p.featured ? 'btn btn-primary' : 'btn btn-ghost'} href="/docs/" style="width:100%;justify-content:center">{p.cta}</a>
+          </div>
+        ))}
+      </div>
+      <p style="text-align:center;color:var(--muted);font-size:13.5px;margin-top:28px">
+        Want the full capability menu? See the <a href="/docs/" style="color:var(--amber)">help center</a>.
+      </p>
+    </div>
+  </section>
+</Marketing>

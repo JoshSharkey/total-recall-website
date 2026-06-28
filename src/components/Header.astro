@@ -1,0 +1,22 @@
+---
+import { APP_URL } from '../consts';
+interface Props {
+  tone?: 'dark' | 'light';
+  solid?: boolean;
+}
+const { tone = 'light', solid = false } = Astro.props;
+---
+<header class:list={['site-header', tone === 'dark' && 'on-dark', solid && 'solid']}>
+  <div class="bar">
+    <a class="brand" href="/">
+      <img src="/brand/total-recall-icon.svg" alt="" aria-hidden="true" />
+      Total Recall
+    </a>
+    <nav class="nav">
+      <a href="/theo/" class="hide-sm">Theo app</a>
+      <a href="/docs/">Docs</a>
+      <a href="/plans/">Plans</a>
+      <a href={APP_URL} class="btn btn-primary" style="padding:9px 16px;font-size:14px;">Open Theo</a>
+    </nav>
+  </div>
+</header>

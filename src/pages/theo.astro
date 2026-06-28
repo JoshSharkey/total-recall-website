@@ -1,0 +1,56 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+const capabilities = [
+  ['#46c2c2', 'Ask anything', 'Ask in plain language and get answers drawn from everything your brain knows.'],
+  ['#e3b34d', 'Daily brief', 'A morning read of what matters: people, decisions, follow-ups, and signals.'],
+  ['#f0a35a', 'People', 'Your personal CRM, surfaced when it counts, who to reconnect with and why.'],
+  ['#a78be6', 'Synthesis', 'Patterns across work, health, and life that you would never connect alone.'],
+  ['#3fae74', 'Act', 'Close tasks, mark goals, and capture ideas, the brain does, not just remembers.'],
+  ['#e07a8b', 'Health', 'Recovery, sleep, and trends in context with the rest of your life.'],
+];
+---
+<Marketing
+  title="Theo — the app for your second brain"
+  description="Theo is the app you talk to. It is the face of Total Recall: ask anything, read your daily brief, review the people who matter, and act on what your brain surfaces."
+>
+  <section class="section">
+    <div class="container" style="max-width:820px">
+      <p class="eyebrow">The app</p>
+      <h1 style="font-size:clamp(34px,5vw,56px);margin:10px 0 0">Meet Theo.</h1>
+      <p class="lead" style="margin-top:18px">
+        Total Recall is the brain. <strong>Theo</strong> is the face of it, the app where you ask
+        questions, read your daily brief, review the people who matter, and act on what your brain
+        surfaces. One place to think with everything you know.
+      </p>
+      <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="/docs/mission-control/">See what Theo does →</a>
+        <a class="btn btn-ghost" href="/plans/">View plans</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container">
+      <div class="cards">
+        {capabilities.map(([c, t, d]) => (
+          <div class="card">
+            <span class="dot" style={`background:${c}`}></span>
+            <h3>{t}</h3>
+            <p>{d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container" style="max-width:760px;text-align:center">
+      <h2 style="font-size:clamp(24px,3.4vw,36px)">The brain remembers. Theo helps you use it.</h2>
+      <p class="lead" style="margin:16px auto 26px">
+        Everything Theo shows is grounded in your own information, with the receipts. Nothing is
+        made up, and nothing is shared. One brain belongs to one person.
+      </p>
+      <a class="btn btn-primary" href="/docs/">Explore the docs →</a>
+    </div>
+  </section>
+</Marketing>
