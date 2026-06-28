@@ -2,10 +2,11 @@
 interface Props {
   tone?: 'dark' | 'light';
   solid?: boolean;
+  scrollAware?: boolean;
 }
-const { tone = 'light', solid = false } = Astro.props;
+const { tone = 'light', solid = false, scrollAware = false } = Astro.props;
 ---
-<header class:list={['site-header', tone === 'dark' && 'on-dark', solid && 'solid']}>
+<header class:list={['site-header', tone === 'dark' && 'on-dark', solid && 'solid', scrollAware && 'scroll-aware']}>
   <div class="bar">
     <a class="brand" href="/">
       <img src="/brand/total-recall-icon.svg" alt="" aria-hidden="true" />
@@ -20,3 +21,12 @@ const { tone = 'light', solid = false } = Astro.props;
     </nav>
   </div>
 </header>
+
+<script>
+  const sa = document.querySelector('.site-header.scroll-aware');
+  if (sa) {
+    const onScroll = () => sa.classList.toggle('scrolled', window.scrollY > window.innerHeight * 0.7);
+    onScroll();
+    addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>
