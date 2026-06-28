@@ -13,11 +13,10 @@ import { fileURLToPath } from 'node:url';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SRC = join(HERE, '..', '..', 'total-recall', 'docs', 'capabilities');
 const DEST = join(HERE, '..', 'src', 'content', 'docs', 'docs');
-const KEEP = new Set(['index.md', 'faq.md', 'synthesis.md']); // hand-authored
+const KEEP = new Set(['index.md', 'faq.md', 'synthesis.md', 'overview.md']); // hand-authored
 
 // curated help articles: filename -> display title override
 const ALLOW = {
-  'overview.md': 'What is Total Recall',
   'search.md': 'How search works',
   'daily-brief.md': 'Daily brief',
   'phone-access.md': 'Using it from your phone',
@@ -66,7 +65,13 @@ for (const [file, title] of Object.entries(ALLOW)) {
     '---',
     '',
   ].filter(Boolean).join('\n');
-  writeFileSync(join(DEST, file), fm + body.replace(/^\n+/, ''));
+  // sanitize body: drop the leading H1 (Starlight renders the title) and strip
+  // repo-relative / .md links that would 404 on the site (keep http + /site links).
+  let clean = body.replace(/^\n+/, '').replace(/^#\s+.*\n+/, '');
+  clean = clean.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, text, href) =>
+    href.startsWith('http') || href.startsWith('/') ? m : text
+  );
+  writeFileSync(join(DEST, file), fm + clean);
   published++;
 }
 console.log(`synced ${published} curated help articles -> ${DEST}`);

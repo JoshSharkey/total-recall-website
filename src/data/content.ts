@@ -1,5 +1,7 @@
-// Shared marketing content — single place to edit features, integrations, use cases.
+// Shared marketing content — single place to edit features, sources, surfaces, use cases.
 // Sourced from the intake form (docs/intake-questionnaire.md) + capability docs.
+// Positioning: Total Recall = the brain (memory + synthesis). Theo = the agent built on it.
+// Use it anywhere: Theo app + messaging channels, or plug your brain into any AI.
 
 export const STREAM = {
   teal: '#46c2c2',
@@ -11,25 +13,19 @@ export const STREAM = {
   rose: '#e07a8b',
 };
 
-// The core capability groups — how the product is illustrated on Features/Home/Plans.
+// Capability groups — memory + synthesis lead; action is a supporting act (not the pitch).
 export const capabilityGroups = [
   {
     color: STREAM.green,
-    title: 'Memory & search',
+    title: 'Total memory',
     blurb: 'Bring your whole world in, then ask anything in plain language.',
-    items: ['Documents, notes, email, messages, meetings', 'Semantic search by meaning, not keywords', 'Answers with the receipts, grounded in your data'],
+    items: ['Documents, notes, email, messages, meetings', 'Search by meaning, not keywords', 'Answers grounded in your own data, with the receipts'],
   },
   {
     color: STREAM.gold,
-    title: 'Synthesis & intelligence',
-    blurb: 'The point of it all: it connects everything and thinks with you.',
-    items: ['Patterns across work, health, and life', 'Blind spots your own biases hide', 'Daily brief + weekly & monthly synthesis', 'Pressure-test decisions against everything you know'],
-  },
-  {
-    color: STREAM.orange,
-    title: 'Proactive agents & action',
-    blurb: 'It does, not just remembers. It can reach out and act.',
-    items: ['Messages you on Telegram or Slack', 'Reminders and relationship cadence', 'Close tasks, mark goals, draft and send'],
+    title: 'Synthesis',
+    blurb: 'The heart of it: it connects everything and thinks with you.',
+    items: ['Patterns across work, health, and life', 'Blind spots your own biases hide', 'A daily brief, plus weekly and monthly synthesis', 'Pressure-test decisions against all you know'],
   },
   {
     color: STREAM.blue,
@@ -41,25 +37,44 @@ export const capabilityGroups = [
     color: STREAM.rose,
     title: 'Health & life',
     blurb: 'Your body in context with the rest of your life.',
-    items: ['WHOOP, Oura, recovery & sleep', 'Medications & supplements', 'Correlations you would never spot alone'],
+    items: ['WHOOP, Oura, recovery and sleep', 'Medications and supplements', 'Correlations you would never spot alone'],
   },
   {
     color: STREAM.violet,
     title: 'Capture',
-    blurb: 'Catch the fleeting stuff before it is gone.',
+    blurb: 'Catch fleeting thoughts before they are gone.',
     items: ['Notes, journal, dreams, ideas', 'Voice capture on the go', 'Write straight to your brain'],
+  },
+  {
+    color: STREAM.orange,
+    title: 'It can act',
+    blurb: 'When you want it to, it does more than answer.',
+    items: ['Reaches out on Telegram, Slack, or the app', 'Reminders and relationship cadence', 'Closes tasks, marks goals, drafts and sends'],
   },
 ];
 
-// Integrations / sources — grouped, drawn from intake "what should your brain know about".
-export const integrationGroups = [
+// What it CONNECTS — the sources it ingests (from intake "what should your brain know about").
+export const sourceGroups = [
   { title: 'Work & documents', tools: ['Google Drive', 'OneDrive', 'Dropbox', 'Notion', 'iCloud', 'Spreadsheets', 'Decks', 'Figma'] },
   { title: 'Notes', tools: ['Apple Notes', 'Notion', 'Obsidian', 'OneNote', 'Evernote', 'Google Keep', 'Bear', 'Roam / Logseq'] },
   { title: 'Communication', tools: ['Gmail', 'Google Workspace', 'Outlook', 'Slack', 'iMessage / SMS', 'WhatsApp'] },
   { title: 'Meetings & people', tools: ['Calendar', 'Meeting transcripts', 'Contacts', 'Sales & customer calls'] },
   { title: 'Health & life', tools: ['WHOOP', 'Oura', 'Medications'] },
   { title: 'Media', tools: ['Podcasts', 'Books', 'Newsletters'] },
-  { title: 'It reaches you', tools: ['Telegram', 'Slack'] },
+];
+
+// Where you USE it — two modes. Theo (first-party) + your brain in any AI.
+export const surfaceGroups = [
+  {
+    title: 'Theo, your agent',
+    blurb: 'Purpose-built for your brain. The app at full strength, plus messaging wherever you are.',
+    tools: ['Theo app', 'Telegram', 'Slack', 'WhatsApp'],
+  },
+  {
+    title: 'Or any AI you already use',
+    blurb: 'Your brain is portable. Plug it into the tools you live in.',
+    tools: ['Claude', 'ChatGPT', 'Gemini', 'Any MCP-capable tool'],
+  },
 ];
 
 // "What would you ask your brain?" — straight from the intake form options.
@@ -76,7 +91,7 @@ export const useCasesAsk = [
   { q: 'What book should I read next?', c: STREAM.gold },
 ];
 
-// "What made you want a second brain?" — the motivations / outcomes.
+// "What made you want a second brain?" — motivations / outcomes.
 export const motivations = [
   'Make better decisions',
   'Make faster decisions',
@@ -86,4 +101,12 @@ export const motivations = [
   'Find anything instantly',
   'Find patterns that help you improve',
   'Build documents and artifacts faster',
+];
+
+// How it works — the simple mechanism (fills the "how" gap; safe, generic).
+export const howItWorks = [
+  { n: '1', color: STREAM.green, title: 'Connect your world', body: 'Point it at the sources you already use. It ingests them privately and keeps up to date in the background.' },
+  { n: '2', color: STREAM.gold, title: 'It builds your brain', body: 'Everything is organized and linked into one private memory, then synthesized so the connections surface on their own.' },
+  { n: '3', color: STREAM.blue, title: 'Ask Theo anywhere', body: 'Talk to your agent in the Theo app or your messaging channels, or plug your brain into the AI you already use.' },
+  { n: '4', color: STREAM.orange, title: 'It compounds', body: 'A daily brief, proactive nudges, and sharper answers, getting more valuable every day it learns.' },
 ];

@@ -1,0 +1,37 @@
+---
+// Illustrative product UI (synthetic data) — gives a feel for Theo without exposing real data.
+import { STREAM } from '../data/content';
+---
+<div class="preview">
+  <!-- Daily brief panel -->
+  <div class="pv-card">
+    <div class="pv-head">
+      <span class="pv-dot" style={`background:${STREAM.gold}`}></span>
+      <span class="pv-title">Your daily brief</span>
+      <span class="pv-meta">Tue, 7:00am</span>
+    </div>
+    <ul class="pv-list">
+      <li><b>Close the loop with Dana</b> — her contract renews in 9 days and usage dipped last week.</li>
+      <li><b>Board prep</b> — 3 questions likely, based on last quarter's notes and this week's metrics.</li>
+      <li><b>Recovery is low 3 days running</b> — your best months correlate with sleep. Protect tonight.</li>
+      <li><b>Reconnect:</b> it's been 4 months since you spoke with Marcus.</li>
+    </ul>
+  </div>
+
+  <!-- Ask Theo answer panel -->
+  <div class="pv-card">
+    <div class="pv-ask">
+      <span class="pv-q">“What am I missing about the Acme deal?”</span>
+    </div>
+    <p class="pv-answer">
+      Three things worth a look before your call. Acme's champion changed roles in March,
+      pricing pushback showed up in two emails, and a similar account churned after the same
+      pattern last year.
+    </p>
+    <div class="pv-sources">
+      <span class="pv-src"><i style={`background:${STREAM.blue}`}></i>Email · Mar 14</span>
+      <span class="pv-src"><i style={`background:${STREAM.teal}`}></i>Call transcript</span>
+      <span class="pv-src"><i style={`background:${STREAM.green}`}></i>Past accounts</span>
+    </div>
+  </div>
+</div>

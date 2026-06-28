@@ -1,6 +1,7 @@
 ---
 import Marketing from '../layouts/Marketing.astro';
-import { capabilityGroups, integrationGroups } from '../data/content';
+import Waitlist from '../components/Waitlist.astro';
+import { capabilityGroups, sourceGroups } from '../data/content';
 const plans = [
   {
     name: 'Self-serve',
@@ -57,7 +58,7 @@ const plans = [
         Every plan is a private brain that belongs to you alone, used through the Theo app. Pick how
         much you want to do yourself versus have done for you.
       </p>
-      <p style="margin-top:14px;color:var(--amber);font-weight:600">Pricing is being finalized — exact tiers and prices are coming soon.</p>
+      <p style="margin-top:14px;color:var(--amber);font-weight:600">Pricing is being finalized. Exact tiers and prices are coming soon.</p>
     </div>
   </section>
 
@@ -77,7 +78,7 @@ const plans = [
                 </li>
               ))}
             </ul>
-            <a class={p.featured ? 'btn btn-primary' : 'btn btn-ghost'} href="/docs/" style="width:100%;justify-content:center">{p.cta}</a>
+            <a class={p.featured ? 'btn btn-primary' : 'btn btn-ghost'} href="#waitlist" style="width:100%;justify-content:center">{p.cta}</a>
           </div>
         ))}
       </div>
@@ -104,7 +105,7 @@ const plans = [
         ))}
       </div>
       <div class="integ-grid" style="margin-top:40px">
-        {integrationGroups.map((g) => (
+        {sourceGroups.map((g) => (
           <div class="integ-group">
             <h4>{g.title}</h4>
             <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
@@ -113,4 +114,6 @@ const plans = [
       </div>
     </div>
   </section>
+
+  <Waitlist heading="Get early access" sub="Pricing is still being finalized. Join the waitlist and we'll reach out with plans when access opens." />
 </Marketing>

@@ -2,10 +2,12 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Waitlist from '../components/Waitlist.astro';
+import ProductPreview from '../components/ProductPreview.astro';
 import '@fontsource/fraunces/400.css';
 import '@fontsource/fraunces/600.css';
 import '../styles/marketing.css';
-import { integrationGroups, useCasesAsk } from '../data/content';
+import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/content';
 ---
 <!doctype html>
 <html lang="en">
@@ -18,13 +20,12 @@ import { integrationGroups, useCasesAsk } from '../data/content';
     <div id="stage">
       <div class="hero-copy">
         <div>
-          <p class="eyebrow">More than your mind can hold</p>
-          <h1>Connect your <span class="accent">whole world.</span></h1>
+          <p class="eyebrow">Your private second brain</p>
+          <h1>Everything you know, <span class="accent">thinking together.</span></h1>
           <p class="sub">
-            Total Recall is your private second brain. It takes in everything you know, from work
-            and people to health, ideas, and decisions, and connects it all, so you think faster,
-            catch blind spots, and act on patterns you'd never connect on your own.
-            <strong>Theo</strong> is the app you talk to.
+            Total Recall remembers your whole world, work, people, health, ideas, and connects it
+            so you think faster and catch what you'd miss. Meet <strong>Theo</strong>, the agent who
+            knows it all, in a dedicated app and the tools you already use.
           </p>
         </div>
         <div class="outcomes">
@@ -41,7 +42,8 @@ import { integrationGroups, useCasesAsk } from '../data/content';
           </div>
         </div>
         <div>
-          <a class="btn btn-primary" href="/docs/overview/">See how it works →</a>
+          <a class="btn btn-primary" href="#waitlist">Get early access →</a>
+          <a class="btn" href="#how" style="color:var(--cream);border:1px solid rgba(255,255,255,0.18);margin-left:8px">See how it works</a>
           <p class="hint">Private by design. One brain belongs to one person; your world stays yours.</p>
         </div>
       </div>
@@ -76,6 +78,20 @@ import { integrationGroups, useCasesAsk } from '../data/content';
           across every corner of your life: surfacing patterns, catching blind spots, pressure-testing
           your decisions, and briefing you every morning on what actually matters.
         </p>
+      </section>
+
+      <section class="sec center" id="how">
+        <p class="eyebrow center">How it works</p>
+        <h2>Set it up once. It works for you forever.</h2>
+        <div class="steps">
+          {howItWorks.map((s) => (
+            <div class="step">
+              <div class="n" style={`background:${s.color}`}>{s.n}</div>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section class="sec examples">
@@ -133,16 +149,40 @@ import { integrationGroups, useCasesAsk } from '../data/content';
         </div>
       </section>
 
+      <section class="sec center">
+        <p class="eyebrow center">See it in action</p>
+        <h2>A brief that thinks. Answers with the receipts.</h2>
+        <p class="lead-dark">Every morning, the connections that matter. Every answer, grounded in your own world.</p>
+        <ProductPreview />
+      </section>
+
       <section class="sec">
         <div class="h2wrap" style="text-align:center">
-          <p class="eyebrow center">Connects your whole world</p>
-          <h2>Everything you know, in one brain.</h2>
-          <p class="lede2">It brings in the sources you already use, and reaches you where you already are.</p>
+          <p class="eyebrow center">What it connects</p>
+          <h2>Bring in your whole world.</h2>
+          <p class="lede2">The sources you already use, ingested privately and kept up to date.</p>
         </div>
         <div class="integ-grid">
-          {integrationGroups.map((g) => (
+          {sourceGroups.map((g) => (
             <div class="integ-group">
               <h4>{g.title}</h4>
+              <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="sec">
+        <div class="h2wrap" style="text-align:center">
+          <p class="eyebrow center">Where you use it</p>
+          <h2>Your brain goes where you go.</h2>
+          <p class="lede2">Talk to Theo in a dedicated app and your messaging channels, or plug your brain into the AI you already use.</p>
+        </div>
+        <div class="surfaces">
+          {surfaceGroups.map((g) => (
+            <div class="surface">
+              <h3>{g.title}</h3>
+              <p class="s-blurb">{g.blurb}</p>
               <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
             </div>
           ))}
@@ -163,24 +203,22 @@ import { integrationGroups, useCasesAsk } from '../data/content';
       </section>
 
       <section class="sec center">
-        <p class="eyebrow synth center">The app</p>
-        <h2>Theo is how you use it.</h2>
+        <p class="eyebrow synth center">Theo, your agent</p>
+        <h2>The intelligence that knows you.</h2>
         <p class="lead-dark">
-          Total Recall is the brain. <strong style="color:var(--cream)">Theo</strong> is the app you
-          talk to: your daily brief, your people, your synthesis, and a place to act on what surfaces.
+          Total Recall is the brain. <strong style="color:var(--cream)">Theo</strong> is the agent
+          built on it: your daily brief, your people, your synthesis, and a place to act on what
+          surfaces, at full strength in the app, and with you wherever you work.
         </p>
         <div style="margin-top:24px"><a class="btn btn-primary" href="/theo/">Meet Theo →</a></div>
       </section>
-
-      <section class="sec closer">
-        <h2>Your whole world, working for you.</h2>
-        <p class="lede2">Set it up once. It compounds every day after.</p>
-        <div style="margin-top:30px">
-          <a class="btn btn-primary" href="/docs/">Explore Total Recall →</a>
-          <p class="hint">Read the docs, or see the <a href="/plans/" style="color:var(--gold)">plans</a>.</p>
-        </div>
-      </section>
     </main>
+
+    <Waitlist
+      tone="dark"
+      heading="Build your second brain."
+      sub="Total Recall is opening access. Join the waitlist and we'll reach out when it's your turn."
+    />
 
     <Footer />
 

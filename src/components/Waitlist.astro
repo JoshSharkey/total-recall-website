@@ -1,0 +1,63 @@
+---
+import { WAITLIST_ENDPOINT, CONTACT_EMAIL } from '../consts';
+interface Props {
+  id?: string;
+  tone?: 'dark' | 'light';
+  heading?: string;
+  sub?: string;
+}
+const {
+  id = 'waitlist',
+  tone = 'light',
+  heading = 'Get early access',
+  sub = 'Be first to build your second brain. No spam, just a note when it opens.',
+} = Astro.props;
+---
+<section id={id} class:list={['waitlist', tone === 'dark' && 'on-dark']}>
+  <div class="container wl-inner">
+    <h2>{heading}</h2>
+    <p>{sub}</p>
+    <form
+      class="wl-form"
+      data-endpoint={WAITLIST_ENDPOINT}
+      data-contact={CONTACT_EMAIL}
+    >
+      <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" />
+      <button type="submit" class="btn btn-primary">Join the waitlist</button>
+    </form>
+    <p class="wl-msg" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.wl-form').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = form.querySelector<HTMLInputElement>('input[name="email"]');
+      const msg = form.parentElement?.querySelector<HTMLElement>('.wl-msg');
+      const endpoint = form.dataset.endpoint?.trim();
+      const contact = form.dataset.contact;
+      const email = input?.value?.trim();
+      if (!email) return;
+      const ok = (t: string) => { if (msg) { msg.textContent = t; msg.classList.add('ok'); } if (input) input.value = ''; };
+      const fail = (t: string) => { if (msg) { msg.textContent = t; msg.classList.remove('ok'); } };
+      if (!endpoint) {
+        // No backend configured yet — fall back to email so the CTA still works.
+        window.location.href = `mailto:${contact}?subject=Total%20Recall%20waitlist&body=Please%20add%20me%20to%20the%20waitlist:%20${encodeURIComponent(email)}`;
+        ok('Opening your email client to finish.');
+        return;
+      }
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        if (res.ok) ok('You’re on the list. We’ll be in touch.');
+        else fail('Something went wrong. Please try again.');
+      } catch {
+        fail('Something went wrong. Please try again.');
+      }
+    });
+  });
+</script>

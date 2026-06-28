@@ -7,3 +7,7 @@ export const SITE_DESCRIPTION =
   'Total Recall is a private, single-owner second brain. It collects your documents, notes, emails, messages, meetings, people, and health into one place and lets you ask questions about all of it in plain language. Theo is the app you talk to.';
 // The cockpit (Theo) app — link out to the product when ready.
 export const APP_URL = 'https://app.totalrecall.app'; // TODO: set real app URL
+export const CONTACT_EMAIL = 'hello@totalrecall.app'; // TODO: set real contact
+// Waitlist form POST endpoint (e.g. a Formspree / Tally / Buttondown URL).
+// Leave empty to fall back to a mailto: link so the CTA is never dead.
+export const WAITLIST_ENDPOINT = ''; // TODO: paste your form endpoint before launch

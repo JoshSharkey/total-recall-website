@@ -1,9 +1,7 @@
 ---
 title: "Using it from your phone"
 description: "Talk to your brain from the Claude app on your phone by adding it as a connector, so your second brain is with you anywhere, not just at your desk."
----# Phone access
-
-**In plain terms:** your brain is most useful when it is in your pocket. By adding
+---**In plain terms:** your brain is most useful when it is in your pocket. By adding
 it to the Claude app as a connector, you can ask it anything from your phone:
 before a meeting, in the car, anywhere. This is the feature that makes it feel
 like a product rather than a desk tool.
@@ -37,4 +35,4 @@ accounts, so only you can reach your brain.
 
 ## Set it up
 
-- [Cloud deploy](../deploy-cloud.md) (the always-on, phone-reachable path)
+- Cloud deploy (the always-on, phone-reachable path)

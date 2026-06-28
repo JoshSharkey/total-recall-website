@@ -13,9 +13,11 @@ talk to. See **[the overview](/docs/overview/)**.
 
 ## What is Theo?
 
-Theo is the app you talk to. Total Recall is the brain (the memory and reasoning
-layer); Theo is the face of it — where you ask questions, read your daily brief,
-review people, and act on what the brain surfaces.
+Theo is the agent built on your brain, the intelligence you actually talk to.
+Total Recall is the brain (the memory and synthesis layer); Theo is how you use
+it. Theo is at full strength in the Theo app, comes along in messaging channels
+like Telegram and Slack, and your brain can also plug into any AI you already
+use (Claude, ChatGPT, Gemini).
 
 ## Is my data private? Is it mixed with other people's?
 
@@ -37,18 +39,18 @@ See **[Search & retrieval](/docs/search/)**.
 ## Where does the information come from?
 
 From sources you connect: your documents and notes, email, messages, Slack,
-meetings, calendar, health data, and more. You choose what to bring in. Browse the
-**Capabilities** in the sidebar to see each source.
+meetings, calendar, health data, and more. You choose what to bring in. See the
+full list on the **[Features](/features/)** page.
 
 ## Can I use it from my phone?
 
-Yes. See **[Phone access](/docs/phone-access/)**.
+Yes. See **[Using it from your phone](/docs/phone-access/)**.
 
 ## Does it just store things, or does it think?
 
-Both. Beyond answering questions, it produces a **[daily brief](/docs/daily-brief/)**,
-runs **[life synthesis](/docs/life-synthesis/)** across everything it knows, and can
-act through **[proactive agents](/docs/proactive-agents/)**.
+Both. Beyond answering questions, it produces a **[daily brief](/docs/daily-brief/)**
+and runs **[synthesis](/docs/synthesis/)** across everything it knows, surfacing
+patterns and blind spots, and it can take action when you want it to.
 
 ## How much does it cost?
 

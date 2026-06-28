@@ -1,9 +1,7 @@
 ---
 title: "Daily brief"
 description: "A private morning rundown the brain assembles from everything it knows, tied to your goals, to help you make better and faster decisions."
----# Daily brief & synthesis
-
-**In plain terms:** instead of starting your day by checking ten places, the brain
+---**In plain terms:** instead of starting your day by checking ten places, the brain
 can hand you one private rundown: what is coming up, what changed, what needs
 attention, and what it noticed. Because it is built from your whole brain and
 anchored to your goals, it is the kind of synthesis no single app can produce.
@@ -35,5 +33,5 @@ gets.
 
 ## Learn more
 
-- [Search & retrieval](search.md)
-- [Proactive agents](proactive-agents.md)
+- Search & retrieval
+- Proactive agents
