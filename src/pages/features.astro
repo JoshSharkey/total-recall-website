@@ -2,7 +2,8 @@
 import Marketing from '../layouts/Marketing.astro';
 import ProductPreview from '../components/ProductPreview.astro';
 import Waitlist from '../components/Waitlist.astro';
-import { capabilityGroups, sourceGroups, surfaceGroups, useCasesAsk, motivations, howItWorks } from '../data/content';
+import LogoTile from '../components/LogoTile.astro';
+import { capabilityGroups, surfaceGroups, useCasesAsk, motivations, howItWorks, featuredLogos } from '../data/content';
 ---
 <Marketing
   title="Features"
@@ -70,17 +71,12 @@ import { capabilityGroups, sourceGroups, surfaceGroups, useCasesAsk, motivations
         <h2 style="font-size:clamp(26px,3.6vw,40px)">Bring in your whole world.</h2>
         <p class="lead" style="margin:14px auto 0">The sources you already use, ingested privately and kept up to date.</p>
       </div>
-      <div class="integ-grid">
-        {sourceGroups.map((g) => (
-          <div class="integ-group">
-            <h4>{g.title}</h4>
-            <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
-          </div>
-        ))}
+      <div class="logo-wall" style="max-width:820px;margin:30px auto 0">
+        {featuredLogos.map((it) => <LogoTile n={it.n} s={it.s} c={it.c} />)}
       </div>
-      <p class="center" style="color:var(--muted);font-size:13.5px;margin-top:24px">
-        More sources are added as the brain grows. Don't see yours? It can probably come in.
-      </p>
+      <div class="center" style="margin-top:26px">
+        <a class="btn btn-primary" href="/integrations/">See all integrations →</a>
+      </div>
     </div>
   </section>
 

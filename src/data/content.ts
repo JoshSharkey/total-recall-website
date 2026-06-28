@@ -110,3 +110,105 @@ export const howItWorks = [
   { n: '3', color: STREAM.blue, title: 'Ask Theo anywhere', body: 'Talk to your agent in the Theo app or your messaging channels, or plug your brain into the AI you already use.' },
   { n: '4', color: STREAM.orange, title: 'It compounds', body: 'A daily brief, proactive nudges, and sharper answers. It gets more valuable every day it learns.' },
 ];
+
+// ---- Integrations catalog (real brand logos in public/logos, colorized via CSS mask) ----
+// item: { n: name, s?: logo slug (file public/logos/<s>.svg), c?: brand color, img?: full-color svg, mono?: true }
+export const integrationCategories = [
+  {
+    title: 'Files & documents',
+    items: [
+      { n: 'Google Drive', s: 'googledrive', c: '#1FA463' },
+      { n: 'OneDrive', s: 'microsoftonedrive', c: '#0078D4' },
+      { n: 'Dropbox', s: 'dropbox', c: '#0061FF' },
+      { n: 'Notion', s: 'notion', c: '#0c0f16' },
+      { n: 'iCloud', s: 'icloud', c: '#3693F3' },
+      { n: 'Figma', s: 'figma', c: '#F24E1E' },
+    ],
+  },
+  {
+    title: 'Notes & journaling',
+    items: [
+      { n: 'Apple Notes', s: 'apple', c: '#0c0f16' },
+      { n: 'Obsidian', s: 'obsidian', c: '#7C3AED' },
+      { n: 'OneNote', s: 'microsoftonenote', c: '#7719AA' },
+      { n: 'Evernote', s: 'evernote', c: '#00A82D' },
+      { n: 'Google Keep', s: 'googlekeep', c: '#C99700' },
+      { n: 'Roam', s: 'roamresearch', c: '#2A2A2A' },
+      { n: 'Logseq', s: 'logseq', c: '#2E8B7F' },
+      { n: 'Bear', mono: true, c: '#E0533D' },
+    ],
+  },
+  {
+    title: 'Communication',
+    items: [
+      { n: 'Gmail', s: 'gmail', c: '#EA4335' },
+      { n: 'Google Workspace', s: 'google', c: '#4285F4' },
+      { n: 'Outlook', s: 'microsoftoutlook', c: '#0078D4' },
+      { n: 'Slack', s: 'slack', c: '#4A154B' },
+      { n: 'iMessage', s: 'imessage', c: '#34DA50' },
+      { n: 'WhatsApp', s: 'whatsapp', c: '#25D366' },
+    ],
+  },
+  {
+    title: 'Calendar & meetings',
+    items: [
+      { n: 'Google Calendar', s: 'googlecalendar', c: '#4285F4' },
+      { n: 'Meetings & transcripts', mono: true, c: '#3b6ff5' },
+      { n: 'Contacts', mono: true, c: '#3b6ff5' },
+    ],
+  },
+  {
+    title: 'Health & life',
+    items: [
+      { n: 'WHOOP', mono: true, c: '#0c0f16' },
+      { n: 'Oura', mono: true, c: '#0c0f16' },
+      { n: 'Medications', mono: true, c: '#e07a8b' },
+    ],
+  },
+  {
+    title: 'Voice notes',
+    sub: 'Capture on the go by voice, daily journals, dream journaling, exercise logs, fleeting ideas, then let your brain file and connect it.',
+    items: [
+      { n: 'Plaud', mono: true, c: '#b9842f' },
+      { n: 'Pocket Rocket', mono: true, c: '#b9842f' },
+      { n: 'Otter', mono: true, c: '#b9842f' },
+      { n: 'Granola', mono: true, c: '#b9842f' },
+      { n: 'Limitless', mono: true, c: '#b9842f' },
+    ],
+  },
+  {
+    title: 'Media you consume',
+    items: [
+      { n: 'Spotify', s: 'spotify', c: '#1DB954' },
+      { n: 'Pocket Casts', s: 'pocketcasts', c: '#F43E37' },
+      { n: 'Audible', s: 'audible', c: '#F8991C' },
+      { n: 'Books', mono: true, c: '#3b6ff5' },
+      { n: 'Newsletters', mono: true, c: '#3b6ff5' },
+    ],
+  },
+];
+
+// Where you use it (surfaces) — Theo first-party + bring your brain to any AI.
+export const surfaceLogos = [
+  { n: 'Theo app', img: '/brand/total-recall-icon.svg' },
+  { n: 'Telegram', s: 'telegram', c: '#26A5E4' },
+  { n: 'Slack', s: 'slack', c: '#4A154B' },
+  { n: 'WhatsApp', s: 'whatsapp', c: '#25D366' },
+  { n: 'Claude', s: 'claude', c: '#D97757' },
+  { n: 'ChatGPT', s: 'openai', c: '#0c0f16' },
+  { n: 'Gemini', s: 'googlegemini', c: '#8E75B2' },
+];
+
+// A recognizable subset for teasers on home / features.
+export const featuredLogos = [
+  { n: 'Gmail', s: 'gmail', c: '#EA4335' },
+  { n: 'Slack', s: 'slack', c: '#4A154B' },
+  { n: 'Notion', s: 'notion', c: '#0c0f16' },
+  { n: 'Google Drive', s: 'googledrive', c: '#1FA463' },
+  { n: 'Figma', s: 'figma', c: '#F24E1E' },
+  { n: 'WhatsApp', s: 'whatsapp', c: '#25D366' },
+  { n: 'Obsidian', s: 'obsidian', c: '#7C3AED' },
+  { n: 'Dropbox', s: 'dropbox', c: '#0061FF' },
+  { n: 'Outlook', s: 'microsoftoutlook', c: '#0078D4' },
+  { n: 'Telegram', s: 'telegram', c: '#26A5E4' },
+];

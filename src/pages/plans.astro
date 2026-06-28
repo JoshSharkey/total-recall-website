@@ -1,7 +1,7 @@
 ---
 import Marketing from '../layouts/Marketing.astro';
 import Waitlist from '../components/Waitlist.astro';
-import { capabilityGroups, sourceGroups } from '../data/content';
+import { capabilityGroups } from '../data/content';
 const plans = [
   {
     name: 'Self-serve',
@@ -104,13 +104,8 @@ const plans = [
           </div>
         ))}
       </div>
-      <div class="integ-grid" style="margin-top:40px">
-        {sourceGroups.map((g) => (
-          <div class="integ-group">
-            <h4>{g.title}</h4>
-            <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
-          </div>
-        ))}
+      <div class="center" style="margin-top:36px">
+        <a class="btn btn-ghost" href="/integrations/">See all integrations →</a>
       </div>
     </div>
   </section>
