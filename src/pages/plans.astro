@@ -58,7 +58,7 @@ const plans = [
         Every plan is a private brain that belongs to you alone, used through the Theo app. Pick how
         much you want to do yourself versus have done for you.
       </p>
-      <p style="margin-top:14px;color:var(--amber);font-weight:600">Pricing is being finalized. Exact tiers and prices are coming soon.</p>
+      <p style="margin-top:14px;color:var(--accent);font-weight:600">Pricing is being finalized. Exact tiers and prices are coming soon.</p>
     </div>
   </section>
 
@@ -66,15 +66,15 @@ const plans = [
     <div class="container">
       <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:start">
         {plans.map((p) => (
-          <div class="card" style={p.featured ? 'border-color:var(--amber);box-shadow:0 10px 30px -16px rgba(201,122,43,.5)' : ''}>
-            {p.featured && <span class="dot" style="background:var(--amber)"></span>}
+          <div class="card" style={p.featured ? 'border-color:var(--accent);box-shadow:0 10px 30px -16px rgba(59,111,245,.5)' : ''}>
+            {p.featured && <span class="dot" style="background:var(--accent)"></span>}
             <h3>{p.name}</h3>
             <p style="margin:2px 0 14px">{p.tagline}</p>
             <p style="font-family:var(--serif);font-size:20px;color:var(--ink);margin:0 0 16px">{p.price}</p>
             <ul style="list-style:none;padding:0;margin:0 0 20px;display:flex;flex-direction:column;gap:8px">
               {p.features.map((f) => (
                 <li style="font-size:14px;display:flex;gap:9px;align-items:flex-start">
-                  <span style="color:var(--amber);font-weight:700">›</span>{f}
+                  <span style="color:var(--accent);font-weight:700">›</span>{f}
                 </li>
               ))}
             </ul>
@@ -83,7 +83,7 @@ const plans = [
         ))}
       </div>
       <p style="text-align:center;color:var(--muted);font-size:13.5px;margin-top:28px">
-        Have a question about a feature? Ask the <a href="/docs/" style="color:var(--amber)">help center</a>.
+        Have a question about a feature? Ask the <a href="/docs/" style="color:var(--accent)">help center</a>.
       </p>
     </div>
   </section>
@@ -93,7 +93,7 @@ const plans = [
       <div style="text-align:center">
         <p class="eyebrow center">What you can turn on</p>
         <h2 style="font-size:clamp(24px,3.2vw,36px)">Functionality &amp; integrations.</h2>
-        <p class="lead" style="margin:14px auto 0">An overview of what the brain does and what it connects. See <a href="/features/" style="color:var(--amber)">Features</a> for the full picture.</p>
+        <p class="lead" style="margin:14px auto 0">An overview of what the brain does and what it connects. See <a href="/features/" style="color:var(--accent)">Features</a> for the full picture.</p>
       </div>
       <div class="feature-grid" style="margin-top:34px">
         {capabilityGroups.map((g) => (

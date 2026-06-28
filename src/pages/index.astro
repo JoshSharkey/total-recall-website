@@ -7,25 +7,30 @@ import ProductPreview from '../components/ProductPreview.astro';
 import '@fontsource/fraunces/400.css';
 import '@fontsource/fraunces/600.css';
 import '../styles/marketing.css';
-import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/content';
+import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks, STREAM } from '../data/content';
+const vignettes = [
+  { tag: 'A decision next week', color: STREAM.blue, body: "Advice an angel investor emailed you three years ago echoes what your board is telling you now. Total Recall ties it to last week's all-hands and this week's metrics.", chips: [['Email, 3y ago', STREAM.blue], ['Board notes', STREAM.orange], ['Metrics', STREAM.gold]] },
+  { tag: 'A pattern you couldn’t see', color: STREAM.rose, body: 'Your strongest months line up with better sleep and time at home. Your hardest weeks cluster around travel. The signals lived in three different places.', chips: [['Recovery', STREAM.rose], ['Calendar', STREAM.teal], ['Journal', STREAM.violet]] },
+  { tag: 'A risk before it lands', color: STREAM.teal, body: "A customer's offhand remark three months ago matches a churn pattern you've seen before, and their usage just dipped. It connects the three and flags it.", chips: [['Transcript', STREAM.teal], ['Usage', STREAM.gold], ['Past accounts', STREAM.green]] },
+];
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <BaseHead schema={true} />
   </head>
-  <body class="home">
-    <Header tone="dark" scrollAware={true} />
+  <body class="lightpage">
+    <Header tone="light" solid={true} />
 
-    <div id="stage">
+    <section id="stage" class="stage light">
       <div class="hero-copy">
         <div>
           <p class="eyebrow">Your private second brain</p>
           <h1>Everything you know, <span class="accent">thinking together.</span></h1>
           <p class="sub">
-            Total Recall remembers your whole world, work, people, health, ideas, and connects it
+            Total Recall remembers your whole world (work, people, health, ideas) and connects it,
             so you think faster and catch what you'd miss. Meet <strong>Theo</strong>, the agent who
-            knows it all, in a dedicated app and the tools you already use.
+            knows all of it, in a dedicated app and the tools you already use.
           </p>
         </div>
         <div class="outcomes">
@@ -36,190 +41,148 @@ import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/co
         </div>
         <div>
           <p class="askeyebrow">Ask it anything</p>
-          <div class="ask">
-            <span class="dot"></span>
-            <div class="qa"><p class="q" id="q"></p><p class="a" id="a"></p></div>
-          </div>
+          <div class="ask"><span class="dot"></span><div class="qa"><p class="q" id="q"></p><p class="a" id="a"></p></div></div>
         </div>
         <div>
           <a class="btn btn-primary" href="#waitlist">Get early access →</a>
-          <a class="btn" href="#how" style="color:var(--cream);border:1px solid rgba(255,255,255,0.18);margin-left:8px">See how it works</a>
+          <a class="btn btn-ghost" href="#how" style="margin-left:8px">See how it works</a>
           <p class="hint">Private by design. One brain belongs to one person; your world stays yours.</p>
         </div>
       </div>
-
-      <div class="hero-viz" id="viz">
+      <div class="hero-viz" id="viz" data-light="1">
         <canvas id="c"></canvas>
         <div class="sources" id="sources"></div>
         <div class="scrollcue">Scroll<span>↓</span></div>
       </div>
-    </div>
+    </section>
 
-    <main class="below">
-      <section class="sec manifesto">
-        <p class="big">
-          What if you could remember <em>everything</em>? Everything you've read, seen, done, filed,
-          written, or chose to capture, plus anything you bring in.
-        </p>
-        <p class="big soft">
-          And what if all of it could think together, pattern-matching and synthesizing across every
-          corner of your life, so you decide better and faster, and surface the blind spots, threats,
-          and opportunities your own biases keep hidden?
-        </p>
-        <p class="big tag">That's Total Recall.</p>
-      </section>
-
-      <section class="sec center">
-        <p class="eyebrow synth center">Synthesis</p>
-        <h2>It doesn't just remember. It thinks.</h2>
-        <p class="lead-dark">
-          The point isn't only asking about your stuff. Because your brain holds all of your
-          context, personal and professional, it does far more than answer. It connects the dots
-          across every corner of your life: surfacing patterns, catching blind spots, pressure-testing
-          your decisions, and briefing you every morning on what actually matters.
-        </p>
-      </section>
-
-      <section class="sec center" id="how">
-        <p class="eyebrow center">How it works</p>
-        <h2>Set it up once. It works for you forever.</h2>
-        <div class="steps">
-          {howItWorks.map((s) => (
-            <div class="step">
-              <div class="n" style={`background:${s.color}`}>{s.n}</div>
-              <h3>{s.title}</h3>
-              <p>{s.body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section class="sec examples">
-        <div class="h2wrap">
-          <p class="eyebrow center">See it think</p>
-          <h2>Connections you'd never make on your own.</h2>
-          <p class="lede2">
-            Your mind holds the pieces. Total Recall connects them, across years and across every
-            part of your life, exactly when a decision is on the line.
+    <main>
+      <section class="section center">
+        <div class="container" style="max-width:880px">
+          <p style="font-family:var(--serif);font-size:clamp(24px,3.4vw,38px);line-height:1.3;color:var(--ink);font-weight:600;margin:0 0 .6em">
+            What if you could remember <span style="background:linear-gradient(120deg,var(--gold),var(--gold-soft));-webkit-background-clip:text;background-clip:text;color:transparent">everything</span>?
+          </p>
+          <p style="font-family:var(--serif);font-size:clamp(20px,2.6vw,30px);line-height:1.35;color:var(--muted);font-weight:500;margin:0">
+            And what if all of it could think together, surfacing the blind spots, patterns, and
+            opportunities your own biases keep hidden. That's Total Recall.
           </p>
         </div>
-        <div class="vigs">
-          <article class="vig">
-            <p class="vtag">A decision next week</p>
-            <p>
-              Advice an angel investor emailed you <b>three years ago</b> turns out to echo what your
-              board and team are telling you now. Total Recall ties it to last week's all-hands and
-              this week's metrics, every thread that bears on the call you have to make.
-              <span class="outcome">You decide with the whole picture instead of the last thing you remember.</span>
-            </p>
-            <div class="chips">
-              <span class="chip"><i style="background:#6aa6ef"></i>Email, 3 years ago</span>
-              <span class="chip"><i style="background:#f0a35a"></i>Board notes</span>
-              <span class="chip"><i style="background:#46c2c2"></i>All-hands</span>
-              <span class="chip"><i style="background:#e3b34d"></i>This week's metrics</span>
-            </div>
-          </article>
-          <article class="vig">
-            <p class="vtag">A pattern you couldn't see</p>
-            <p>
-              Your strongest months line up with better sleep and more time at home. Your hardest
-              weeks cluster around back-to-back travel. You never noticed.
-              <b>The signals lived in three different places.</b>
-              <span class="outcome">Now you protect what actually works.</span>
-            </p>
-            <div class="chips">
-              <span class="chip"><i style="background:#e07a8b"></i>Recovery data</span>
-              <span class="chip"><i style="background:#46c2c2"></i>Calendar</span>
-              <span class="chip"><i style="background:#a78be6"></i>Journal</span>
-            </div>
-          </article>
-          <article class="vig">
-            <p class="vtag">A risk before it lands</p>
-            <p>
-              An offhand remark a customer made on a call <b>three months ago</b> matches a churn
-              pattern you've seen before, and their usage just dipped. Total Recall connects the
-              three and flags it <span class="outcome">while there's still time to save the account.</span>
-            </p>
-            <div class="chips">
-              <span class="chip"><i style="background:#46c2c2"></i>Call transcript</span>
-              <span class="chip"><i style="background:#e3b34d"></i>Usage metrics</span>
-              <span class="chip"><i style="background:#3fae74"></i>Past accounts</span>
-            </div>
-          </article>
+      </section>
+
+      <section class="section center" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+        <div class="container" style="max-width:780px">
+          <p class="eyebrow center">Synthesis</p>
+          <h2 style="font-size:clamp(28px,3.8vw,44px)">It doesn't just remember. It thinks.</h2>
+          <p class="lead" style="margin:16px auto 0">
+            The point isn't only asking about your stuff. Because your brain holds all of your
+            context, personal and professional, it connects the dots across every corner of your
+            life: surfacing patterns, catching blind spots, pressure-testing your decisions, and
+            briefing you every morning on what actually matters.
+          </p>
         </div>
       </section>
 
-      <section class="sec center">
-        <p class="eyebrow center">See it in action</p>
-        <h2>A brief that thinks. Answers with the receipts.</h2>
-        <p class="lead-dark">Every morning, the connections that matter. Every answer, grounded in your own world.</p>
-        <ProductPreview />
+      <section class="section center" id="how">
+        <div class="container">
+          <p class="eyebrow center">How it works</p>
+          <h2 style="font-size:clamp(26px,3.6vw,40px)">Set it up once. It works for you forever.</h2>
+          <div class="steps">
+            {howItWorks.map((s) => (
+              <div class="step">
+                <div class="n" style={`background:${s.color}`}>{s.n}</div>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
-      <section class="sec">
-        <div class="h2wrap" style="text-align:center">
+      <section class="section center" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+        <div class="container">
+          <p class="eyebrow center">See it in action</p>
+          <h2 style="font-size:clamp(26px,3.6vw,40px)">A brief that thinks. Answers with the receipts.</h2>
+          <ProductPreview />
+        </div>
+      </section>
+
+      <section class="section center">
+        <div class="container">
+          <p class="eyebrow center">See it think</p>
+          <h2 style="font-size:clamp(26px,3.6vw,40px)">Connections you'd never make on your own.</h2>
+          <div class="cards" style="margin-top:36px;text-align:left">
+            {vignettes.map((v) => (
+              <div class="card">
+                <span class="dot" style={`background:${v.color}`}></span>
+                <h3 style="font-size:15px;text-transform:uppercase;letter-spacing:0.06em;color:var(--gold)">{v.tag}</h3>
+                <p style="color:var(--body);margin:8px 0 14px;font-size:15px;line-height:1.5">{v.body}</p>
+                <div class="tools">{v.chips.map(([t, c]) => <span class="toolchip"><i style={`width:7px;height:7px;border-radius:50%;background:${c};display:inline-block`}></i>{t}</span>)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section center" style="background:#fff;border-top:1px solid var(--line)">
+        <div class="container">
           <p class="eyebrow center">What it connects</p>
-          <h2>Bring in your whole world.</h2>
-          <p class="lede2">The sources you already use, ingested privately and kept up to date.</p>
-        </div>
-        <div class="integ-grid">
-          {sourceGroups.map((g) => (
-            <div class="integ-group">
-              <h4>{g.title}</h4>
-              <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
-            </div>
-          ))}
+          <h2 style="font-size:clamp(26px,3.6vw,40px)">Bring in your whole world.</h2>
+          <p class="lead" style="margin:14px auto 0">The sources you already use, ingested privately and kept up to date.</p>
+          <div class="integ-grid">
+            {sourceGroups.map((g) => (
+              <div class="integ-group">
+                <h4>{g.title}</h4>
+                <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section class="sec">
-        <div class="h2wrap" style="text-align:center">
+      <section class="section center">
+        <div class="container">
           <p class="eyebrow center">Where you use it</p>
-          <h2>Your brain goes where you go.</h2>
-          <p class="lede2">Talk to Theo in a dedicated app and your messaging channels, or plug your brain into the AI you already use.</p>
-        </div>
-        <div class="surfaces">
-          {surfaceGroups.map((g) => (
-            <div class="surface">
-              <h3>{g.title}</h3>
-              <p class="s-blurb">{g.blurb}</p>
-              <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
-            </div>
-          ))}
+          <h2 style="font-size:clamp(26px,3.6vw,40px)">Your brain goes where you go.</h2>
+          <p class="lead" style="margin:14px auto 0">Talk to Theo in a dedicated app and your messaging channels, or plug your brain into the AI you already use.</p>
+          <div class="surfaces">
+            {surfaceGroups.map((g) => (
+              <div class="surface">
+                <h3>{g.title}</h3>
+                <p class="s-blurb">{g.blurb}</p>
+                <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section class="sec">
-        <div class="h2wrap" style="text-align:center">
+      <section class="section center" style="background:#fff;border-top:1px solid var(--line)">
+        <div class="container">
           <p class="eyebrow center">Ask it anything</p>
-          <h2>What you'd ask your brain.</h2>
-          <p class="lede2">A few of the things people reach for first. Add your own.</p>
-        </div>
-        <div class="asks">
-          {useCasesAsk.map((u) => (
-            <div class="askq"><i style={`background:${u.c}`}></i>{u.q}</div>
-          ))}
+          <h2 style="font-size:clamp(26px,3.6vw,40px)">What you'd ask your brain.</h2>
+          <div class="asks">
+            {useCasesAsk.map((u) => (
+              <div class="askq"><i style={`background:${u.c}`}></i>{u.q}</div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section class="sec center">
-        <p class="eyebrow synth center">Theo, your agent</p>
-        <h2>The intelligence that knows you.</h2>
-        <p class="lead-dark">
-          Total Recall is the brain. <strong style="color:var(--cream)">Theo</strong> is the agent
-          built on it: your daily brief, your people, your synthesis, and a place to act on what
-          surfaces, at full strength in the app, and with you wherever you work.
-        </p>
-        <div style="margin-top:24px"><a class="btn btn-primary" href="/theo/">Meet Theo →</a></div>
+      <section class="section center">
+        <div class="container" style="max-width:760px">
+          <p class="eyebrow center">Theo, your agent</p>
+          <h2 style="font-size:clamp(26px,3.6vw,40px)">The intelligence that knows you.</h2>
+          <p class="lead" style="margin:16px auto 0">
+            Total Recall is the brain. <strong>Theo</strong> is the agent built on it: your daily
+            brief, your people, your synthesis, and a place to act on what surfaces, at full strength
+            in the app, and with you wherever you work.
+          </p>
+          <div style="margin-top:24px"><a class="btn btn-primary" href="/theo/">Meet Theo →</a></div>
+        </div>
       </section>
     </main>
 
-    <Waitlist
-      tone="dark"
-      heading="Build your second brain."
-      sub="Total Recall is opening access. Join the waitlist and we'll reach out when it's your turn."
-    />
-
+    <Waitlist heading="Build your second brain." sub="Total Recall is opening access. Join the waitlist and we'll reach out when it's your turn." />
     <Footer />
 
     <script>
@@ -229,29 +192,17 @@ import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/co
         if (!vp || !canvas) return;
         const ctx = canvas.getContext('2d');
         const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        const CAT = {
-          conv: '#46c2c2', comms: '#6aa6ef', know: '#3fae74', biz: '#e3b34d',
-          people: '#f0a35a', mind: '#a78be6', health: '#e07a8b',
-        };
+        const CAT = { conv: '#46c2c2', comms: '#6aa6ef', know: '#3fae74', biz: '#e3b34d', people: '#f0a35a', mind: '#a78be6', health: '#e07a8b' };
         const GROUPS = ['Conversations', 'Knowledge', 'Work', 'People', 'You'];
         const SOURCES = [
-          { l: 'Meetings', c: 'conv', g: 0 }, { l: 'Email', c: 'comms', g: 0 },
-          { l: 'Slack', c: 'comms', g: 0 }, { l: 'Messages', c: 'comms', g: 0 },
-          { l: 'Notes', c: 'know', g: 1 }, { l: 'Files', c: 'know', g: 1 },
-          { l: 'Documents', c: 'know', g: 1 }, { l: 'Books', c: 'know', g: 1 },
-          { l: 'Strategy', c: 'biz', g: 2 }, { l: 'Financials', c: 'biz', g: 2 },
-          { l: 'Metrics', c: 'biz', g: 2 }, { l: 'Contracts', c: 'biz', g: 2 },
-          { l: 'Designs', c: 'biz', g: 2 }, { l: 'Style guides', c: 'biz', g: 2 },
-          { l: 'Goals', c: 'biz', g: 2 }, { l: 'People & network', c: 'people', g: 3 },
-          { l: 'CRM', c: 'people', g: 3 }, { l: 'Journal', c: 'mind', g: 4 },
-          { l: 'Ideas', c: 'mind', g: 4 }, { l: 'Dreams', c: 'mind', g: 4 },
-          { l: 'Health', c: 'health', g: 4 },
+          { l: 'Meetings', c: 'conv', g: 0 }, { l: 'Email', c: 'comms', g: 0 }, { l: 'Slack', c: 'comms', g: 0 }, { l: 'Messages', c: 'comms', g: 0 },
+          { l: 'Notes', c: 'know', g: 1 }, { l: 'Files', c: 'know', g: 1 }, { l: 'Documents', c: 'know', g: 1 }, { l: 'Books', c: 'know', g: 1 },
+          { l: 'Strategy', c: 'biz', g: 2 }, { l: 'Financials', c: 'biz', g: 2 }, { l: 'Metrics', c: 'biz', g: 2 }, { l: 'Contracts', c: 'biz', g: 2 },
+          { l: 'Designs', c: 'biz', g: 2 }, { l: 'Style guides', c: 'biz', g: 2 }, { l: 'Goals', c: 'biz', g: 2 }, { l: 'People & network', c: 'people', g: 3 },
+          { l: 'CRM', c: 'people', g: 3 }, { l: 'Journal', c: 'mind', g: 4 }, { l: 'Ideas', c: 'mind', g: 4 }, { l: 'Dreams', c: 'mind', g: 4 }, { l: 'Health', c: 'health', g: 4 },
         ];
-
         let W = 0, H = 0, DPR = 1, cx = 0, cy = 0, ring = 0, coreR = 0;
         let highlight = null, mouse = { x: 0, y: 0, active: false }, parallax = { x: 0, y: 0 };
-
         const srcEls = [], sourcesWrap = document.getElementById('sources');
         SOURCES.forEach((s) => {
           const el = document.createElement('div'); el.className = 'src';
@@ -262,35 +213,23 @@ import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/co
         });
         const catsWrap = document.createElement('div'); catsWrap.className = 'cats'; vp.appendChild(catsWrap);
         const catEls = GROUPS.map((g) => { const el = document.createElement('div'); el.className = 'cat'; el.textContent = g; catsWrap.appendChild(el); return el; });
-
         function layout() {
           DPR = Math.min(devicePixelRatio || 1, 2);
-          W = vp.clientWidth; H = vp.clientHeight;
-          canvas.width = W * DPR; canvas.height = H * DPR;
-          ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-          cx = W * 0.5; cy = H * 0.5;
-          ring = Math.min(W, H) * 0.4;
-          coreR = Math.max(30, Math.min(W, H) * 0.05);
+          W = vp.clientWidth; H = vp.clientHeight; canvas.width = W * DPR; canvas.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+          cx = W * 0.5; cy = H * 0.5; ring = Math.min(W, H) * 0.4; coreR = Math.max(30, Math.min(W, H) * 0.05);
           const n = SOURCES.length;
           SOURCES.forEach((s, i) => {
-            const a = -Math.PI / 2 + (i / n) * Math.PI * 2;
-            const rx = Math.min(W * 0.42, ring * 1.14), ry = Math.min(H * 0.42, ring * 1.08);
-            s.x = cx + Math.cos(a) * rx; s.y = cy + Math.sin(a) * ry; s.a = a;
-            srcEls[i].style.left = s.x + 'px'; srcEls[i].style.top = s.y + 'px';
+            const a = -Math.PI / 2 + (i / n) * Math.PI * 2; const rx = Math.min(W * 0.42, ring * 1.14), ry = Math.min(H * 0.42, ring * 1.08);
+            s.x = cx + Math.cos(a) * rx; s.y = cy + Math.sin(a) * ry; s.a = a; srcEls[i].style.left = s.x + 'px'; srcEls[i].style.top = s.y + 'px';
           });
           GROUPS.forEach((_, gi) => {
-            let sx = 0, sy = 0;
-            SOURCES.forEach((s, k) => { if (s.g === gi) { const a = -Math.PI / 2 + (k / n) * Math.PI * 2; sx += Math.cos(a); sy += Math.sin(a); } });
-            const a = Math.atan2(sy, sx);
-            const lrx = Math.min(W * 0.27, ring * 0.72), lry = Math.min(H * 0.27, ring * 0.7);
-            catEls[gi].style.left = cx + Math.cos(a) * lrx + 'px';
-            catEls[gi].style.top = cy + Math.sin(a) * lry + 'px';
+            let sx = 0, sy = 0; SOURCES.forEach((s, k) => { if (s.g === gi) { const a = -Math.PI / 2 + (k / n) * Math.PI * 2; sx += Math.cos(a); sy += Math.sin(a); } });
+            const a = Math.atan2(sy, sx); const lrx = Math.min(W * 0.27, ring * 0.72), lry = Math.min(H * 0.27, ring * 0.7);
+            catEls[gi].style.left = cx + Math.cos(a) * lrx + 'px'; catEls[gi].style.top = cy + Math.sin(a) * lry + 'px';
           });
         }
         addEventListener('resize', layout);
-
-        const nodes = [];
-        let MAXN = 40;
+        const nodes = []; let MAXN = 40;
         function spawnNode(c) {
           if (nodes.length >= MAXN) { nodes.sort((a, b) => a.born - b.born); nodes.shift(); }
           const ang = Math.random() * Math.PI * 2, rr = coreR * 1.2 + Math.pow(Math.random(), 0.7) * ring * 0.72;
@@ -300,7 +239,6 @@ import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/co
         function emit() { const s = SOURCES[(Math.random() * SOURCES.length) | 0]; parts.push({ ox: s.x, oy: s.y, c: s.c, t: 0, sp: 0.0048 + Math.random() * 0.004, wob: (Math.random() - 0.5) * 0.5, ph: Math.random() * 7, sz: 1.1 + Math.random() * 1.7 }); }
         const out = [];
         function emitOut() { out.push({ a: Math.random() * Math.PI * 2, t: 0, sp: 0.012 + Math.random() * 0.006 }); }
-
         const QA = [
           ['What’s quietly driving my best months?', 'Correlated your sleep, your calendar, and who you spent time with.'],
           ['What am I not seeing about this deal?', 'Surfaced three risks buried across past meetings and emails.'],
@@ -314,8 +252,7 @@ import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/co
         function dist2(n) { return (n.x - cx) ** 2 + (n.y - cy) ** 2; }
         function tracePath() {
           if (nodes.length < 4) return null;
-          const pool = nodes.slice().sort((a, b) => dist2(a) - dist2(b)), path = [], used = new Set();
-          let cur = { x: cx, y: cy };
+          const pool = nodes.slice().sort((a, b) => dist2(a) - dist2(b)), path = [], used = new Set(); let cur = { x: cx, y: cy };
           for (let k = 0; k < 4; k++) { let best = null, bd = Infinity; for (const n of pool) { if (used.has(n)) continue; const d = (n.x - cur.x) ** 2 + (n.y - cur.y) ** 2; if (d < bd) { bd = d; best = n; } } if (!best) break; used.add(best); path.push(best); cur = best; }
           return path.length >= 3 ? path : null;
         }
@@ -330,11 +267,9 @@ import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/co
           qi = (qi + 1) % QA.length; aEl.classList.remove('show');
           typeQuestion(QA[qi][0], () => { const p = tracePath(); if (p) beam = { path: p, t: 0 }; setTimeout(() => { aEl.textContent = QA[qi][1]; aEl.classList.add('show'); }, reduce ? 200 : 900); });
         }
-
         addEventListener('pointermove', (e) => { const r = vp.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; mouse.active = mouse.x >= 0 && mouse.y >= 0 && mouse.x <= r.width && mouse.y <= r.height; });
         addEventListener('pointerleave', () => (mouse.active = false));
         vp.addEventListener('click', (e) => { if (e.target.closest('a')) return; runQuery(); });
-
         let last = performance.now(), emitAcc = 0, outAcc = 0, qAcc = 0;
         function frame(now) {
           const dt = Math.min(40, now - last); last = now;
@@ -349,7 +284,7 @@ import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/co
         }
         function drawBg() {
           const g = ctx.createRadialGradient(cx + parallax.x, cy + parallax.y, coreR * 0.3, cx, cy, ring * 1.7);
-          g.addColorStop(0, 'rgba(60,44,22,0.5)'); g.addColorStop(0.4, 'rgba(26,22,18,0.5)'); g.addColorStop(1, 'rgba(10,11,14,0)');
+          g.addColorStop(0, 'rgba(224,151,63,0.12)'); g.addColorStop(0.45, 'rgba(59,111,245,0.04)'); g.addColorStop(1, 'rgba(246,247,249,0)');
           ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
         }
         function nodePos(n) { return { x: n.x + parallax.x * 1.2, y: n.y + parallax.y * 1.2 }; }
@@ -357,46 +292,39 @@ import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/co
           ctx.lineWidth = 1;
           for (let i = 0; i < nodes.length; i++) {
             const a = nodes[i], pa = nodePos(a); let cnt = 0;
-            for (let j = i + 1; j < nodes.length && cnt < 2; j++) { const b = nodes[j]; if ((a.x - b.x) ** 2 + (a.y - b.y) ** 2 < (ring * 0.46) ** 2) { const pb = nodePos(b); const dim = highlight && a.c !== highlight && b.c !== highlight; ctx.strokeStyle = `rgba(150,180,165,${dim ? 0.04 : 0.13})`; ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke(); cnt++; } }
-            const dimc = highlight && a.c !== highlight;
-            ctx.strokeStyle = `rgba(120,160,140,${dimc ? 0.03 : 0.07})`;
-            ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(cx + parallax.x, cy + parallax.y); ctx.stroke();
+            for (let j = i + 1; j < nodes.length && cnt < 2; j++) { const b = nodes[j]; if ((a.x - b.x) ** 2 + (a.y - b.y) ** 2 < (ring * 0.46) ** 2) { const pb = nodePos(b); const dim = highlight && a.c !== highlight && b.c !== highlight; ctx.strokeStyle = `rgba(22,19,15,${dim ? 0.04 : 0.1})`; ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke(); cnt++; } }
+            const dimc = highlight && a.c !== highlight; ctx.strokeStyle = `rgba(22,19,15,${dimc ? 0.025 : 0.06})`; ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(cx + parallax.x, cy + parallax.y); ctx.stroke();
           }
         }
         function drawNodes(now) {
           for (const n of nodes) {
-            n.drift += reduce ? 0.001 : 0.006;
-            const wob = reduce ? 0 : Math.sin(n.drift) * 4;
-            n.x = cx + n.bx * (n.rr + wob); n.y = cy + n.by * (n.rr + wob);
-            const p = nodePos(n), dim = highlight && n.c !== highlight;
-            const age = Math.min(1, (now - n.born) / 900), pulse = 0.6 + 0.4 * Math.sin(now * 0.002 + n.pulse), col = CAT[n.c];
-            ctx.globalAlpha = (dim ? 0.22 : 1) * age; ctx.shadowColor = col; ctx.shadowBlur = dim ? 2 : 10 * pulse; ctx.fillStyle = col;
-            ctx.beginPath(); ctx.arc(p.x, p.y, n.r * (0.8 + 0.3 * pulse), 0, 7); ctx.fill();
-            ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+            n.drift += reduce ? 0.001 : 0.006; const wob = reduce ? 0 : Math.sin(n.drift) * 4; n.x = cx + n.bx * (n.rr + wob); n.y = cy + n.by * (n.rr + wob);
+            const p = nodePos(n), dim = highlight && n.c !== highlight; const age = Math.min(1, (now - n.born) / 900), pulse = 0.6 + 0.4 * Math.sin(now * 0.002 + n.pulse), col = CAT[n.c];
+            ctx.globalAlpha = (dim ? 0.25 : 1) * age; ctx.shadowColor = col; ctx.shadowBlur = dim ? 0 : 5 * pulse; ctx.fillStyle = col;
+            ctx.beginPath(); ctx.arc(p.x, p.y, n.r * (0.8 + 0.3 * pulse), 0, 7); ctx.fill(); ctx.shadowBlur = 0; ctx.globalAlpha = 1;
           }
         }
         function drawCore(now) {
           const x = cx + parallax.x, y = cy + parallax.y, r = coreR * (0.85 + 0.15 * Math.sin(now * 0.0016));
           let g = ctx.createRadialGradient(x, y, 0, x, y, r * 2.6);
-          g.addColorStop(0, 'rgba(255,245,220,0.95)'); g.addColorStop(0.18, 'rgba(224,151,63,0.7)'); g.addColorStop(0.5, 'rgba(201,122,43,0.28)'); g.addColorStop(1, 'rgba(201,122,43,0)');
+          g.addColorStop(0, 'rgba(224,151,63,0.55)'); g.addColorStop(0.4, 'rgba(201,122,43,0.2)'); g.addColorStop(1, 'rgba(201,122,43,0)');
           ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r * 2.6, 0, 7); ctx.fill();
-          g = ctx.createRadialGradient(x, y, 0, x, y, r * 0.9);
-          g.addColorStop(0, 'rgba(255,252,240,0.98)'); g.addColorStop(0.6, 'rgba(227,179,77,0.5)'); g.addColorStop(1, 'rgba(227,179,77,0)');
-          ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r * 0.9, 0, 7); ctx.fill();
+          g = ctx.createRadialGradient(x, y, 0, x, y, r * 0.95);
+          g.addColorStop(0, 'rgba(201,122,43,0.95)'); g.addColorStop(0.7, 'rgba(201,122,43,0.55)'); g.addColorStop(1, 'rgba(201,122,43,0)');
+          ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r * 0.95, 0, 7); ctx.fill();
         }
         function drawParts(dt) {
           const speed = reduce ? 0.5 : 1;
-          for (let i = parts.length - 1; i >= 0; i--) { const p = parts[i]; p.t = Math.min(1, p.t + p.sp * dt * speed); const e = p.t * p.t * (3 - 2 * p.t), bx = p.ox + (cx - p.ox) * e, by = p.oy + (cy - p.oy) * e; const ang = Math.atan2(cy - p.oy, cx - p.ox) + Math.PI / 2; const w = reduce ? 0 : Math.sin(p.t * Math.PI) * p.wob * 40 * Math.sin(p.ph + p.t * 6); const x = bx + Math.cos(ang) * w + parallax.x, y = by + Math.sin(ang) * w + parallax.y; const dim = highlight && p.c !== highlight, fade = Math.sin(p.t * Math.PI), col = CAT[p.c]; ctx.globalAlpha = (dim ? 0.12 : 0.9) * Math.max(0.15, fade); ctx.shadowColor = col; ctx.shadowBlur = dim ? 0 : 8; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, p.sz, 0, 7); ctx.fill(); ctx.shadowBlur = 0; ctx.globalAlpha = 1; if (p.t >= 1) { if (Math.random() < 0.5) spawnNode(p.c); parts.splice(i, 1); } }
+          for (let i = parts.length - 1; i >= 0; i--) { const p = parts[i]; p.t = Math.min(1, p.t + p.sp * dt * speed); const e = p.t * p.t * (3 - 2 * p.t), bx = p.ox + (cx - p.ox) * e, by = p.oy + (cy - p.oy) * e; const ang = Math.atan2(cy - p.oy, cx - p.ox) + Math.PI / 2; const w = reduce ? 0 : Math.sin(p.t * Math.PI) * p.wob * 40 * Math.sin(p.ph + p.t * 6); const x = bx + Math.cos(ang) * w + parallax.x, y = by + Math.sin(ang) * w + parallax.y; const dim = highlight && p.c !== highlight, fade = Math.sin(p.t * Math.PI), col = CAT[p.c]; ctx.globalAlpha = (dim ? 0.12 : 0.95) * Math.max(0.15, fade); ctx.shadowColor = col; ctx.shadowBlur = dim ? 0 : 6; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, p.sz, 0, 7); ctx.fill(); ctx.shadowBlur = 0; ctx.globalAlpha = 1; if (p.t >= 1) { if (Math.random() < 0.5) spawnNode(p.c); parts.splice(i, 1); } }
         }
         function drawOut(dt) {
-          for (let i = out.length - 1; i >= 0; i--) { const o = out[i]; o.t += o.sp * dt * 0.06; if (o.t >= 1) { out.splice(i, 1); continue; } const r = coreR + o.t * ring * 0.95, x = cx + Math.cos(o.a) * r + parallax.x, y = cy + Math.sin(o.a) * r * 0.92 + parallax.y; ctx.globalAlpha = (1 - o.t) * 0.9; ctx.shadowColor = '#e3b34d'; ctx.shadowBlur = 12; ctx.fillStyle = '#f2d38a'; ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 7); ctx.fill(); ctx.shadowBlur = 0; ctx.globalAlpha = 1; }
+          for (let i = out.length - 1; i >= 0; i--) { const o = out[i]; o.t += o.sp * dt * 0.06; if (o.t >= 1) { out.splice(i, 1); continue; } const r = coreR + o.t * ring * 0.95, x = cx + Math.cos(o.a) * r + parallax.x, y = cy + Math.sin(o.a) * r * 0.92 + parallax.y; ctx.globalAlpha = (1 - o.t) * 0.85; ctx.shadowColor = '#c97a2b'; ctx.shadowBlur = 10; ctx.fillStyle = '#c97a2b'; ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 7); ctx.fill(); ctx.shadowBlur = 0; ctx.globalAlpha = 1; }
         }
         function drawBeam(dt) {
           if (!beam) return; beam.t += dt * 0.0016;
-          const pts = [{ x: cx, y: cy }, ...beam.path.map((n) => ({ x: n.x, y: n.y }))], total = pts.length - 1, prog = beam.t * total;
-          ctx.lineCap = 'round';
-          for (let s = 0; s < total; s++) { const a = pts[s], b = pts[s + 1]; let frac = Math.max(0, Math.min(1, prog - s)); if (frac <= 0) break; const ex = a.x + (b.x - a.x) * frac + parallax.x, ey = a.y + (b.y - a.y) * frac + parallax.y; ctx.strokeStyle = 'rgba(227,179,77,0.55)'; ctx.lineWidth = 2; ctx.shadowColor = '#e3b34d'; ctx.shadowBlur = 14; ctx.beginPath(); ctx.moveTo(a.x + parallax.x, a.y + parallax.y); ctx.lineTo(ex, ey); ctx.stroke(); ctx.shadowBlur = 0; if (frac < 1) { ctx.fillStyle = '#fff7e0'; ctx.shadowColor = '#fff'; ctx.shadowBlur = 16; ctx.beginPath(); ctx.arc(ex, ey, 3.4, 0, 7); ctx.fill(); ctx.shadowBlur = 0; } }
-          for (let k = 0; k < beam.path.length; k++) { if (prog > k + 0.6) { const n = beam.path[k]; ctx.strokeStyle = 'rgba(255,247,224,0.5)'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(n.x + parallax.x, n.y + parallax.y, n.r + 5, 0, 7); ctx.stroke(); } }
+          const pts = [{ x: cx, y: cy }, ...beam.path.map((n) => ({ x: n.x, y: n.y }))], total = pts.length - 1, prog = beam.t * total; ctx.lineCap = 'round';
+          for (let s = 0; s < total; s++) { const a = pts[s], b = pts[s + 1]; let frac = Math.max(0, Math.min(1, prog - s)); if (frac <= 0) break; const ex = a.x + (b.x - a.x) * frac + parallax.x, ey = a.y + (b.y - a.y) * frac + parallax.y; ctx.strokeStyle = 'rgba(59,111,245,0.6)'; ctx.lineWidth = 2; ctx.shadowColor = '#3b6ff5'; ctx.shadowBlur = 12; ctx.beginPath(); ctx.moveTo(a.x + parallax.x, a.y + parallax.y); ctx.lineTo(ex, ey); ctx.stroke(); ctx.shadowBlur = 0; if (frac < 1) { ctx.fillStyle = '#3b6ff5'; ctx.shadowColor = '#3b6ff5'; ctx.shadowBlur = 14; ctx.beginPath(); ctx.arc(ex, ey, 3.2, 0, 7); ctx.fill(); ctx.shadowBlur = 0; } }
+          for (let k = 0; k < beam.path.length; k++) { if (prog > k + 0.6) { const n = beam.path[k]; ctx.strokeStyle = 'rgba(22,19,15,0.35)'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(n.x + parallax.x, n.y + parallax.y, n.r + 5, 0, 7); ctx.stroke(); } }
           if (beam.t >= 1.25) beam = null;
         }
         function syncPills() {
@@ -404,13 +332,9 @@ import { sourceGroups, surfaceGroups, useCasesAsk, howItWorks } from '../data/co
           catEls.forEach((el, gi) => el.classList.toggle('dim', highlight && !SOURCES.some((s) => s.g === gi && s.c === highlight)));
           requestAnimationFrame(syncPills);
         }
-
-        layout();
-        MAXN = reduce ? 34 : Math.round(Math.min(64, (W * H) / 22000));
+        layout(); MAXN = reduce ? 34 : Math.round(Math.min(64, (W * H) / 22000));
         for (let i = 0; i < (reduce ? 16 : 26); i++) spawnNode(SOURCES[i % SOURCES.length].c);
-        syncPills();
-        setTimeout(runQuery, 900);
-        requestAnimationFrame(frame);
+        syncPills(); setTimeout(runQuery, 900); requestAnimationFrame(frame);
       })();
     </script>
   </body>
