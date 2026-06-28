@@ -1,14 +1,12 @@
 ---
-interface Props { n: string; s?: string; c?: string; img?: string; mono?: boolean; }
-const { n, s, c = '#3b6ff5', img, mono } = Astro.props;
+interface Props { n: string; f?: string; img?: string; mono?: boolean; c?: string; }
+const { n, f, img, mono, c = '#3b6ff5' } = Astro.props;
+const src = img || (f ? `/logos/${f}` : null);
 const initials = n.replace(/[^A-Za-z0-9 ]/g, '').split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
-const maskStyle = s ? `background:${c};-webkit-mask:url(/logos/${s}.svg) center/contain no-repeat;mask:url(/logos/${s}.svg) center/contain no-repeat;` : '';
 ---
 <div class="logotile" title={n}>
-  {img ? (
-    <img class="logo" src={img} alt={n} width="36" height="36" />
-  ) : s ? (
-    <span class="logo" style={maskStyle} role="img" aria-label={n}></span>
+  {src && !mono ? (
+    <img class="logo" src={src} alt={n} loading="lazy" />
   ) : (
     <span class="logo mono" style={`color:${c};background:${c}1f`}>{initials}</span>
   )}

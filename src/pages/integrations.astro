@@ -26,7 +26,7 @@ import { integrationCategories, surfaceLogos } from '../data/content';
           <h2 class="clabel">{cat.title}</h2>
           {cat.sub && <p class="csub">{cat.sub}</p>}
           <div class="logo-wall">
-            {cat.items.map((it) => <LogoTile n={it.n} s={it.s} c={it.c} mono={it.mono} />)}
+            {cat.items.map((it) => <LogoTile n={it.n} f={it.f} mono={it.mono} c={it.c} />)}
           </div>
         </div>
       ))}
@@ -35,7 +35,7 @@ import { integrationCategories, surfaceLogos } from '../data/content';
         <h2 class="clabel">Where you use it</h2>
         <p class="csub">Theo is your agent in a dedicated app and your messaging channels. Or plug your brain into the AI you already use.</p>
         <div class="logo-wall">
-          {surfaceLogos.map((it) => <LogoTile n={it.n} s={it.s} c={it.c} img={it.img} />)}
+          {surfaceLogos.map((it) => <LogoTile n={it.n} f={it.f} img={it.img} mono={it.mono} c={it.c} />)}
         </div>
       </div>
 
