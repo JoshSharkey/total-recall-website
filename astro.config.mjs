@@ -25,18 +25,34 @@ export default defineConfig({
         { icon: 'github', label: 'GitHub', href: 'https://github.com/JoshSharkey' },
       ],
       sidebar: [
-        { label: '← Back to totalrecall.app', link: '/' },
+        { label: '← Back to Total Recall', link: '/' },
         {
           label: 'Start here',
           items: [
             { label: 'Help center', link: '/docs/' },
-            { label: 'What Total Recall is', link: '/docs/overview/' },
+            { label: 'What is Total Recall', link: '/docs/overview/' },
             { label: 'FAQ', link: '/docs/faq/' },
           ],
         },
         {
-          label: 'Capabilities',
-          items: [{ autogenerate: { directory: 'docs' } }],
+          label: 'How it works',
+          items: [
+            { label: 'How search works', link: '/docs/search/' },
+            { label: 'Synthesis', link: '/docs/synthesis/' },
+            { label: 'Daily brief', link: '/docs/daily-brief/' },
+            { label: 'Using it from your phone', link: '/docs/phone-access/' },
+          ],
+        },
+        {
+          label: 'Privacy',
+          items: [{ label: 'Privacy & backups', link: '/docs/backups-privacy/' }],
+        },
+        {
+          label: 'More',
+          items: [
+            { label: 'Features', link: '/features/' },
+            { label: 'Plans', link: '/plans/' },
+          ],
         },
       ],
       head: [

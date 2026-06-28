@@ -1,5 +1,5 @@
 ---
-title: "Daily brief & synthesis"
+title: "Daily brief"
 description: "A private morning rundown the brain assembles from everything it knows, tied to your goals, to help you make better and faster decisions."
 ---# Daily brief & synthesis
 

@@ -1,0 +1,95 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+import { capabilityGroups, integrationGroups, useCasesAsk, motivations } from '../data/content';
+---
+<Marketing
+  title="Features"
+  description="What Total Recall does: memory and search, synthesis and intelligence, proactive agents, a personal CRM, health, and capture — connected across everything you know."
+>
+  <section class="section">
+    <div class="container" style="max-width:820px">
+      <p class="eyebrow">Features</p>
+      <h1 style="font-size:clamp(34px,5vw,56px);margin:10px 0 0">More than memory. Intelligence.</h1>
+      <p class="lead" style="margin-top:18px">
+        Total Recall takes in everything you know, work and personal, and connects it. The result
+        isn't just recall: it's synthesis. It helps you decide, prepare, notice, and act on the
+        full picture of your life.
+      </p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container">
+      <div class="feature-grid">
+        {capabilityGroups.map((g) => (
+          <div class="card">
+            <span class="dot" style={`background:${g.color}`}></span>
+            <h3>{g.title}</h3>
+            <p>{g.blurb}</p>
+            <ul>{g.items.map((i) => <li>{i}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="container" style="max-width:820px;text-align:center">
+      <p class="eyebrow center">The whole point</p>
+      <h2 style="font-size:clamp(26px,3.6vw,40px)">It connects what you'd never connect yourself.</h2>
+      <p class="lead" style="margin:16px auto 0">
+        Advice from an email three years ago meets this week's metrics. Your best months line up with
+        better sleep and time at home. A customer's offhand remark matches a churn pattern before it
+        lands. Because everything lives in one brain, the connections surface exactly when a decision
+        is on the line.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center">
+        <p class="eyebrow center">Integrations</p>
+        <h2 style="font-size:clamp(26px,3.6vw,40px)">Connects the tools you already use.</h2>
+        <p class="lead" style="margin:14px auto 0">Bring in your sources, and let it reach you where you already are.</p>
+      </div>
+      <div class="integ-grid">
+        {integrationGroups.map((g) => (
+          <div class="integ-group">
+            <h4>{g.title}</h4>
+            <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
+          </div>
+        ))}
+      </div>
+      <p class="center" style="color:var(--muted);font-size:13.5px;margin-top:24px">
+        More sources are added as the brain grows. Don't see yours? It can probably come in.
+      </p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container">
+      <div style="text-align:center">
+        <p class="eyebrow center">Use it</p>
+        <h2 style="font-size:clamp(26px,3.6vw,40px)">Ask it anything. Have it do things.</h2>
+      </div>
+      <div class="asks">
+        {useCasesAsk.map((u) => (
+          <div class="askq"><i style={`background:${u.c}`}></i>{u.q}</div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight" style="background:#fff;border-top:1px solid var(--line)">
+    <div class="container" style="text-align:center">
+      <p class="eyebrow center">Why people build one</p>
+      <h2 style="font-size:clamp(24px,3.2vw,34px)">What a second brain gives you.</h2>
+      <div class="motiv">{motivations.map((m) => <span>{m}</span>)}</div>
+      <div style="margin-top:34px">
+        <a class="btn btn-primary" href="/plans/">See plans →</a>
+        <a class="btn btn-ghost" href="/docs/" style="margin-left:10px">Help center</a>
+      </div>
+    </div>
+  </section>
+</Marketing>

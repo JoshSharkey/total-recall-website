@@ -1,5 +1,5 @@
 ---
-title: "Search & retrieval"
+title: "How search works"
 description: "Ask the brain anything in plain language and it answers using everything it knows, by meaning rather than exact keywords."
 ---# Search & retrieval
 

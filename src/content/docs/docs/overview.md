@@ -1,5 +1,5 @@
 ---
-title: "What the brain is (overview)"
+title: "What is Total Recall"
 description: "A private, single-owner second brain that collects your documents, notes, emails, texts, meetings, people, and health data and lets you ask questions about all of it in plain language."
 ---# What the brain is (overview)
 

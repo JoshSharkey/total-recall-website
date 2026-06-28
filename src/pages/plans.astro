@@ -1,5 +1,6 @@
 ---
 import Marketing from '../layouts/Marketing.astro';
+import { capabilityGroups, integrationGroups } from '../data/content';
 const plans = [
   {
     name: 'Self-serve',
@@ -81,8 +82,35 @@ const plans = [
         ))}
       </div>
       <p style="text-align:center;color:var(--muted);font-size:13.5px;margin-top:28px">
-        Want the full capability menu? See the <a href="/docs/" style="color:var(--amber)">help center</a>.
+        Have a question about a feature? Ask the <a href="/docs/" style="color:var(--amber)">help center</a>.
       </p>
+    </div>
+  </section>
+
+  <section class="section tight" style="background:#fff;border-top:1px solid var(--line)">
+    <div class="container">
+      <div style="text-align:center">
+        <p class="eyebrow center">What you can turn on</p>
+        <h2 style="font-size:clamp(24px,3.2vw,36px)">Functionality &amp; integrations.</h2>
+        <p class="lead" style="margin:14px auto 0">An overview of what the brain does and what it connects. See <a href="/features/" style="color:var(--amber)">Features</a> for the full picture.</p>
+      </div>
+      <div class="feature-grid" style="margin-top:34px">
+        {capabilityGroups.map((g) => (
+          <div class="card">
+            <span class="dot" style={`background:${g.color}`}></span>
+            <h3 style="font-size:17px">{g.title}</h3>
+            <p>{g.blurb}</p>
+          </div>
+        ))}
+      </div>
+      <div class="integ-grid" style="margin-top:40px">
+        {integrationGroups.map((g) => (
+          <div class="integ-group">
+            <h4>{g.title}</h4>
+            <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 </Marketing>

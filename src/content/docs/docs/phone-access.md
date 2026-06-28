@@ -1,5 +1,5 @@
 ---
-title: "Phone access"
+title: "Using it from your phone"
 description: "Talk to your brain from the Claude app on your phone by adding it as a connector, so your second brain is with you anywhere, not just at your desk."
 ---# Phone access
 

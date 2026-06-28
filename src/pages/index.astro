@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import '@fontsource/fraunces/400.css';
 import '@fontsource/fraunces/600.css';
 import '../styles/marketing.css';
+import { integrationGroups, useCasesAsk } from '../data/content';
 ---
 <!doctype html>
 <html lang="en">
@@ -66,6 +67,17 @@ import '../styles/marketing.css';
         <p class="big tag">That's Total Recall.</p>
       </section>
 
+      <section class="sec center">
+        <p class="eyebrow synth center">Synthesis</p>
+        <h2>It doesn't just remember. It thinks.</h2>
+        <p class="lead-dark">
+          The point isn't only asking about your stuff. Because your brain holds all of your
+          context, personal and professional, it does far more than answer. It connects the dots
+          across every corner of your life: surfacing patterns, catching blind spots, pressure-testing
+          your decisions, and briefing you every morning on what actually matters.
+        </p>
+      </section>
+
       <section class="sec examples">
         <div class="h2wrap">
           <p class="eyebrow center">See it think</p>
@@ -119,6 +131,45 @@ import '../styles/marketing.css';
             </div>
           </article>
         </div>
+      </section>
+
+      <section class="sec">
+        <div class="h2wrap" style="text-align:center">
+          <p class="eyebrow center">Connects your whole world</p>
+          <h2>Everything you know, in one brain.</h2>
+          <p class="lede2">It brings in the sources you already use, and reaches you where you already are.</p>
+        </div>
+        <div class="integ-grid">
+          {integrationGroups.map((g) => (
+            <div class="integ-group">
+              <h4>{g.title}</h4>
+              <div class="tools">{g.tools.map((t) => <span class="toolchip">{t}</span>)}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="sec">
+        <div class="h2wrap" style="text-align:center">
+          <p class="eyebrow center">Ask it anything</p>
+          <h2>What you'd ask your brain.</h2>
+          <p class="lede2">A few of the things people reach for first. Add your own.</p>
+        </div>
+        <div class="asks">
+          {useCasesAsk.map((u) => (
+            <div class="askq"><i style={`background:${u.c}`}></i>{u.q}</div>
+          ))}
+        </div>
+      </section>
+
+      <section class="sec center">
+        <p class="eyebrow synth center">The app</p>
+        <h2>Theo is how you use it.</h2>
+        <p class="lead-dark">
+          Total Recall is the brain. <strong style="color:var(--cream)">Theo</strong> is the app you
+          talk to: your daily brief, your people, your synthesis, and a place to act on what surfaces.
+        </p>
+        <div style="margin-top:24px"><a class="btn btn-primary" href="/theo/">Meet Theo →</a></div>
       </section>
 
       <section class="sec closer">

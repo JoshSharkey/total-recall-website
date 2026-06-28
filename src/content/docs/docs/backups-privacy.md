@@ -1,5 +1,5 @@
 ---
-title: "Backups & privacy"
+title: "Privacy & backups"
 description: "Your brain is yours alone. It is single-owner, sign-in is restricted to you, sensitive content is automatically screened out, and the data is backed up and portable."
 ---# Backups & privacy
 

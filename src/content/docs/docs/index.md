@@ -1,29 +1,27 @@
 ---
 title: Help center
-description: Documentation and answers for Total Recall (the brain) and Theo (the app you talk to).
+description: Ask anything about Total Recall and Theo. Search the docs, read the FAQ, or browse how it works.
 ---
 
-Welcome to the Total Recall help center. Total Recall is your private, single-owner
-second brain. **Theo** is the app you use to talk to it.
+Need a hand with Total Recall or Theo? **Search anything above** (or press <kbd>/</kbd>) and
+relevant answers will surface. The most common questions are below.
 
-## New here?
+## Popular questions
 
-- **[What Total Recall is](/docs/overview/)** — the plain-English overview.
-- **[Search & retrieval](/docs/search/)** — how asking the brain works.
-- **[FAQ](/docs/faq/)** — quick answers to common questions.
+- [What is Total Recall?](/docs/overview/)
+- [How does search work?](/docs/search/)
+- [What is synthesis, and why does it matter?](/docs/synthesis/)
+- [Is my data private?](/docs/backups-privacy/)
+- [Can I use it from my phone?](/docs/phone-access/)
+- [See all FAQs →](/docs/faq/)
 
-## What it can do
+## Looking for what it can do?
 
-Browse the **Capabilities** in the sidebar. A few starting points:
+That lives on the product pages, not here:
 
-- **[Meetings](/docs/meetings/)**, **[Email memory](/docs/email-memory/)**,
-  **[Text memory](/docs/text-memory/)**, **[Slack memory](/docs/slack-memory/)** — bring your conversations in.
-- **[Personal CRM](/docs/personal-crm/)** — the people you know, remembered.
-- **[Daily brief](/docs/daily-brief/)** and **[Life synthesis](/docs/life-synthesis/)** — the brain thinking for you.
-- **[Health](/docs/health/)**, **[Notes](/docs/notes/)**, **[Documents](/docs/documents/)**, **[Podcasts & reading](/docs/podcasts-reading/)**.
+- **[Features](/features/)** — capabilities, synthesis, and integrations.
+- **[Plans](/plans/)** — what you can turn on, and how to get started.
 
-## Your data
+## Still stuck?
 
-Total Recall is built private-first. See **[Backups & privacy](/docs/backups-privacy/)**
-for how your information is stored and protected. One brain belongs to one person;
-your information is never mixed with anyone else's.
+Can't find an answer? Reach out and we'll help you get set up.

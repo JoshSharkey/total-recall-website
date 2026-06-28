@@ -1,23 +1,39 @@
-// Sync the public capability docs from the total-recall repo into this site.
-// Single source of truth = total-recall/docs/capabilities. Re-run after the
-// brain's capability docs change:  npm run sync:docs
+// Sync a CURATED set of help articles from the total-recall repo into the help center.
+// The marketing pages (Features/Plans) illustrate capabilities; the help center is for
+// genuine support articles only — not every capability doc.
 //
-// Only files marked `access: public` are published. index.md and faq.md in the
-// destination are hand-authored and never touched here.
-import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync } from 'node:fs';
+//   npm run sync:docs
+//
+// Source of truth = total-recall/docs/capabilities (files marked `access: public`).
+// index.md and faq.md here are hand-authored and never touched.
+import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SRC = join(HERE, '..', '..', 'total-recall', 'docs', 'capabilities');
 const DEST = join(HERE, '..', 'src', 'content', 'docs', 'docs');
-const KEEP = new Set(['index.md', 'faq.md']); // hand-authored, don't clobber
+const KEEP = new Set(['index.md', 'faq.md', 'synthesis.md']); // hand-authored
+
+// curated help articles: filename -> display title override
+const ALLOW = {
+  'overview.md': 'What is Total Recall',
+  'search.md': 'How search works',
+  'daily-brief.md': 'Daily brief',
+  'phone-access.md': 'Using it from your phone',
+  'backups-privacy.md': 'Privacy & backups',
+};
 
 if (!existsSync(SRC)) {
   console.error(`Source not found: ${SRC}\nClone total-recall next to this repo, or update the path.`);
   process.exit(1);
 }
 mkdirSync(DEST, { recursive: true });
+
+// clean previously-synced files (anything not hand-authored)
+for (const f of readdirSync(DEST)) {
+  if (f.endsWith('.md') && !KEEP.has(f)) rmSync(join(DEST, f));
+}
 
 function parseFrontmatter(raw) {
   const m = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
@@ -29,28 +45,28 @@ function parseFrontmatter(raw) {
   }
   return { data, body: m[2] };
 }
-const yaml = (s) => JSON.stringify(String(s ?? '')); // safe double-quoted scalar
+const yaml = (s) => JSON.stringify(String(s ?? ''));
 
-let published = 0,
-  skipped = 0;
-for (const file of readdirSync(SRC)) {
-  if (!file.endsWith('.md')) continue;
-  if (KEEP.has(file)) continue;
-  const { data, body } = parseFrontmatter(readFileSync(join(SRC, file), 'utf8'));
+let published = 0;
+for (const [file, title] of Object.entries(ALLOW)) {
+  const path = join(SRC, file);
+  if (!existsSync(path)) {
+    console.warn(`skip (missing): ${file}`);
+    continue;
+  }
+  const { data, body } = parseFrontmatter(readFileSync(path, 'utf8'));
   if ((data.access || '').toLowerCase() !== 'public') {
-    skipped++;
+    console.warn(`skip (not public): ${file}`);
     continue;
   }
   const fm = [
     '---',
-    `title: ${yaml(data.title || file.replace(/\.md$/, ''))}`,
+    `title: ${yaml(title)}`,
     data.summary ? `description: ${yaml(data.summary)}` : null,
     '---',
     '',
-  ]
-    .filter(Boolean)
-    .join('\n');
+  ].filter(Boolean).join('\n');
   writeFileSync(join(DEST, file), fm + body.replace(/^\n+/, ''));
   published++;
 }
-console.log(`synced ${published} public capability pages -> ${DEST} (skipped ${skipped} non-public)`);
+console.log(`synced ${published} curated help articles -> ${DEST}`);
