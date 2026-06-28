@@ -123,6 +123,7 @@ export const integrationCategories = [
       { n: 'Notion', f: 'notion.svg' },
       { n: 'iCloud', f: 'icloud.png' },
       { n: 'Figma', f: 'figma.svg' },
+      { n: 'Coda', f: 'coda.png' },
     ],
   },
   {
@@ -146,7 +147,7 @@ export const integrationCategories = [
       { n: 'Outlook', f: 'outlook.svg' },
       { n: 'Slack', f: 'slack.svg' },
       { n: 'WhatsApp', f: 'whatsapp.png' },
-      { n: 'iMessage', mono: true, c: '#34DA50' },
+      { n: 'iMessage', f: 'imessage.jpg' },
       { n: 'Google Calendar', f: 'googlecalendar.svg' },
     ],
   },
@@ -154,6 +155,8 @@ export const integrationCategories = [
     title: 'Meetings, transcripts & voice notes',
     sub: 'Meeting transcripts, podcast transcripts, voice notes, and daily journals, captured and filed automatically.',
     items: [
+      { n: 'Zoom', f: 'zoom.svg' },
+      { n: 'Google Meet', f: 'googlemeet.svg' },
       { n: 'Fireflies', f: 'fireflies.png' },
       { n: 'Otter', f: 'otter.png' },
       { n: 'Granola', f: 'granola.svg' },
@@ -177,6 +180,14 @@ export const integrationCategories = [
       { n: 'Audible', f: 'audible.png' },
       { n: 'Books', mono: true, c: '#3b6ff5' },
       { n: 'Newsletters', mono: true, c: '#3b6ff5' },
+    ],
+  },
+  {
+    title: 'Automation',
+    sub: 'Connect thousands more tools through Zapier and n8n.',
+    items: [
+      { n: 'Zapier', f: 'zapier.png' },
+      { n: 'n8n', f: 'n8n.svg' },
     ],
   },
 ];
