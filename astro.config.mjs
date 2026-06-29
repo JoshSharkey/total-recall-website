@@ -44,8 +44,11 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Privacy',
-          items: [{ label: 'Privacy & backups', link: '/docs/backups-privacy/' }],
+          label: 'Privacy & ownership',
+          items: [
+            { label: 'Your data & ownership', link: '/docs/ownership/' },
+            { label: 'Privacy & backups', link: '/docs/backups-privacy/' },
+          ],
         },
         {
           label: 'More',

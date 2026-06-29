@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SRC = join(HERE, '..', '..', 'total-recall', 'docs', 'capabilities');
 const DEST = join(HERE, '..', 'src', 'content', 'docs', 'docs');
-const KEEP = new Set(['index.md', 'faq.md', 'synthesis.md', 'overview.md']); // hand-authored
+const KEEP = new Set(['index.md', 'faq.md', 'synthesis.md', 'overview.md', 'ownership.md']); // hand-authored
 
 // curated help articles: filename -> display title override
 const ALLOW = {

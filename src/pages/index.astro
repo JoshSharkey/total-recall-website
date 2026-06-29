@@ -8,7 +8,7 @@ import LogoTile from '../components/LogoTile.astro';
 import '@fontsource/fraunces/400.css';
 import '@fontsource/fraunces/600.css';
 import '../styles/marketing.css';
-import { surfaceGroups, useCasesAsk, howItWorks, STREAM, featuredLogos } from '../data/content';
+import { surfaceGroups, useCasesAsk, howItWorks, STREAM, featuredLogos, ownership } from '../data/content';
 const vignettes = [
   { tag: 'A decision next week', color: STREAM.blue, body: "Advice an angel investor emailed you three years ago echoes what your board is telling you now. Total Recall ties it to last week's all-hands and this week's metrics.", chips: [['Email, 3y ago', STREAM.blue], ['Board notes', STREAM.orange], ['Metrics', STREAM.gold]] },
   { tag: 'A pattern you couldn’t see', color: STREAM.rose, body: 'Your strongest months line up with better sleep and time at home. Your hardest weeks cluster around travel. The signals lived in three different places.', chips: [['Recovery', STREAM.rose], ['Calendar', STREAM.teal], ['Journal', STREAM.violet]] },
@@ -88,6 +88,23 @@ const vignettes = [
                 <div class="n" style={`background:${s.color}`}>{s.n}</div>
                 <h3>{s.title}</h3>
                 <p>{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section center">
+        <div class="container">
+          <p class="eyebrow center">Yours, and only yours</p>
+          <h2 style="font-size:clamp(26px,3.6vw,40px)">You own your brain. Always.</h2>
+          <p class="lead" style="margin:14px auto 0">Your data is yours to keep, take anywhere, and remove whenever you want. No lock-in, ever.</p>
+          <div class="cards" style="margin-top:36px;text-align:left">
+            {ownership.map((o) => (
+              <div class="card">
+                <span class="dot" style={`background:${o.color}`}></span>
+                <h3>{o.title}</h3>
+                <p>{o.body}</p>
               </div>
             ))}
           </div>

@@ -214,3 +214,11 @@ export const featuredLogos = [
   { n: 'Outlook', f: 'outlook.svg' },
   { n: 'Telegram', f: 'telegram.svg' },
 ];
+
+// Ownership / security — you own your data, take it anywhere, remove it anytime.
+export const ownership = [
+  { color: STREAM.blue, title: 'Yours alone', body: 'One brain belongs to one person. Your data is never mixed with anyone else’s, ever.' },
+  { color: STREAM.violet, title: 'Take it anywhere', body: 'Your brain is portable. Plug it into the AI channels you choose, Claude, ChatGPT, Gemini, and unplug whenever you want.' },
+  { color: STREAM.green, title: 'Yours to keep, or delete', body: 'Export it, move it, or remove it. You stay in control of every idea, message, and data point.' },
+  { color: STREAM.rose, title: 'Private by design', body: 'It runs privately. Your world is never sold, shared, or turned into anyone else’s training data.' },
+];
