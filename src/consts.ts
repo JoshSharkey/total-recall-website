@@ -1,6 +1,8 @@
 // Central site constants. Update SITE_URL once the domain is purchased —
 // it drives canonical URLs, sitemap, robots, and Open Graph tags.
 export const SITE_URL = 'https://totalrecall.app'; // TODO: set real domain
+// Pre-launch: keep search engines from indexing the preview. Flip to false at launch.
+export const PRELAUNCH = true;
 export const SITE_NAME = 'Total Recall';
 export const SITE_TAGLINE = 'Your whole world, remembered.';
 export const SITE_DESCRIPTION =

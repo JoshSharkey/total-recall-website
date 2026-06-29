@@ -1,5 +1,5 @@
 ---
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '../consts';
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PRELAUNCH } from '../consts';
 interface Props {
   title?: string;
   description?: string;
@@ -43,6 +43,7 @@ const appLd = {
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+{PRELAUNCH && <meta name="robots" content="noindex, nofollow" />}
 <title>{pageTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />

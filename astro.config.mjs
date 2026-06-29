@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
-import { SITE_URL } from './src/consts.ts';
+import { SITE_URL, PRELAUNCH } from './src/consts.ts';
 
 // https://astro.build/config
 export default defineConfig({
@@ -60,6 +60,9 @@ export default defineConfig({
       ],
       head: [
         { tag: 'meta', attrs: { property: 'og:image', content: `${SITE_URL}/og.png` } },
+        ...(PRELAUNCH
+          ? [{ tag: 'meta', attrs: { name: 'robots', content: 'noindex, nofollow' } }]
+          : []),
       ],
     }),
     sitemap(),
