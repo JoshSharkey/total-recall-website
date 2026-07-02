@@ -3,14 +3,15 @@ import Marketing from '../layouts/Marketing.astro';
 import ProductPreview from '../components/ProductPreview.astro';
 import Waitlist from '../components/Waitlist.astro';
 import LogoTile from '../components/LogoTile.astro';
+import TraceCard from '../components/TraceCard.astro';
 import { capabilityGroups, surfaceGroups, useCasesAsk, motivations, howItWorks, featuredLogos, STREAM } from '../data/content';
 const actionMemory = [
-  [STREAM.gold, 'It remembers what it did', 'Every call theo makes across your Slack, email, meetings, and calendar is kept: what came in, what it decided, why, and what happened next.'],
-  [STREAM.blue, 'It checks its track record', 'Before acting on a familiar situation, theo looks back at how it handled the last ones, and leans toward what actually worked for you.'],
-  [STREAM.green, 'One correction is enough', 'Say “no, that’s not done” or “good catch” in plain conversation. That feedback sticks to the exact decision it refers to, permanently. The same mistake doesn’t come back next month.'],
-  [STREAM.violet, 'It grades its own work', 'Every day and week, theo checks its earlier calls against what really happened. Confirmed calls get reinforced. Misses become lessons. No training rituals, no thumbs-up buttons.'],
-  [STREAM.orange, 'One live truth', 'When facts change, a new role, a new employer, the new truth takes over in every answer. History is kept, but you always get what’s current.'],
-  [STREAM.rose, 'Memory that ages like yours', 'Stale context fades while confirmed knowledge persists. Ask for the latest anything and get the newest, not a pile of old versions. Measured: answers got better, nothing got worse.'],
+  [STREAM.gold, 'Decision traces', 'Every call theo makes across Slack, email, meetings, and calendar is written as a trace: the signal, the decision, the reasoning, the confidence, the outcome. In plain terms: a logbook of everything it did and why.'],
+  [STREAM.blue, 'Retrieval of priors', 'Before acting on a recurring situation, theo retrieves the most similar past traces and weights the call toward what actually worked. In plain terms: it rereads the logbook before making the same kind of call again.'],
+  [STREAM.green, 'Outcome labels from conversation', 'Say “good catch” or “no, that’s not done” and that feedback becomes a permanent label on the exact trace it refers to. Confirmations reinforce the call. Corrections become lessons that block repeats. No training rituals, no thumbs-up buttons.'],
+  [STREAM.violet, 'Automated reconciliation', 'Daily and weekly sweeps verify theo’s earlier predictions against what really happened, and score the traces nobody commented on. In plain terms: it grades its own homework, on a schedule.'],
+  [STREAM.orange, 'Supersession: one live truth', 'When a fact changes, a new role, a new employer, the new value supersedes the old instead of piling up beside it. History is kept. Answers reflect what is current.'],
+  [STREAM.rose, 'Memory decay, tuned by outcome', 'Unvalidated context decays on a half-life. Confirmed knowledge persists, and reinforcement resets the clock. In plain terms: it forgets like you do, on purpose, so “the latest” is actually the latest. Measured: retrieval got better, nothing got worse.'],
 ];
 ---
 <Marketing
@@ -66,14 +67,16 @@ const actionMemory = [
     <div class="container">
       <div style="text-align:center;max-width:780px;margin:0 auto">
         <p class="eyebrow center">Action memory</p>
-        <h2 style="font-size:clamp(26px,3.6vw,40px)">It remembers what it did for you. And what worked.</h2>
+        <h2 style="font-size:clamp(26px,3.6vw,40px)">Every action logged. Every outcome scored.</h2>
         <p class="lead" style="margin:14px auto 0">
-          Search over your own notes is table stakes. What compounds is a private record of
-          everything your assistant did on your behalf and how it turned out. theo keeps that
-          record, answers to it, and gets measurably better at being your assistant every week.
-          Nothing that mattered is forgotten. What stopped mattering fades.
+          Search over your own notes is table stakes. theo goes further: every action it takes on
+          your behalf is logged as a decision trace and scored against what actually happened, so
+          the agent is continually self-improving. In plain terms: it keeps a logbook, grades
+          itself against reality, and rereads the logbook before making the same kind of call
+          again. That record compounds with use, and it cannot be copied.
         </p>
       </div>
+      <TraceCard />
       <div class="cards" style="margin-top:36px;text-align:left">
         {actionMemory.map(([c, t, d]) => (
           <div class="card">

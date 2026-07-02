@@ -1,0 +1,110 @@
+---
+// TraceCard: a stylized decision trace, pure HTML/CSS on the marketing design tokens.
+// Panel 1: a trace (signal, call, reasoning, confidence) with the owner's correction
+// pinned as an outcome label. Panel 2: the next occurrence, where theo cites the trace.
+// Synthetic data, labeled as such below the card.
+---
+<div class="tracewrap">
+  <div class="trace">
+    <div class="t-head">
+      <span class="t-kind"><i style="background:var(--amber-d)"></i>Decision trace</span>
+      <span class="t-id">#4127 · tue 09:12</span>
+    </div>
+    <dl class="t-rows">
+      <div class="t-row"><dt>Signal</dt><dd>Vendor thread in Slack quiet for 6 days. Task &ldquo;confirm delivery&rdquo; still open.</dd></div>
+      <div class="t-row"><dt>Call</dt><dd>Leave the task open <span class="t-tag">conservative-completion</span></dd></div>
+      <div class="t-row"><dt>Reasoning</dt><dd>No delivery confirmation found. 2 of 3 similar threads reopened.</dd></div>
+      <div class="t-row"><dt>Confidence</dt><dd class="t-conf"><span class="bar"><i style="width:62%"></i></span><span class="pct">0.62</span></dd></div>
+    </dl>
+    <div class="t-outcome">
+      <p class="t-outlabel">Your reply, pinned to this trace</p>
+      <p class="t-quote">&ldquo;good catch, that wasn&rsquo;t done&rdquo;</p>
+      <div class="t-labels"><span class="t-label ok">confirmed</span><span class="t-label ok">reinforced</span></div>
+    </div>
+  </div>
+  <div class="t-arrow" aria-hidden="true">→</div>
+  <div class="trace next">
+    <div class="t-head">
+      <span class="t-kind"><i style="background:var(--accent)"></i>Next occurrence</span>
+      <span class="t-id">3 weeks later</span>
+    </div>
+    <dl class="t-rows">
+      <div class="t-row"><dt>Signal</dt><dd>Another vendor thread goes quiet. Same shape.</dd></div>
+      <div class="t-row"><dt>Prior</dt><dd><span class="t-cite">cites trace #4127 · confirmed</span></dd></div>
+      <div class="t-row"><dt>Call</dt><dd>Keeps the task open, and flags you before assuming it&rsquo;s done.</dd></div>
+      <div class="t-row"><dt>Confidence</dt><dd class="t-conf"><span class="bar"><i style="width:88%"></i></span><span class="pct">0.88</span></dd></div>
+    </dl>
+  </div>
+</div>
+<p class="t-note">Illustrative trace. Synthetic data.</p>
+
+<style>
+  .tracewrap {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 14px;
+    align-items: stretch;
+    max-width: 960px;
+    margin: 36px auto 0;
+    text-align: left;
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .trace {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 12px 32px -26px rgba(12, 15, 22, 0.4);
+  }
+  .trace.next {
+    border-color: #d9e5fd;
+    background: linear-gradient(180deg, #fbfcff, #fff);
+  }
+  .t-arrow { align-self: center; color: var(--faint); font-size: 22px; }
+  .t-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--line);
+  }
+  .t-kind {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint);
+  }
+  .t-kind i { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+  .t-id { font-family: var(--mono); font-size: 12px; color: var(--faint); white-space: nowrap; }
+  .t-rows { margin: 0; display: flex; flex-direction: column; gap: 11px; }
+  .t-row dt {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--faint); margin: 0 0 3px;
+  }
+  .t-row dd { margin: 0; font-size: 14px; line-height: 1.5; color: var(--body); }
+  .t-tag {
+    font-family: var(--mono); font-size: 11.5px; color: var(--gold);
+    background: #fdf6ec; border: 1px solid #eadfc8; border-radius: 999px;
+    padding: 2px 9px; margin-left: 6px; white-space: nowrap;
+  }
+  .t-cite {
+    font-family: var(--mono); font-size: 11.5px; color: var(--accent-deep);
+    background: var(--accent-bg); border: 1px solid #d9e5fd; border-radius: 999px;
+    padding: 3px 10px; white-space: nowrap;
+  }
+  .t-conf { display: flex; align-items: center; gap: 10px; }
+  .bar { flex: 1; height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; display: block; }
+  .bar i { display: block; height: 100%; border-radius: 999px; background: var(--accent); }
+  .pct { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .t-outcome { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); }
+  .t-outlabel {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--faint); margin: 0 0 5px;
+  }
+  .t-quote { font-family: var(--serif); font-size: 15.5px; color: var(--ink); margin: 0 0 9px; }
+  .t-labels { display: flex; gap: 7px; flex-wrap: wrap; }
+  .t-label {
+    font-family: var(--mono); font-size: 11.5px; border-radius: 999px; padding: 3px 10px;
+  }
+  .t-label.ok { color: var(--green); background: #eef9f2; border: 1px solid #cdeeda; }
+  .t-note { text-align: center; color: var(--faint); font-size: 12.5px; margin: 12px 0 0; }
+  @media (max-width: 760px) {
+    .tracewrap { grid-template-columns: 1fr; }
+    .t-arrow { transform: rotate(90deg); justify-self: center; }
+  }
+</style>

@@ -2,12 +2,13 @@
 import Marketing from '../layouts/Marketing.astro';
 import Waitlist from '../components/Waitlist.astro';
 import TheoShowcase from '../components/TheoShowcase.astro';
+import TraceCard from '../components/TraceCard.astro';
 import { surfaceGroups, STREAM } from '../data/content';
 const learns = [
-  { n: '1', color: STREAM.blue, title: 'It checks its record', body: 'Before acting on a familiar situation, theo looks back at how it handled the last ones, and what you thought of the result.' },
-  { n: '2', color: STREAM.gold, title: 'It acts', body: 'It leans toward what worked for you before: the follow-up you actually wanted, the flag you were glad it raised.' },
-  { n: '3', color: STREAM.green, title: 'You react like a human', body: '“Good catch.” “No, that’s not done yet.” Plain conversation is the whole feedback loop. No training rituals, no thumbs-up buttons.' },
-  { n: '4', color: STREAM.orange, title: 'It never repeats the miss', body: 'Your correction becomes a permanent lesson tied to that exact decision. Confirmed calls get reinforced. The mistake you flagged today doesn’t come back next month.' },
+  { n: '1', color: STREAM.blue, title: 'It retrieves its priors', body: 'Before acting, theo pulls the most similar past decisions and how they scored. In plain terms: it rereads the logbook before making the same kind of call again.' },
+  { n: '2', color: STREAM.gold, title: 'It acts, and shows its work', body: 'The decision is written as a trace: the signal, the call, the reasoning, a confidence. In plain terms: every action comes with a receipt.' },
+  { n: '3', color: STREAM.green, title: 'You label it by talking', body: '“Good catch.” “No, that’s not done yet.” Natural corrections become permanent outcome labels on the exact trace they refer to. In plain terms: one sentence from you is the whole training loop.' },
+  { n: '4', color: STREAM.orange, title: 'It reinforces, or it decays', body: 'Confirmed calls are reinforced. Corrected calls become lessons that block repeats. Stale, unvalidated context decays on a half-life. In plain terms: the mistake you flag today does not come back next month.' },
 ];
 const does = [
   [STREAM.gold, 'Briefs you', 'A morning read of what matters: people, decisions, follow-ups, and signals worth your attention.'],
@@ -73,9 +74,10 @@ const does = [
         <p class="eyebrow center">theo learns you</p>
         <h2 style="font-size:clamp(26px,3.6vw,40px)">Correct it once. It remembers forever.</h2>
         <p class="lead" style="margin:14px auto 0">
-          theo keeps a private record of every call it makes on your behalf and how it turned out,
-          and it is accountable to that record. The theo you talk to next month is better than the
-          one you talk to today, because it has a month more evidence of what works for you.
+          Every action theo takes is logged and scored, so the agent is continually
+          self-improving. It is accountable to its own track record: the theo you talk to next
+          month is better than the one you talk to today, because it has a month more evidence
+          of what works for you.
         </p>
       </div>
       <div class="steps">
@@ -87,6 +89,7 @@ const does = [
           </div>
         ))}
       </div>
+      <TraceCard />
     </div>
   </section>
 
