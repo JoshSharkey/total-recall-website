@@ -1,9 +1,9 @@
 ---
 title: Help center
-description: Ask anything about Total Recall and Theo. Search the docs, read the FAQ, or browse how it works.
+description: Ask anything about Total Recall and theo. Search the docs, read the FAQ, or browse how it works.
 ---
 
-Need a hand with Total Recall or Theo? **Search anything above** (or press <kbd>/</kbd>) and
+Need a hand with Total Recall or theo? **Search anything above** (or press <kbd>/</kbd>) and
 relevant answers will surface. The most common questions are below.
 
 ## Popular questions

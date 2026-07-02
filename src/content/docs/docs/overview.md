@@ -1,6 +1,6 @@
 ---
 title: What is Total Recall
-description: Total Recall is a private, single-owner second brain. Theo is the agent built on it. Use it in a dedicated app, your messaging channels, or any AI you already use.
+description: Total Recall is a private, single-owner second brain. theo is the agent built on it. Use it in a dedicated app, your messaging channels, or any AI you already use.
 ---
 
 **In plain terms:** Total Recall is a private memory for one person. It quietly collects the things
@@ -14,7 +14,7 @@ else's.
 ## The brain and the agent
 
 - **Total Recall** is the **brain**, your private memory and the synthesis that runs on top of it.
-- **Theo** is the **agent** built on that brain, the intelligence you actually talk to.
+- **theo** is the **agent** built on that brain, the intelligence you actually talk to.
 
 ## It is more than search
 
@@ -28,7 +28,7 @@ heart of the product.
 
 Your brain is portable, so you are not locked to one place:
 
-- **Theo, your agent**: at full strength in the Theo app, and with you in messaging channels like
+- **theo, your agent**: at full strength in the theo app, and with you in messaging channels like
   Telegram, Slack, and WhatsApp.
 - **Any AI you already use**: plug your brain into Claude, ChatGPT, Gemini, or any MCP-capable tool.
 

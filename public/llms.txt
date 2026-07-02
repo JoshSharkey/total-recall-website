@@ -1,10 +1,10 @@
 # Total Recall
 
-> Total Recall is a private, single-owner second brain. It collects your documents, notes, emails, messages, meetings, people, and health data into one place and lets you ask questions about all of it in plain language. Theo is the app you talk to. One brain belongs to one person; data is never mixed between people.
+> Total Recall is a private, single-owner second brain. It collects your documents, notes, emails, messages, meetings, people, and health data into one place and lets you ask questions about all of it in plain language. theo is the app you talk to. One brain belongs to one person; data is never mixed between people.
 
 ## Products
 - Total Recall: the brain — the private memory and reasoning layer.
-- Theo: the app — where you ask questions, read your daily brief, and act on what the brain surfaces.
+- theo: the app — where you ask questions, read your daily brief, and act on what the brain surfaces.
 
 ## Start here
 - Overview — what Total Recall is: https://totalrecall.app/docs/overview/

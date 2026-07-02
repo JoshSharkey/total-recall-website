@@ -1,7 +1,7 @@
 // Shared marketing content — single place to edit features, sources, surfaces, use cases.
 // Sourced from the intake form (docs/intake-questionnaire.md) + capability docs.
-// Positioning: Total Recall = the brain (memory + synthesis). Theo = the agent built on it.
-// Use it anywhere: Theo app + messaging channels, or plug your brain into any AI.
+// Positioning: Total Recall = the brain (memory + synthesis). theo = the agent built on it.
+// Use it anywhere: theo app + messaging channels, or plug your brain into any AI.
 
 export const STREAM = {
   teal: '#46c2c2',
@@ -63,12 +63,12 @@ export const sourceGroups = [
   { title: 'Media', tools: ['Podcasts', 'Books', 'Newsletters'] },
 ];
 
-// Where you USE it — two modes. Theo (first-party) + your brain in any AI.
+// Where you USE it — two modes. theo (first-party) + your brain in any AI.
 export const surfaceGroups = [
   {
-    title: 'Theo, your agent',
+    title: 'theo, your agent',
     blurb: 'Purpose-built for your brain. The app at full strength, plus messaging wherever you are.',
-    tools: ['Theo app', 'Telegram', 'Slack', 'WhatsApp'],
+    tools: ['theo app', 'Telegram', 'Slack', 'WhatsApp'],
   },
   {
     title: 'Or any AI you already use',
@@ -107,7 +107,7 @@ export const motivations = [
 export const howItWorks = [
   { n: '1', color: STREAM.green, title: 'Connect your world', body: 'Point it at the sources you already use. It ingests them privately and keeps up to date in the background.' },
   { n: '2', color: STREAM.gold, title: 'It builds your brain', body: 'Everything is organized and linked into one private memory, then synthesized so the connections surface on their own.' },
-  { n: '3', color: STREAM.blue, title: 'Ask Theo anywhere', body: 'Talk to your agent in the Theo app or your messaging channels, or plug your brain into the AI you already use.' },
+  { n: '3', color: STREAM.blue, title: 'Ask theo anywhere', body: 'Talk to your agent in the theo app or your messaging channels, or plug your brain into the AI you already use.' },
   { n: '4', color: STREAM.orange, title: 'It compounds', body: 'A daily brief, proactive nudges, and sharper answers. It gets more valuable every day it learns.' },
 ];
 
@@ -193,7 +193,7 @@ export const integrationCategories = [
 ];
 
 export const surfaceLogos = [
-  { n: 'Theo app', img: '/brand/total-recall-icon.svg' },
+  { n: 'theo app', img: '/brand/total-recall-icon.svg' },
   { n: 'Telegram', f: 'telegram.svg' },
   { n: 'Slack', f: 'slack.svg' },
   { n: 'WhatsApp', f: 'whatsapp.png' },

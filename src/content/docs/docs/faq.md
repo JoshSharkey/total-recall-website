@@ -1,6 +1,6 @@
 ---
 title: Frequently asked questions
-description: "Common questions about Total Recall and the Theo app: privacy, what it can do, phone access, and getting started."
+description: "Common questions about Total Recall and the theo app: privacy, what it can do, phone access, and getting started."
 ---
 
 ## What is Total Recall?
@@ -11,11 +11,11 @@ you know, your health data) into one place, and lets you ask questions about all
 it in plain language. Think of it as a memory that never forgets and that you can
 talk to. See **[the overview](/docs/overview/)**.
 
-## What is Theo?
+## What is theo?
 
-Theo is the agent built on your brain, the intelligence you actually talk to.
-Total Recall is the brain (the memory and synthesis layer); Theo is how you use
-it. Theo is at full strength in the Theo app, comes along in messaging channels
+theo is the agent built on your brain, the intelligence you actually talk to.
+Total Recall is the brain (the memory and synthesis layer); theo is how you use
+it. theo is at full strength in the theo app, comes along in messaging channels
 like Telegram and Slack, and your brain can also plug into any AI you already
 use (Claude, ChatGPT, Gemini).
 

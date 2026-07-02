@@ -1,0 +1,402 @@
+---
+// Illustrative product UI (all synthetic data): shows what theo looks like in
+// the app without exposing anyone's real brain. Pure CSS + inline SVG, no chart
+// libs. Panels mirror the real cockpit surfaces: Today, Ask, Tasks, Goals,
+// Content, Synthesis, Health.
+// NOTE: every class is `tsw-` prefixed — marketing.css is global CSS and already
+// owns generic names like .src/.col/.show, which otherwise leak into these panels.
+import { STREAM } from '../data/content';
+
+// --- tiny SVG helpers (run at build time) ---
+function scaleY(v: number, min: number, max: number, h: number, pad: number) {
+  const r = max - min || 1;
+  return pad + (h - pad * 2) * (1 - (v - min) / r);
+}
+function linePath(vals: number[], w: number, h: number, pad = 5, lo?: number, hi?: number) {
+  const min = lo ?? Math.min(...vals);
+  const max = hi ?? Math.max(...vals);
+  const step = (w - pad * 2) / (vals.length - 1);
+  return vals
+    .map((v, i) => `${i === 0 ? 'M' : 'L'}${(pad + i * step).toFixed(1)},${scaleY(v, min, max, h, pad).toFixed(1)}`)
+    .join(' ');
+}
+function areaPath(vals: number[], w: number, h: number, pad = 5, lo?: number, hi?: number) {
+  const step = (w - pad * 2) / (vals.length - 1);
+  const lastX = pad + (vals.length - 1) * step;
+  return `${linePath(vals, w, h, pad, lo, hi)} L${lastX.toFixed(1)},${h} L${pad},${h} Z`;
+}
+
+// --- health: recovery trend (synthetic) ---
+const recovery = [54, 61, 58, 67, 71, 63, 60, 72, 69, 74, 66, 70, 73, 72];
+const RW = 300, RH = 84;
+
+// --- bloodwork markers (synthetic). band = faint optimal zone as {y,h} of viewBox ---
+const S = { good: '#15803d', warn: '#b45309', bad: '#dc2626' };
+const markers = [
+  { name: 'ApoB', unit: 'mg/dL', value: '78', optimal: '≤ 80', status: S.good, delta: '▼ 14', deltaColor: S.good,
+    vals: [104, 99, 95, 91, 86, 82, 78], band: { y: 0.55, h: 0.45 } },
+  { name: 'hs-CRP', unit: 'mg/L', value: '0.4', optimal: '≤ 1.0', status: S.good, delta: '▼ 0.3', deltaColor: S.good,
+    vals: [1.9, 1.4, 1.1, 0.9, 0.7, 0.5, 0.4], band: { y: 0.6, h: 0.4 } },
+  { name: 'Vitamin D', unit: 'ng/mL', value: '46', optimal: '≥ 50', status: S.warn, delta: '▲ 9', deltaColor: S.good,
+    vals: [28, 31, 34, 37, 40, 43, 46], band: { y: 0, h: 0.32 } },
+  { name: 'HbA1c', unit: '%', value: '5.3', optimal: '≤ 5.4', status: S.good, delta: '▼ 0.2', deltaColor: S.good,
+    vals: [5.7, 5.6, 5.6, 5.5, 5.5, 5.4, 5.3], band: { y: 0.5, h: 0.5 } },
+];
+const BW = 130, BH = 46;
+
+// --- task board (synthetic) ---
+const board = [
+  { col: 'Inbox', cards: [
+    { t: 'Reply to Dana re: renewal terms', c: STREAM.blue, m: 'from email · auto-filed' },
+    { t: 'Book Q3 board dinner', c: STREAM.gold, m: 'from calendar' },
+  ] },
+  { col: 'In progress', cards: [
+    { t: 'Draft the pricing one-pager', c: STREAM.violet, m: 'started Mon' },
+    { t: 'Prep notes for Acme call', c: STREAM.teal, m: 'due today' },
+  ] },
+  { col: 'Done', cards: [
+    { t: 'Send Marcus the intro', c: STREAM.green, m: 'closed by theo' },
+    { t: 'Refill prescription', c: STREAM.rose, m: 'closed by theo' },
+  ] },
+];
+
+// --- goals (synthetic), grouped by life category like the real Goals screen ---
+const CAT = {
+  Business: STREAM.blue,
+  Health: STREAM.rose,
+  Relationships: STREAM.gold,
+  Personal: STREAM.violet,
+} as const;
+const goals = [
+  { cat: 'Business', t: 'Close 3 lighthouse customers', m: 'weekly review · 2 of 3', done: false },
+  { cat: 'Health', t: 'Sleep 7h+ five nights a week', m: 'tracked automatically', done: false },
+  { cat: 'Relationships', t: 'One dinner with an old friend each month', m: 'June done · Marcus', done: false },
+  { cat: 'Personal', t: 'Read 12 books this year', m: '7 of 12 · ahead of pace', done: false },
+  { cat: 'Business', t: 'Ship the spring launch', m: 'completed Jun 12', done: true },
+];
+
+// --- content: podcast + posts analytics (synthetic) ---
+const contentTiles = [
+  { v: '124.6k', l: 'Podcast plays · 30d' },
+  { v: '391.2k', l: 'Clip & social views' },
+  { v: '88.7k', l: 'Post impressions' },
+];
+// platform dot colors: audio host / Spotify / YouTube / LinkedIn
+const P = { host: '#f3a642', spotify: '#16a34a', youtube: '#dc2626', linkedin: '#0a66c2' };
+const episodes = [
+  { t: 'Ep. 42 · Pricing with confidence', n: '23,418', pct: 100, dots: [P.host, P.spotify, P.youtube] },
+  { t: 'Ep. 41 · Hiring your first ops lead', n: '18,752', pct: 80, dots: [P.host, P.spotify] },
+  { t: 'Ep. 40 · What churn taught us', n: '15,096', pct: 65, dots: [P.host, P.youtube] },
+];
+
+// --- synthesis: weekly + monthly horizons (synthetic) ---
+const syntheses = [
+  {
+    chip: 'Weekly', title: 'Week of Jun 23–29',
+    body: 'Your sharpest work landed on the three mornings you protected before 10am. And the Dana renewal, the pricing pushback, and last year’s churned account all rhyme: the warning signs showed up in email tone weeks before the numbers moved.',
+  },
+  {
+    chip: 'Monthly', title: 'June',
+    body: 'The month’s pattern is momentum through fewer, bigger bets. Recovery tracked your best output weeks almost exactly, and the goals that moved were the ones with a weekly cadence attached to them.',
+  },
+];
+---
+<div class="tsw">
+  <!-- Today -->
+  <div class="tsw-panel tsw-today">
+    <div class="tsw-cap"><span class="tsw-cd" style={`background:${STREAM.gold}`}></span>Today</div>
+    <div class="tsw-ph">
+      <span class="tsw-ph-t">Your daily brief</span>
+      <span class="tsw-ph-m">Tue · Jul 1</span>
+    </div>
+    <div class="tsw-grp">Focus</div>
+    <ul class="tsw-blist">
+      <li><b>Close the loop with Dana.</b> Her contract renews in 9 days and usage dipped last week.</li>
+      <li><b>Board prep.</b> 3 questions likely, from last quarter's notes and this week's metrics.</li>
+    </ul>
+    <div class="tsw-grp">People</div>
+    <ul class="tsw-blist">
+      <li><b>Reconnect with Marcus.</b> It's been 4 months, and he just changed roles.</li>
+    </ul>
+    <div class="tsw-grp">Health</div>
+    <ul class="tsw-blist">
+      <li><b>Recovery low 3 days running.</b> Your best months track with sleep. Protect tonight.</li>
+    </ul>
+  </div>
+
+  <!-- Ask theo -->
+  <div class="tsw-panel tsw-ask">
+    <div class="tsw-cap"><span class="tsw-cd" style={`background:${STREAM.green}`}></span>Ask theo</div>
+    <div class="tsw-q">“What am I missing about the Acme deal?”</div>
+    <p class="tsw-a">
+      Three things worth a look before your call. Acme's champion changed roles in March,
+      pricing pushback showed up in two emails, and a similar account churned after the same
+      pattern last year.
+    </p>
+    <div class="tsw-srcl">Grounded in</div>
+    <div class="tsw-srcs">
+      <span class="tsw-src"><i style={`background:${STREAM.blue}`}></i>Email · Mar 14</span>
+      <span class="tsw-src"><i style={`background:${STREAM.teal}`}></i>Call transcript</span>
+      <span class="tsw-src"><i style={`background:${STREAM.green}`}></i>Past accounts</span>
+    </div>
+  </div>
+
+  <!-- Task board -->
+  <div class="tsw-panel tsw-tasks">
+    <div class="tsw-cap"><span class="tsw-cd" style={`background:${STREAM.orange}`}></span>Task board · auto-triaged</div>
+    <div class="tsw-cols">
+      {board.map((c) => (
+        <div class="tsw-col">
+          <div class="tsw-colh">{c.col}<span class="tsw-coln">{c.cards.length}</span></div>
+          {c.cards.map((k) => (
+            <div class="tsw-tcard" style={`border-left-color:${k.c}`}>
+              <span class="tsw-tt">{k.t}</span>
+              <span class="tsw-tm">{k.m}</span>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Goals -->
+  <div class="tsw-panel tsw-goals">
+    <div class="tsw-cap"><span class="tsw-cd" style={`background:${STREAM.blue}`}></span>Goals</div>
+    <div class="tsw-glist">
+      {goals.map((g) => (
+        <div class={`tsw-goal${g.done ? ' tsw-gdone' : ''}`}>
+          <span class="tsw-gcheck" style={g.done ? `background:${S.good};border-color:${S.good}` : ''}>{g.done ? '✓' : ''}</span>
+          <div class="tsw-gbody">
+            <span class="tsw-gt">{g.t}</span>
+            <span class="tsw-gm">
+              <i class="tsw-gdot" style={`background:${CAT[g.cat as keyof typeof CAT]}`}></i>{g.cat} · {g.m}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="tsw-panel tsw-content">
+    <div class="tsw-cap"><span class="tsw-cd" style="background:var(--amber)"></span>Content · Podcast &amp; posts</div>
+    <div class="tsw-tiles">
+      {contentTiles.map((t) => (
+        <div class="tsw-tile"><span class="tsw-tv">{t.v}</span><span class="tsw-tl">{t.l}</span></div>
+      ))}
+    </div>
+    <div class="tsw-grp" style="margin-top:16px">Top episodes · plays</div>
+    <div class="tsw-eps">
+      {episodes.map((e) => (
+        <div class="tsw-ep">
+          <div class="tsw-eprow">
+            <span class="tsw-ept">{e.t}</span>
+            <span class="tsw-epdots">{e.dots.map((d) => <i style={`background:${d}`}></i>)}</span>
+            <span class="tsw-epn">{e.n}</span>
+          </div>
+          <div class="tsw-epbar"><i style={`width:${e.pct}%`}></i></div>
+        </div>
+      ))}
+    </div>
+    <div class="tsw-legend">
+      <span><i style={`background:${P.host}`}></i>Audio</span>
+      <span><i style={`background:${P.spotify}`}></i>Spotify</span>
+      <span><i style={`background:${P.youtube}`}></i>YouTube</span>
+      <span><i style={`background:${P.linkedin}`}></i>LinkedIn</span>
+    </div>
+  </div>
+
+  <!-- Synthesis -->
+  <div class="tsw-panel tsw-synth">
+    <div class="tsw-cap"><span class="tsw-cd" style={`background:${STREAM.violet}`}></span>Synthesis · connects the dots on its own</div>
+    <div class="tsw-sgrid">
+      {syntheses.map((s) => (
+        <div class="tsw-scard">
+          <div class="tsw-shead">
+            <span class="tsw-schip">{s.chip}</span>
+            <span class="tsw-st">{s.title}</span>
+          </div>
+          <p class="tsw-sbody">{s.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Sleep & recovery -->
+  <div class="tsw-panel tsw-sleep">
+    <div class="tsw-cap"><span class="tsw-cd" style={`background:${STREAM.rose}`}></span>Health · Recovery &amp; sleep</div>
+    <div class="tsw-tiles">
+      <div class="tsw-tile"><span class="tsw-tv">72<em>%</em></span><span class="tsw-tl">Recovery</span></div>
+      <div class="tsw-tile"><span class="tsw-tv">68<em>ms</em></span><span class="tsw-tl">HRV</span></div>
+      <div class="tsw-tile"><span class="tsw-tv">7<em>h</em> 42<em>m</em></span><span class="tsw-tl">Sleep</span></div>
+    </div>
+    <svg class="tsw-chart" viewBox={`0 0 ${RW} ${RH}`} preserveAspectRatio="none" role="img" aria-label="Recovery trend, last two weeks">
+      <defs>
+        <linearGradient id="tswRecFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color={STREAM.rose} stop-opacity="0.28" />
+          <stop offset="100%" stop-color={STREAM.rose} stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+      <path d={areaPath(recovery, RW, RH)} fill="url(#tswRecFill)" />
+      <path d={linePath(recovery, RW, RH)} fill="none" stroke={STREAM.rose} stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <div class="tsw-xax"><span>2 weeks ago</span><span>today</span></div>
+  </div>
+
+  <!-- Bloodwork -->
+  <div class="tsw-panel tsw-blood">
+    <div class="tsw-cap"><span class="tsw-cd" style={`background:${STREAM.teal}`}></span>Health · Bloodwork</div>
+    <div class="tsw-mgrid">
+      {markers.map((m) => (
+        <div class="tsw-mcard">
+          <div class="tsw-mtop">
+            <div class="tsw-mname">
+              <span class="tsw-mn">{m.name}</span>
+              <span class="tsw-mo">optimal {m.optimal} {m.unit}</span>
+            </div>
+            <div class="tsw-mval">
+              <span class="tsw-mdot" style={`background:${m.status}`}></span>
+              <span class="tsw-mv" style={`color:${m.status}`}>{m.value}</span>
+            </div>
+          </div>
+          <svg class="tsw-spark" viewBox={`0 0 ${BW} ${BH}`} preserveAspectRatio="none" aria-hidden="true">
+            <rect x="0" y={(m.band.y * BH).toFixed(1)} width={BW} height={(m.band.h * BH).toFixed(1)}
+              fill="#15803d" opacity="0.08" />
+            <path d={linePath(m.vals, BW, BH, 5)} fill="none" stroke="#2d3e73" stroke-width="1.75"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div class="tsw-mfoot"><span class="tsw-mdelta" style={`color:${m.deltaColor}`}>{m.delta}</span><span class="tsw-msince">vs last draw</span></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .tsw {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 18px;
+    margin-top: 34px;
+    text-align: left;
+  }
+  .tsw-panel {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 18px 40px -30px rgba(0, 0, 0, 0.42);
+  }
+  .tsw-today { grid-column: span 6; }
+  .tsw-ask { grid-column: span 6; }
+  .tsw-tasks { grid-column: span 12; }
+  .tsw-goals { grid-column: span 5; }
+  .tsw-content { grid-column: span 7; }
+  .tsw-synth { grid-column: span 12; }
+  .tsw-sleep { grid-column: span 5; }
+  .tsw-blood { grid-column: span 7; }
+
+  /* caption */
+  .tsw-cap {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11.5px; font-weight: 650; letter-spacing: 0.02em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+  }
+  .tsw-cd { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
+
+  /* Today */
+  .tsw-ph { display: flex; align-items: baseline; gap: 9px; margin-bottom: 4px; }
+  .tsw-ph-t { font-family: var(--serif); font-weight: 600; font-size: 17px; color: var(--ink); }
+  .tsw-ph-m { margin-left: auto; font-size: 12px; color: var(--muted); }
+  .tsw-grp { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin: 14px 0 8px; }
+  .tsw-blist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+  .tsw-blist li { font-size: 13.5px; line-height: 1.45; color: var(--body); padding-left: 16px; position: relative; }
+  .tsw-blist li::before { content: ''; position: absolute; left: 0; top: 7px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+  .tsw-blist b { font-weight: 650; color: var(--ink); }
+
+  /* Ask */
+  .tsw-q { font-family: var(--serif); font-size: 16px; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 13px; }
+  .tsw-a { font-size: 13.5px; line-height: 1.55; color: var(--body); margin: 0 0 14px; }
+  .tsw-srcl { font-size: 10.5px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+  .tsw-srcs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tsw-src { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; display: inline-flex; align-items: center; gap: 6px; background: #fff; }
+  .tsw-src i { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
+
+  /* Task board */
+  .tsw-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .tsw-colh { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .tsw-coln { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); font-size: 11px; color: var(--faint); }
+  .tsw-tcard { border: 1px solid var(--line); border-left: 3px solid var(--line); border-radius: 10px; padding: 10px 12px; background: #fff; margin-bottom: 10px; }
+  .tsw-tt { display: block; font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+  .tsw-tm { display: block; font-size: 11px; color: var(--faint); margin-top: 3px; }
+
+  /* Goals */
+  .tsw-glist { display: flex; flex-direction: column; gap: 11px; }
+  .tsw-goal { display: flex; align-items: flex-start; gap: 10px; }
+  .tsw-gcheck {
+    width: 17px; height: 17px; flex: 0 0 auto; margin-top: 1px;
+    border: 1.5px solid var(--line); border-radius: 6px; background: var(--paper);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff;
+  }
+  .tsw-gbody { min-width: 0; }
+  .tsw-gt { display: block; font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+  .tsw-gdone .tsw-gt { text-decoration: line-through; color: var(--muted); font-weight: 500; }
+  .tsw-gm { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--faint); margin-top: 2px; }
+  .tsw-gdot { width: 6px; height: 6px; border-radius: 50%; flex: 0 0 auto; }
+
+  /* Content */
+  .tsw-eps { display: flex; flex-direction: column; gap: 10px; }
+  .tsw-eprow { display: flex; align-items: center; gap: 8px; }
+  .tsw-ept { font-size: 13px; font-weight: 600; color: var(--ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tsw-epdots { display: inline-flex; gap: 4px; margin-left: auto; flex: 0 0 auto; }
+  .tsw-epdots i { width: 7px; height: 7px; border-radius: 50%; }
+  .tsw-epn { font-size: 12.5px; font-weight: 700; color: var(--ink); flex: 0 0 auto; min-width: 44px; text-align: right; font-variant-numeric: tabular-nums; }
+  .tsw-epbar { height: 4px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); margin-top: 5px; overflow: hidden; }
+  .tsw-epbar i { display: block; height: 100%; border-radius: 999px; background: var(--amber-d); }
+  .tsw-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; font-size: 11px; color: var(--faint); }
+  .tsw-legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .tsw-legend i { width: 7px; height: 7px; border-radius: 50%; }
+
+  /* Synthesis */
+  .tsw-sgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .tsw-scard { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--paper); }
+  .tsw-shead { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+  .tsw-schip { font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 3px 9px; }
+  .tsw-st { font-family: var(--serif); font-weight: 600; font-size: 15.5px; color: var(--ink); }
+  .tsw-sbody { font-size: 13.5px; line-height: 1.6; color: var(--body); margin: 0; }
+
+  /* stat tiles (shared: sleep + content) */
+  .tsw-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  .tsw-tile { border: 1px solid var(--line); border-radius: 12px; padding: 11px 12px; background: var(--paper); }
+  .tsw-tv { display: block; font-family: var(--serif); font-weight: 600; font-size: 21px; color: var(--ink); letter-spacing: -0.01em; }
+  .tsw-tv em { font-style: normal; font-size: 12px; color: var(--muted); font-family: var(--sans); font-weight: 600; margin-left: 1px; }
+  .tsw-tl { font-size: 11px; color: var(--muted); }
+  .tsw-chart { width: 100%; height: 84px; display: block; }
+  .tsw-xax { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--faint); margin-top: 2px; }
+
+  /* Bloodwork */
+  .tsw-mgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .tsw-mcard { border: 1px solid var(--line); border-radius: 12px; padding: 11px 12px; background: var(--paper); }
+  .tsw-mtop { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .tsw-mname { min-width: 0; }
+  .tsw-mn { display: block; font-size: 13px; font-weight: 650; color: var(--ink); }
+  .tsw-mo { display: block; font-size: 10.5px; color: var(--faint); }
+  .tsw-mval { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+  .tsw-mdot { width: 8px; height: 8px; border-radius: 50%; }
+  .tsw-mv { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+  .tsw-spark { width: 100%; height: 46px; display: block; margin: 6px 0 4px; }
+  .tsw-mfoot { display: flex; align-items: baseline; gap: 6px; }
+  .tsw-mdelta { font-size: 12px; font-weight: 700; }
+  .tsw-msince { font-size: 10.5px; color: var(--faint); }
+
+  @media (max-width: 900px) {
+    .tsw-today, .tsw-ask, .tsw-tasks, .tsw-goals, .tsw-content, .tsw-synth, .tsw-sleep, .tsw-blood { grid-column: span 12; }
+    .tsw-sgrid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .tsw-cols { grid-template-columns: 1fr; }
+    .tsw-mgrid { grid-template-columns: 1fr; }
+  }
+</style>
