@@ -49,7 +49,7 @@ export const capabilityGroups = [
     color: STREAM.orange,
     title: 'It can act',
     blurb: 'When you want it to, it does more than answer.',
-    items: ['Reaches out on Telegram, Slack, or the app', 'Reminders and relationship cadence', 'Closes tasks, marks goals, drafts and sends'],
+    items: ['Reaches out on Telegram, Slack, or the app', 'Reminders and relationship cadence', 'Closes tasks, marks goals, drafts and sends', 'Remembers what it did, and what worked'],
   },
 ];
 
@@ -108,7 +108,7 @@ export const howItWorks = [
   { n: '1', color: STREAM.green, title: 'Connect your world', body: 'Point it at the sources you already use. It ingests them privately and keeps up to date in the background.' },
   { n: '2', color: STREAM.gold, title: 'It builds your brain', body: 'Everything is organized and linked into one private memory, then synthesized so the connections surface on their own.' },
   { n: '3', color: STREAM.blue, title: 'Ask theo anywhere', body: 'Talk to your agent in the theo app or your messaging channels, or plug your brain into the AI you already use.' },
-  { n: '4', color: STREAM.orange, title: 'It compounds', body: 'A daily brief, proactive nudges, and sharper answers. It gets more valuable every day it learns.' },
+  { n: '4', color: STREAM.orange, title: 'It compounds', body: 'A daily brief, proactive nudges, and sharper answers. theo remembers what it did and what worked, takes your corrections to heart, and gets better at being yours every week.' },
 ];
 
 // ---- Integrations catalog (real brand logos in public/logos) ----

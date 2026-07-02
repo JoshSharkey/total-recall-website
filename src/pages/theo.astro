@@ -3,6 +3,12 @@ import Marketing from '../layouts/Marketing.astro';
 import Waitlist from '../components/Waitlist.astro';
 import TheoShowcase from '../components/TheoShowcase.astro';
 import { surfaceGroups, STREAM } from '../data/content';
+const learns = [
+  { n: '1', color: STREAM.blue, title: 'It checks its record', body: 'Before acting on a familiar situation, theo looks back at how it handled the last ones, and what you thought of the result.' },
+  { n: '2', color: STREAM.gold, title: 'It acts', body: 'It leans toward what worked for you before: the follow-up you actually wanted, the flag you were glad it raised.' },
+  { n: '3', color: STREAM.green, title: 'You react like a human', body: '“Good catch.” “No, that’s not done yet.” Plain conversation is the whole feedback loop. No training rituals, no thumbs-up buttons.' },
+  { n: '4', color: STREAM.orange, title: 'It never repeats the miss', body: 'Your correction becomes a permanent lesson tied to that exact decision. Confirmed calls get reinforced. The mistake you flagged today doesn’t come back next month.' },
+];
 const does = [
   [STREAM.gold, 'Briefs you', 'A morning read of what matters: people, decisions, follow-ups, and signals worth your attention.'],
   [STREAM.blue, 'Knows your people', 'A personal CRM that tells you who to reconnect with, and preps you before every call.'],
@@ -14,7 +20,7 @@ const does = [
 ---
 <Marketing
   title="theo, the agent who knows you"
-  description="theo is the agent built on your Total Recall brain. Talk to it at full strength in the theo app, across your messaging channels, or plug your brain into any AI you already use."
+  description="theo is the agent built on your Total Recall brain. It learns from its own track record and your corrections, and gets better at being your assistant every week. Use it in the theo app, your messaging channels, or any AI you already use."
 >
   <section class="section">
     <div class="container" style="max-width:820px">
@@ -23,7 +29,8 @@ const does = [
       <p class="lead" style="margin-top:18px">
         Total Recall is the brain. <strong>theo</strong> is the agent built on it, the intelligence
         you actually talk to. It works because it has your whole world to draw on: your work, your
-        people, your health, your ideas.
+        people, your health, your ideas. And it keeps a record of everything it does for you, so
+        it gets better at the job every week.
       </p>
       <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap">
         <a class="btn btn-primary" href="#waitlist">Get early access →</a>
@@ -61,6 +68,29 @@ const does = [
   </section>
 
   <section class="section">
+    <div class="container">
+      <div style="text-align:center;max-width:760px;margin:0 auto">
+        <p class="eyebrow center">theo learns you</p>
+        <h2 style="font-size:clamp(26px,3.6vw,40px)">Correct it once. It remembers forever.</h2>
+        <p class="lead" style="margin:14px auto 0">
+          theo keeps a private record of every call it makes on your behalf and how it turned out,
+          and it is accountable to that record. The theo you talk to next month is better than the
+          one you talk to today, because it has a month more evidence of what works for you.
+        </p>
+      </div>
+      <div class="steps">
+        {learns.map((s) => (
+          <div class="step">
+            <div class="n" style={`background:${s.color}`}>{s.n}</div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
     <div class="container">
       <div style="text-align:center;max-width:740px;margin:0 auto">
         <p class="eyebrow center">Everywhere you work</p>
