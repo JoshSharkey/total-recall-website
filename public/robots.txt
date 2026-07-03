@@ -18,4 +18,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://totalrecall.app/sitemap-index.xml
+Sitemap: https://totalrecallhq.com/sitemap-index.xml
