@@ -1,0 +1,54 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+---
+<Marketing
+  title="Sub-processors"
+  description="The third parties Total Recall uses to run the service, what each one does, and the services customers contract directly."
+>
+  <section class="section">
+    <div class="container" style="max-width:760px">
+      <p class="eyebrow">Sub-processors</p>
+      <h1 style="font-size:clamp(32px,4.6vw,52px);margin:10px 0 0">Who touches what.</h1>
+      <p class="lead" style="margin:18px 0 0">
+        A sub-processor is a third party we use to run the service and that may handle customer
+        data on our behalf. Because your brain runs in accounts you own, our list is short, and
+        most of the companies involved work for you, not for us.
+      </p>
+
+      <div style="margin-top:40px;display:grid;gap:28px;font-size:16px;line-height:1.65">
+        <p style="color:var(--muted,#666);margin:0">Last updated: July 12, 2026</p>
+
+        <div>
+          <h2 style="margin:0 0 8px">Our sub-processors</h2>
+          <p style="margin:0 0 12px">These handle the limited data Total Recall itself holds:</p>
+          <ul style="margin:0;padding-left:20px">
+            <li style="margin-bottom:8px"><strong>Clerk</strong> (United States): sign-in and account identity for the theo app.</li>
+            <li style="margin-bottom:8px"><strong>Vercel</strong> (United States): hosts the theo app and this website, including setup progress records and operational logs.</li>
+            <li><strong>Google Workspace</strong> (United States): our company email, which holds support conversations you send us.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 style="margin:0 0 8px">Services you contract directly</h2>
+          <p style="margin:0">
+            The following are not our sub-processors: they are providers you sign up with
+            yourself, under your own accounts and their own terms, and your brain's content
+            lives with them under your control. Supabase (your database), Railway (your
+            always-on services), OpenAI and Anthropic (AI processing on your own API keys), and
+            the sources you choose to connect, such as Slack, Google, Notion, and Telegram. You
+            can revoke or delete any of them without our involvement.
+          </p>
+        </div>
+
+        <div>
+          <h2 style="margin:0 0 8px">Changes</h2>
+          <p style="margin:0">
+            If we add or replace a sub-processor, we will update this page and its date. The
+            <a href="/privacy">privacy policy</a> describes what data we hold; questions to
+            <a href="mailto:support@totalrecallhq.com">support@totalrecallhq.com</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Marketing>
