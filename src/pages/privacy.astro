@@ -1,0 +1,98 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+---
+<Marketing
+  title="Privacy policy"
+  description="How Total Recall handles your data: your brain lives in infrastructure you own, and the theo app is built so we cannot read your memory."
+>
+  <section class="section">
+    <div class="container" style="max-width:760px">
+      <p class="eyebrow">Privacy</p>
+      <h1 style="font-size:clamp(32px,4.6vw,52px);margin:10px 0 0">Your memory is yours.</h1>
+      <p class="lead" style="margin:18px 0 0">
+        Total Recall is built around one architectural promise: your brain, meaning the database
+        that holds your documents, messages, contacts, and everything derived from them, runs in
+        accounts you own. We designed the product so we cannot read it.
+      </p>
+
+      <div style="margin-top:40px;display:grid;gap:28px;font-size:16px;line-height:1.65">
+        <p style="color:var(--muted,#666);margin:0">Effective date: July 12, 2026</p>
+
+        <div>
+          <h2 style="margin:0 0 8px">Where your data lives</h2>
+          <p style="margin:0">
+            When you set up a brain, the setup wizard deploys it into your own accounts: a Postgres
+            database (the storage engine) in your Supabase account, always-on services in your
+            Railway account, and AI processing billed to your own OpenAI and Anthropic keys. Your
+            documents, emails, chat messages, contacts, and the memory built from them are stored
+            there, under your logins, on infrastructure you can inspect, export, or delete without
+            our involvement.
+          </p>
+        </div>
+
+        <div>
+          <h2 style="margin:0 0 8px">What we store</h2>
+          <p style="margin:0">
+            The theo app (this website and the setup wizard at asktheo.totalrecallhq.com) keeps the
+            minimum it needs to function: your account identity from sign-in (name and email, via
+            our sign-in provider Clerk), your setup progress (which steps you completed and your
+            setup questionnaire answers), and standard operational logs. That is the list.
+          </p>
+        </div>
+
+        <div>
+          <h2 style="margin:0 0 8px">What we deliberately do not store</h2>
+          <p style="margin:0">
+            The wizard is a zero-credential router. The API keys, database passwords, and tokens you
+            paste during setup are used transiently, meaning we check them and pass them directly to
+            your own infrastructure without writing them to our systems; between steps they live
+            only in your browser tab. When you connect a source through a Total Recall hosted app
+            (for example our Slack app), the resulting access token is delivered straight to your
+            own services and is never stored on ours. Your brain's contents never pass through our
+            servers at all: search and chat happen between your devices, your brain, and your AI
+            provider accounts.
+          </p>
+        </div>
+
+        <div>
+          <h2 style="margin:0 0 8px">The services involved</h2>
+          <p style="margin:0">
+            Running theo involves a small set of third parties, each with a narrow job: Clerk
+            (sign-in), Vercel (hosting this app), and the providers of accounts you own and connect
+            yourself, such as Supabase, Railway, OpenAI, Anthropic, Google, Slack, Notion, and
+            Telegram. Sources you connect are governed by the permissions you grant on those
+            platforms, and you can revoke them there at any time.
+          </p>
+        </div>
+
+        <div>
+          <h2 style="margin:0 0 8px">AI processing and training</h2>
+          <p style="margin:0">
+            Your content is processed by AI models using your own OpenAI and Anthropic accounts,
+            under those providers' API terms, which by default do not use API content to train
+            models. We never use your content to train anything, and we could not: we do not have
+            it.
+          </p>
+        </div>
+
+        <div>
+          <h2 style="margin:0 0 8px">Deleting your data</h2>
+          <p style="margin:0">
+            Because your brain lives in your accounts, deletion is genuinely in your hands: deleting
+            your Supabase project and Railway services removes the data and stops the billing, and
+            our guides walk through an orderly export first if you want one. To remove what we hold,
+            email us and we will delete your account identity and setup records.
+          </p>
+        </div>
+
+        <div>
+          <h2 style="margin:0 0 8px">Changes and contact</h2>
+          <p style="margin:0">
+            If this policy changes, we will update this page and its effective date. Questions,
+            deletion requests, or anything unclear: <a href="mailto:support@totalrecallhq.com">support@totalrecallhq.com</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Marketing>

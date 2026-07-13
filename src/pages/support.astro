@@ -1,0 +1,62 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+---
+<Marketing
+  title="Support"
+  description="Get help with Total Recall and theo: email support, setup guides, and what to include so we can fix things fast."
+>
+  <section class="section">
+    <div class="container" style="max-width:760px">
+      <p class="eyebrow">Support</p>
+      <h1 style="font-size:clamp(32px,4.6vw,52px);margin:10px 0 0">Get help.</h1>
+      <p class="lead" style="margin:18px 0 0">
+        A real person reads every message. Email
+        <a href="mailto:support@totalrecallhq.com">support@totalrecallhq.com</a> and we will get
+        back to you within two business days, usually much sooner.
+      </p>
+
+      <div style="margin-top:40px;display:grid;gap:28px;font-size:16px;line-height:1.65">
+        <div>
+          <h2 style="margin:0 0 8px">Help us help you</h2>
+          <p style="margin:0">
+            Three things make almost every issue fixable on the first reply: the email address you
+            sign in with, what you were doing when it went wrong (which setup step, or what you
+            asked theo), and what you expected versus what actually happened. Screenshots are
+            gold, including any error message word for word.
+          </p>
+        </div>
+
+        <div>
+          <h2 style="margin:0 0 8px">Guides and documentation</h2>
+          <p style="margin:0">
+            Setup guides and reference documentation live at
+            <a href="/docs">totalrecallhq.com/docs</a>. If you are mid-setup, the wizard itself is
+            the best guide: each step names the exact screen you should be on and what to paste
+            where.
+          </p>
+        </div>
+
+        <div>
+          <h2 style="margin:0 0 8px">Security issues</h2>
+          <p style="margin:0">
+            Found something that looks like a security problem? Email
+            <a href="mailto:support@totalrecallhq.com?subject=Security">support@totalrecallhq.com</a>
+            with "Security" in the subject line and we will treat it as the front of the queue.
+            Please do not post details publicly before we have had a chance to fix it.
+          </p>
+        </div>
+
+        <div>
+          <h2 style="margin:0 0 8px">Your data, your accounts</h2>
+          <p style="margin:0">
+            Your brain runs in your own Supabase and Railway accounts, so some fixes happen on
+            infrastructure only you can log in to. We will never ask for your passwords or API
+            keys in email; when support needs hands-on access, we use revocable member invites you
+            approve and can remove at any time. More on how your data is handled is in the
+            <a href="/privacy">privacy policy</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Marketing>
