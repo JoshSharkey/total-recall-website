@@ -1,0 +1,157 @@
+---
+// Help center search. Starlight used to supply this; the index is now built at
+// build time from the same collection the pages render from, and filtered in the
+// browser. Eleven short articles, so the whole index is a few KB of inline JSON —
+// no search service, no extra request, works with the site fully static.
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('help');
+
+/** Markdown -> searchable plain text. Good enough for substring matching. */
+function plain(md: string): string {
+  return md
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/[#>*_~|-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const index = entries
+  .map((entry) => {
+    const slug = entry.id === 'index' ? '' : `${entry.id}/`;
+    return {
+      title: entry.data.title,
+      description: entry.data.description ?? '',
+      href: `/docs/${slug}`,
+      // Full body, deliberately. Truncating it made articles unfindable by their own
+      // subject matter ("trace" and "reinforce" returned nothing). All eleven articles
+      // together are a few tens of KB, which is cheaper than one search-service request.
+      text: plain(entry.body ?? ''),
+    };
+  })
+  .sort((a, b) => a.title.localeCompare(b.title));
+---
+<div class="docs-search">
+  <label class="sr-only" for="docs-q">Search the help center</label>
+  <input
+    id="docs-q"
+    type="search"
+    placeholder="Search the help center…"
+    autocomplete="off"
+    spellcheck="false"
+    role="combobox"
+    aria-expanded="false"
+    aria-controls="docs-results"
+    aria-autocomplete="list"
+  />
+  <ul id="docs-results" class="docs-results" role="listbox" aria-label="Search results" hidden></ul>
+  <p class="sr-only" id="docs-count" role="status" aria-live="polite"></p>
+  <p id="docs-noresults" class="docs-noresults" hidden>
+    No matches. Try the <a href="/docs/faq/">FAQ</a> or <a href="/support/">get in touch</a>.
+  </p>
+</div>
+
+<script is:inline define:vars={{ index }}>
+  (() => {
+    const input = document.getElementById('docs-q');
+    const list = document.getElementById('docs-results');
+    const empty = document.getElementById('docs-noresults');
+    const count = document.getElementById('docs-count');
+    if (!input || !list || !empty || !count) return;
+    // Looked up lazily: this script is inline and runs while the sidebar is still
+    // parsing, so .docs-nav does not exist yet at definition time.
+    const getNav = () => document.querySelector('.docs-nav');
+
+    const esc = (s) =>
+      s.replace(/[&<>"']/g, (c) =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
+      );
+
+    // Title hits outrank description hits, which outrank body hits, so "brief"
+    // lands on the Daily brief article rather than whichever page mentions it first.
+    function score(entry, q) {
+      const title = entry.title.toLowerCase();
+      if (title.includes(q)) return title.startsWith(q) ? 100 : 80;
+      if (entry.description.toLowerCase().includes(q)) return 50;
+      if (entry.text.toLowerCase().includes(q)) return 20;
+      return 0;
+    }
+
+    /** The sentence around the first hit, so a result shows why it matched. */
+    function snippet(entry, q) {
+      const hay = entry.text;
+      const at = hay.toLowerCase().indexOf(q);
+      if (at < 0) return entry.description;
+      const start = Math.max(0, at - 60);
+      return (start ? '…' : '') + hay.slice(start, at + 100).trim() + '…';
+    }
+
+    function setNavHidden(hidden) {
+      const nav = getNav();
+      // Class, not the hidden attribute: the <=860px rule sets display:grid on
+      // .docs-nav, and an author rule beats the browser's [hidden]{display:none}.
+      if (nav) nav.classList.toggle('is-hidden', hidden);
+    }
+
+    function render() {
+      const q = input.value.trim().toLowerCase();
+      if (q.length < 2) {
+        // Must also empty the list: the Enter handler reads it, and a stale list
+        // meant an empty search box could still navigate to the last hit.
+        list.innerHTML = '';
+        list.hidden = true;
+        empty.hidden = true;
+        count.textContent = '';
+        input.setAttribute('aria-expanded', 'false');
+        setNavHidden(false);
+        return;
+      }
+      const hits = index
+        .map((entry) => ({ entry, s: score(entry, q) }))
+        .filter((h) => h.s > 0)
+        .sort((a, b) => b.s - a.s)
+        .slice(0, 8);
+
+      setNavHidden(true);
+      list.hidden = hits.length === 0;
+      empty.hidden = hits.length > 0;
+      input.setAttribute('aria-expanded', String(hits.length > 0));
+      count.textContent = hits.length
+        ? `${hits.length} result${hits.length === 1 ? '' : 's'} for ${input.value.trim()}`
+        : `No results for ${input.value.trim()}`;
+      list.innerHTML = hits
+        .map(
+          (h) =>
+            `<li role="option"><a href="${esc(h.entry.href)}"><strong>${esc(h.entry.title)}</strong>` +
+            `<span>${esc(snippet(h.entry, q))}</span></a></li>`
+        )
+        .join('');
+    }
+
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        input.value = '';
+        render();
+        input.blur();
+      }
+      if (e.key === 'Enter' && !list.hidden) {
+        const first = list.querySelector('a');
+        if (first) window.location.href = first.getAttribute('href');
+      }
+    });
+    // "/" focuses search, the shortcut the old docs advertised. Bail if the user is
+    // typing somewhere else, or is using a real shortcut like Cmd+/.
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target;
+      if (t && t.closest && t.closest('input, textarea, select, [contenteditable]')) return;
+      e.preventDefault();
+      input.focus();
+    });
+  })();
+</script>

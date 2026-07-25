@@ -1,7 +1,9 @@
 ---
 title: "Privacy & backups"
 description: "Your brain is yours alone. It is single-owner, sign-in is restricted to you, sensitive content is automatically screened out, and the data is backed up and portable."
----**In plain terms:** a second brain only works if you trust it with everything, so
+---
+
+**In plain terms:** a second brain only works if you trust it with everything, so
 privacy and safety are built in, not bolted on. Your brain belongs to you alone,
 only you can reach it, sensitive material is screened out automatically, and your
 data stays portable and backed up.
@@ -33,8 +35,3 @@ lands. Scheduled backups keep a copy of everything.
 
 - The automatic screen is deliberately strict and errs toward dropping borderline
   content. For the most sensitive sources, a human review step is kept on purpose.
-
-## Learn more
-
-- Notes (the review-before-promote flow)
-- Overview

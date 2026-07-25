@@ -1,0 +1,103 @@
+---
+// Help center layout. Deliberately built on the same pieces as Marketing.astro
+// (BaseHead + Header + Footer + marketing.css) so /docs/ is the same website,
+// not a bolted-on docs tool. docs.css only adds the sidebar and article styles.
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import DocsSearch from '../components/DocsSearch.astro';
+import { docsNav, docsOrder } from '../data/docsNav';
+import '@fontsource/fraunces/400.css';
+import '@fontsource/fraunces/600.css';
+import '../styles/marketing.css';
+import '../styles/docs.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+
+// Normalise to a trailing slash so "/docs" and "/docs/" both match the nav.
+const here = Astro.url.pathname.replace(/\/?$/, '/');
+const idx = docsOrder.findIndex((l) => l.href === here);
+const prev = idx > 0 ? docsOrder[idx - 1] : null;
+const next = idx >= 0 && idx < docsOrder.length - 1 ? docsOrder[idx + 1] : null;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body>
+    <Header tone="light" solid={true} />
+    <main>
+      <div class="docs-shell">
+        <aside class="docs-side" aria-label="Help center">
+          <DocsSearch />
+          <nav class="docs-nav">
+            {/* Group labels are <p>, not headings: they sit before the article <h1>
+                in the DOM, and heading tags here would make the first heading a
+                screen reader meets a level 4. The <ul> is labelled by the <p>. */}
+            {docsNav.map((group, i) => (
+              <div class="docs-group">
+                <p class="docs-grouplabel" id={`docs-group-${i}`}>{group.label}</p>
+                <ul aria-labelledby={`docs-group-${i}`}>
+                  {group.items.map((item) => (
+                    <li>
+                      <a href={item.href} aria-current={item.href === here ? 'page' : undefined}>
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            <div class="docs-group">
+              <p class="docs-grouplabel" id="docs-group-more">More</p>
+              <ul aria-labelledby="docs-group-more">
+                <li><a href="/features/">Features</a></li>
+                <li><a href="/theo/">theo</a></li>
+                <li><a href="/plans/">Plans</a></li>
+                <li><a href="/support/">Support</a></li>
+              </ul>
+            </div>
+          </nav>
+        </aside>
+
+        <article class="docs-main">
+          <p class="eyebrow">Help center</p>
+          <h1>{title}</h1>
+          {description && <p class="docs-lede">{description}</p>}
+          <div class="prose">
+            <slot />
+          </div>
+
+          {(prev || next) && (
+            <nav class="docs-pager" aria-label="More articles">
+              {prev ? (
+                <a class="pg" href={prev.href}>
+                  <span>Previous</span>
+                  <strong>{prev.label}</strong>
+                </a>
+              ) : (
+                <span />
+              )}
+              {next && (
+                <a class="pg next" href={next.href}>
+                  <span>Next</span>
+                  <strong>{next.label}</strong>
+                </a>
+              )}
+            </nav>
+          )}
+
+          <div class="docs-help">
+            Still stuck? <a href="/support/">Get in touch</a> and we'll help you get set up.
+          </div>
+        </article>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

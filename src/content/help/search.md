@@ -1,7 +1,9 @@
 ---
 title: "How search works"
 description: "Ask the brain anything in plain language and it answers using everything it knows, by meaning rather than exact keywords."
----**In plain terms:** this is the heart of the brain. You ask a question the way
+---
+
+**In plain terms:** this is the heart of the brain. You ask a question the way
 you would ask a person, and it finds the answer across everything it has stored,
 even if you do not remember the exact words you used. It searches by *meaning*,
 not just matching keywords, so "that idea about the offsite" finds the right note
@@ -32,8 +34,3 @@ your structured facts about people and companies.
   over time.
 - It is a retrieval and reasoning aid, not the source of truth. Always confirm
   anything important against the original.
-
-## Learn more
-
-- Overview
-- How information gets in

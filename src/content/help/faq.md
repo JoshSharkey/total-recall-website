@@ -60,4 +60,5 @@ each tier.
 ## How do I get started?
 
 Plans and setup details are on the **[Plans](/plans/)** page. If you have a specific
-question, the **Capabilities** docs in the sidebar cover each feature in plain language.
+question, the **How it works** articles in the sidebar cover each feature in plain language,
+and **[Support](/support/)** will get you the rest of the way.
