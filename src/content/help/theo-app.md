@@ -1,9 +1,9 @@
 ---
-title: What is the Ask Theo app
-description: "Ask Theo is the web app for your brain: your daily brief, an ask box over everything you know, tasks, goals, people, health, and synthesis. It is theo at full strength."
+title: What is the theo app
+description: "The theo app is the web app for your brain: your daily brief, an ask box over everything you know, tasks, goals, people, health, and synthesis. It is theo at full strength."
 ---
 
-**In plain terms:** the Ask Theo app is the window into your brain. It lives at
+**In plain terms:** the theo app is the window into your brain. It lives at
 **asktheo.totalrecallhq.com**, it opens in any browser on any device, and it is where
 **[theo](/docs/who-is-theo/)** works at full strength.
 
@@ -40,7 +40,8 @@ ask box opens over whatever you were looking at: one question in plain language,
 grounded in everything you know, with the sources attached so you can check them. You do not
 lose your place. See **[How search works](/docs/search/)**.
 
-That box is the "Ask Theo" the app is named for.
+That box is the **Ask Theo** you will see referred to in the app, and it is why the app lives
+at asktheo.totalrecallhq.com.
 
 ## Setting it up
 
@@ -49,17 +50,18 @@ sources, one at a time, in plain language: your documents, email, calendar, mess
 meetings, and health data. You choose what comes in, and you can change your mind later.
 See **[Plans](/plans/)** for what each tier includes.
 
-## The app, and "Ask theo" in Slack
+## Where else you will see the name "Ask Theo"
 
-Two things share the name, so here is the difference:
+Three places, all the same theo. Worth knowing so nothing looks like a different product:
 
-- **The Ask Theo app** is the web app described on this page. It is the full product, and you
-  will also see it called simply the theo app.
+- **The theo app** is what this page describes, and it is the full product. Its address is
+  asktheo.totalrecallhq.com.
+- **Ask Theo** inside the app is the Cmd+K box above.
 - **"Ask theo" in Slack** is a small Slack app you can install into your workspace so you can
   message theo without leaving Slack. It is one of the channels theo shows up in, not a
-  separate product, and it reads the same brain.
+  separate product.
 
-Both talk to the same brain, and neither one holds a copy of your data. See
+All three read the same brain, and none of them holds a copy of your data. See
 **[Your data & ownership](/docs/ownership/)**.
 
 ## Does it work on my phone?

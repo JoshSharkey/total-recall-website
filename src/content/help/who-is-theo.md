@@ -56,8 +56,8 @@ you talk to in three months is measurably better than the one you talk to today.
 
 theo is not locked to one window:
 
-- **The Ask Theo app** is theo at full strength, with every section of your brain in front of
-  you. See **[What is the Ask Theo app](/docs/ask-theo-app/)**.
+- **The theo app** is theo at full strength, with every section of your brain in front of
+  you. See **[What is the theo app](/docs/theo-app/)**.
 - **Your messaging channels** put theo where you already are: Telegram, Slack, WhatsApp.
 - **Any AI you already use** can reach your brain directly, including Claude, ChatGPT, Gemini,
   and any MCP-capable tool. See **[Using it from your phone](/docs/phone-access/)**.

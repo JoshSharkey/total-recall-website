@@ -11,7 +11,7 @@ Need a hand with Total Recall or theo? **Search the help center** in the sidebar
 <div class="doc-cards">
   <a href="/docs/overview/"><strong>What is Total Recall</strong><span>The brain: a private memory for one person, and the synthesis that runs on top of it.</span></a>
   <a href="/docs/who-is-theo/"><strong>Who is theo</strong><span>The agent built on your brain, and how it gets better every week.</span></a>
-  <a href="/docs/ask-theo-app/"><strong>What is the Ask Theo app</strong><span>Where your brain lives: brief, ask, tasks, people, health, synthesis.</span></a>
+  <a href="/docs/theo-app/"><strong>What is the theo app</strong><span>Where your brain lives: brief, ask, tasks, people, health, synthesis.</span></a>
   <a href="/docs/faq/"><strong>FAQ</strong><span>Privacy, capabilities, phone access, and getting started.</span></a>
 </div>
 

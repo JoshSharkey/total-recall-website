@@ -44,7 +44,7 @@ export const GET: APIRoute = async () => {
     '## Products',
     '- Total Recall: the brain, the private memory and reasoning layer.',
     '- theo: the agent built on that brain, the intelligence you talk to.',
-    '- The Ask Theo app: where you read your brief, ask anything, and act on what surfaces.',
+    '- The theo app: where you read your brief, ask anything, and act on what surfaces.',
     '',
     '## Help center',
     ...ordered.map((e) =>

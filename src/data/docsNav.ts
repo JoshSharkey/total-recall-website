@@ -10,7 +10,7 @@ export const docsNav: DocsGroup[] = [
       { label: 'Help center', href: '/docs/' },
       { label: 'What is Total Recall', href: '/docs/overview/' },
       { label: 'Who is theo', href: '/docs/who-is-theo/' },
-      { label: 'What is the Ask Theo app', href: '/docs/ask-theo-app/' },
+      { label: 'What is the theo app', href: '/docs/theo-app/' },
       { label: 'FAQ', href: '/docs/faq/' },
     ],
   },
