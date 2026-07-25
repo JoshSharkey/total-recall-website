@@ -1,0 +1,45 @@
+---
+// Starlight used to supply the 404 page. It went away with Starlight, so this
+// replaces it in the site's own chrome.
+import Marketing from '../layouts/Marketing.astro';
+---
+<Marketing
+  title="Page not found"
+  description="That page does not exist. Try the help center, the features page, or get in touch."
+>
+  <section class="section">
+    <div class="container" style="max-width:720px">
+      <p class="eyebrow">404</p>
+      <h1 style="font-size:clamp(30px,4.4vw,48px);margin:10px 0 0">This page does not exist.</h1>
+      <p class="lead" style="margin-top:18px">
+        The link may be out of date, or the page may have moved. Here is where to go instead.
+      </p>
+      <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="/">Back to Total Recall</a>
+        <a class="btn btn-ghost" href="/docs/">Help center</a>
+      </div>
+      <div class="cards" style="margin-top:38px">
+        <div class="card">
+          <h3>Learn</h3>
+          <p>
+            <a href="/docs/overview/">What is Total Recall</a>,
+            <a href="/docs/who-is-theo/">who is theo</a>, and the
+            <a href="/docs/faq/">FAQ</a>.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Product</h3>
+          <p>
+            <a href="/features/">Features</a>,
+            <a href="/integrations/">integrations</a>, and
+            <a href="/plans/">plans</a>.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Still stuck?</h3>
+          <p><a href="/support/">Get in touch</a> and we'll point you at the right page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Marketing>
