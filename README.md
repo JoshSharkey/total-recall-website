@@ -46,8 +46,14 @@ npm run preview   # serve the build
 
 1. **Set the domain.** Edit `SITE_URL` (and `APP_URL`) in `src/consts.ts`, and the
    `Sitemap:` line in `public/robots.txt`. This drives canonical URLs, sitemap, OG tags.
-2. **Deploy.** Cloudflare Pages: framework preset Astro, build `npm run build`, output `dist`.
-3. **SEO/GEO is already wired:** sitemap (`/sitemap-index.xml`), `robots.txt` (search + AI
+2. **Let search engines in.** Set `PRELAUNCH = false` in `src/consts.ts`: while it is
+   `true` every page carries a "do not index" tag that keeps the site out of Google, and
+   flipping it to `false` is what makes the site indexable. Every build prints a banner
+   saying which of the two modes it is building, and then fails if the pages it emitted
+   disagree with the flag, so you never have to guess which mode you shipped. (Check
+   `public/robots.txt` too: it is a separate switch this does not touch.)
+3. **Deploy.** Cloudflare Pages: framework preset Astro, build `npm run build`, output `dist`.
+4. **SEO/GEO is already wired:** sitemap (`/sitemap-index.xml`), `robots.txt` (search + AI
    crawlers allowed), `llms.txt`, JSON-LD (Organization / WebSite / SoftwareApplication),
    per-page meta + Open Graph, semantic static HTML.
 
