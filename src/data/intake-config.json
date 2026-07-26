@@ -67,7 +67,7 @@
     {
       "id": "deploy",
       "question": "Where should your brain run?",
-      "help": "Both answers are YOUR infrastructure; there is no \"we host it for you\" option, because we never hold your memory. The choice is whether it lives on hosting you rent or on a Mac you already own, and it changes which accounts you sign up for. Neither one can read your iMessages or Apple Notes yet.",
+      "help": "Both answers are YOUR infrastructure; there is no \"we host it for you\" option, because we never hold your memory. The choice is whether it lives on hosting you rent or on a Mac you already own, and it changes which accounts you sign up for. Your texts and Apple Notes do not depend on this choice: they need a Mac, but a Mac helper can feed a cloud brain just as well. Neither path sets that up for you yet.",
       "options": [
         {
           "value": "cloud",
@@ -77,7 +77,7 @@
         {
           "value": "mac-mini",
           "label": "On my own always-on Mac mini",
-          "hint": "A Mac mini (or another desktop Mac) that never sleeps. A MacBook does not work for this: it sleeps when the lid closes, and a sleeping brain is unreachable. No monthly hosting bill, nothing leaves your house except what you connect, and it needs a free Tailscale account to be reachable."
+          "hint": "A Mac mini (or another desktop Mac) that never sleeps. A MacBook does not work for this: it sleeps when the lid closes, and a sleeping brain is unreachable. No monthly hosting bill, nothing leaves your house except what you connect. Needs two free accounts — Tailscale to reach it, Cloudflare R2 to hold the nightly backup off the machine."
         }
       ]
     },
@@ -412,7 +412,7 @@
         {
           "id": "anthropic",
           "name": "Anthropic",
-          "what": "Claude is the mind your brain thinks with: it reads your email, writes your brief, files your to-dos.",
+          "what": "Claude is the mind your brain thinks with: it sorts your email, drafts replies, and files your to-dos.",
           "cost": "Pay for what you use, needs a card, typically a few dollars a month for one person.",
           "costKind": "usage",
           "signupUrl": "https://console.anthropic.com/settings/keys",
@@ -431,6 +431,7 @@
           "cost": "Free tier is enough to start; a busy brain outgrows it to about $25 a month.",
           "costKind": "monthly",
           "signupUrl": "https://supabase.com/dashboard/sign-up",
+          "conditionalWhy": "only if you want to attach files to tasks",
           "onlyIf": null,
           "because": [
             "Core brain (foundation)",
@@ -459,6 +460,7 @@
           "cost": "Free.",
           "costKind": "free",
           "signupUrl": "https://console.cloud.google.com/",
+          "conditionalWhy": "only if you use Google Drive or Gmail",
           "onlyIf": "only if you use Google Drive or Gmail",
           "because": [
             "Core brain (foundation)",
@@ -498,7 +500,7 @@
           "cost": "Whatever you already pay Notion; the connection itself is free.",
           "costKind": "free",
           "signupUrl": "https://www.notion.so/my-integrations",
-          "onlyIf": "only if you use Notion sync",
+          "onlyIf": "only if you use Notion",
           "because": [
             "Notion sync"
           ]
@@ -510,7 +512,7 @@
           "cost": "Whatever your workspace already pays; the connection itself is free.",
           "costKind": "free",
           "signupUrl": "https://api.slack.com/apps",
-          "onlyIf": "only if you use Slack memory",
+          "onlyIf": "only if you use Slack",
           "because": [
             "Slack memory"
           ]
@@ -522,7 +524,7 @@
           "cost": "Free in development mode for your own accounts.",
           "costKind": "free",
           "signupUrl": "https://dashboard.plaid.com/signup",
-          "onlyIf": "only if you use Finance (Plaid)",
+          "onlyIf": "only if you use Plaid",
           "because": [
             "Finance (Plaid)"
           ]
@@ -534,7 +536,7 @@
           "cost": "Whatever you already pay WHOOP; the developer access is free.",
           "costKind": "free",
           "signupUrl": "https://developer.whoop.com/",
-          "onlyIf": "only if you use WHOOP health ingest",
+          "onlyIf": "only if you use WHOOP",
           "because": [
             "WHOOP health ingest"
           ]
@@ -543,7 +545,7 @@
       "cost": "About $20 a month for hosting, plus a few dollars a month of AI usage. Your database starts on Supabase's free tier and only costs anything (about $25 a month) if you outgrow it. No hardware to buy, and it answers your phone with every device of yours switched off.",
       "ownership": "Every account is in your name, every bill is yours, and so is the data. We never hold your accounts, your credentials, or your memory — you can cancel any of it without asking us.",
       "notYet": [
-        "Your texts (iMessage) and Apple Notes cannot flow into your brain yet, on either path. Choosing the Mac does not unlock them today; the piece that reads them is still being built."
+        "Your texts (iMessage) and your Apple Notes CAN come into your brain, and setup covers it: the helper authenticates with an append-only token your brain mints for that Mac, so no password of yours goes on the machine and you can revoke it in one line. Either way this needs a Mac in the house — that is where the messages and notes physically live — but it does NOT need your brain to run on one: a small helper on the Mac ships them to your brain wherever it lives, cloud included. There is no Windows or Android path for texts."
       ]
     },
     "mac-mini": {
@@ -564,7 +566,7 @@
         {
           "id": "anthropic",
           "name": "Anthropic",
-          "what": "Claude is the mind your brain thinks with: it reads your email, writes your brief, files your to-dos.",
+          "what": "Claude is the mind your brain thinks with: it sorts your email, drafts replies, and files your to-dos.",
           "cost": "Pay for what you use, needs a card, typically a few dollars a month for one person.",
           "costKind": "usage",
           "signupUrl": "https://console.anthropic.com/settings/keys",
@@ -599,6 +601,21 @@
           "because": [
             "Daily backups"
           ]
+        }
+      ],
+      "conditional": [
+        {
+          "id": "supabase",
+          "name": "Supabase",
+          "what": "The database where your brain's memory lives, in a project only you own.",
+          "cost": "Free tier is enough to start; a busy brain outgrows it to about $25 a month.",
+          "costKind": "monthly",
+          "signupUrl": "https://supabase.com/dashboard/sign-up",
+          "conditionalWhy": "only if you want to attach files to tasks",
+          "onlyIf": "only if you want to attach files to tasks",
+          "because": [
+            "Core brain (foundation)"
+          ]
         },
         {
           "id": "google",
@@ -607,16 +624,15 @@
           "cost": "Free.",
           "costKind": "free",
           "signupUrl": "https://console.cloud.google.com/",
-          "onlyIf": null,
+          "conditionalWhy": "only if you use Google Drive or Gmail",
+          "onlyIf": "only if you use Google Drive or Gmail",
           "because": [
             "Core brain (foundation)",
             "Google Drive sync",
             "Gmail memory",
             "Email triage (labels, archive, reply drafts)"
           ]
-        }
-      ],
-      "conditional": [
+        },
         {
           "id": "claude",
           "name": "Claude (Pro or Max)",
@@ -648,7 +664,7 @@
           "cost": "Whatever you already pay Notion; the connection itself is free.",
           "costKind": "free",
           "signupUrl": "https://www.notion.so/my-integrations",
-          "onlyIf": "only if you use Notion sync",
+          "onlyIf": "only if you use Notion",
           "because": [
             "Notion sync"
           ]
@@ -660,7 +676,7 @@
           "cost": "Whatever your workspace already pays; the connection itself is free.",
           "costKind": "free",
           "signupUrl": "https://api.slack.com/apps",
-          "onlyIf": "only if you use Slack memory",
+          "onlyIf": "only if you use Slack",
           "because": [
             "Slack memory"
           ]
@@ -672,7 +688,7 @@
           "cost": "Free in development mode for your own accounts.",
           "costKind": "free",
           "signupUrl": "https://dashboard.plaid.com/signup",
-          "onlyIf": "only if you use Finance (Plaid)",
+          "onlyIf": "only if you use Plaid",
           "because": [
             "Finance (Plaid)"
           ]
@@ -684,16 +700,16 @@
           "cost": "Whatever you already pay WHOOP; the developer access is free.",
           "costKind": "free",
           "signupUrl": "https://developer.whoop.com/",
-          "onlyIf": "only if you use WHOOP health ingest",
+          "onlyIf": "only if you use WHOOP",
           "because": [
             "WHOOP health ingest"
           ]
         }
       ],
-      "cost": "No monthly hosting bill: the always-on Mac you already own does the work. You still pay a few dollars a month of AI usage, and the machine has to stay awake and plugged in — when it sleeps, your brain is unreachable.",
+      "cost": "No monthly hosting bill: the always-on Mac you already own does the work, and its database lives on the same machine, so there is no database bill either. (The setup does offer a hosted database instead if you prefer one — that becomes its own signup and its own cost.) You still pay a few dollars a month of AI usage, and the machine has to stay awake and plugged in: when it sleeps, your brain is unreachable.",
       "ownership": "Every account is in your name, every bill is yours, and so is the data. We never hold your accounts, your credentials, or your memory — you can cancel any of it without asking us.",
       "notYet": [
-        "Your texts (iMessage) and Apple Notes cannot flow into your brain yet, on either path. Choosing the Mac does not unlock them today; the piece that reads them is still being built."
+        "Your texts (iMessage) and your Apple Notes CAN come into your brain, and setup covers it: the helper authenticates with an append-only token your brain mints for that Mac, so no password of yours goes on the machine and you can revoke it in one line. Either way this needs a Mac in the house — that is where the messages and notes physically live — but it does NOT need your brain to run on one: a small helper on the Mac ships them to your brain wherever it lives, cloud included. There is no Windows or Android path for texts."
       ]
     }
   }
