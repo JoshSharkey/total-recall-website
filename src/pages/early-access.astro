@@ -199,6 +199,26 @@ const { contact, questions, extras, connectionsNote } = config;
   };
   form?.addEventListener('change', refreshConditionals);
 
+  // "Everything below" is a select-all: checking it ticks the whole list,
+  // unchecking it clears the list, and unchecking any single item retracts it
+  // (the list is no longer "everything"). Runs the conditional refresh so the
+  // health follow-up appears/disappears with the Health & fitness box.
+  const knowBoxes = Array.from(
+    form?.querySelectorAll<HTMLInputElement>('input[name="f_know_about"]') ?? [],
+  );
+  const everything = knowBoxes.find((b) => b.value === 'everything');
+  knowBoxes.forEach((box) =>
+    box.addEventListener('change', () => {
+      if (!everything) return;
+      if (box === everything) {
+        knowBoxes.forEach((b) => { b.checked = everything.checked; });
+      } else if (!box.checked) {
+        everything.checked = false;
+      }
+      refreshConditionals();
+    }),
+  );
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form.reportValidity()) return;
