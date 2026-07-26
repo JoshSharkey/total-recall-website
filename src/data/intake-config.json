@@ -1,0 +1,716 @@
+{
+  "version": 1,
+  "contact": [
+    {
+      "id": "name",
+      "label": "Your name",
+      "kind": "text",
+      "required": true,
+      "maxLength": 120
+    },
+    {
+      "id": "email",
+      "label": "Your email",
+      "help": "The address you will sign in with when your access opens.",
+      "kind": "text",
+      "required": true,
+      "maxLength": 254
+    },
+    {
+      "id": "occupation",
+      "label": "What do you spend your days on?",
+      "help": "A sentence is plenty. It tells us what your brain will need to be good at.",
+      "kind": "text",
+      "required": false,
+      "maxLength": 200
+    }
+  ],
+  "questions": [
+    {
+      "id": "computer",
+      "question": "What computer do you use day to day?",
+      "options": [
+        {
+          "value": "mac",
+          "label": "A Mac"
+        },
+        {
+          "value": "windows",
+          "label": "A Windows PC"
+        },
+        {
+          "value": "other",
+          "label": "Something else / mostly my phone"
+        }
+      ]
+    },
+    {
+      "id": "always_on",
+      "question": "Do you have a computer that stays on ALL the time?",
+      "help": "This means a machine that is awake even when nobody is touching it, like a Mac mini or a desktop in a closet that never sleeps. Your everyday laptop does NOT count: it sleeps when the lid closes.",
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes, a desktop or Mac mini that never sleeps"
+        },
+        {
+          "value": "no",
+          "label": "No, just my laptop and phone",
+          "hint": "Most people. Totally fine."
+        },
+        {
+          "value": "unsure",
+          "label": "I'm not sure"
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "question": "Where should your brain run?",
+      "help": "Both answers are YOUR infrastructure; there is no \"we host it for you\" option, because we never hold your memory. The choice is whether it lives on hosting you rent or on a Mac you already own, and it changes which accounts you sign up for. Your texts and Apple Notes do not depend on this choice: they need a Mac, but a Mac helper can feed a cloud brain just as well. Neither path sets that up for you yet.",
+      "options": [
+        {
+          "value": "cloud",
+          "label": "In the cloud, on hosting in my name",
+          "hint": "Your own Railway and Supabase accounts, about $20 a month. Reachable from your phone with every device of yours switched off. Most people pick this."
+        },
+        {
+          "value": "mac-mini",
+          "label": "On my own always-on Mac mini",
+          "hint": "A Mac mini (or another desktop Mac) that never sleeps. A MacBook does not work for this: it sleeps when the lid closes, and a sleeping brain is unreachable. No monthly hosting bill, nothing leaves your house except what you connect. Needs two free accounts — Tailscale to reach it, Cloudflare R2 to hold the nightly backup off the machine."
+        }
+      ]
+    },
+    {
+      "id": "phone",
+      "question": "What phone do you have?",
+      "options": [
+        {
+          "value": "iphone",
+          "label": "iPhone"
+        },
+        {
+          "value": "android",
+          "label": "Android"
+        },
+        {
+          "value": "other",
+          "label": "Other"
+        }
+      ]
+    },
+    {
+      "id": "assistants",
+      "question": "Which LLMs do you use primarily?",
+      "help": "Your brain plugs into the AI apps you already talk to. Pick all that apply; the checklist shapes itself around them.",
+      "multi": true,
+      "options": [
+        {
+          "value": "claude",
+          "label": "Claude",
+          "hint": "The smoothest path today."
+        },
+        {
+          "value": "chatgpt",
+          "label": "ChatGPT"
+        },
+        {
+          "value": "copilot",
+          "label": "Microsoft Copilot"
+        },
+        {
+          "value": "perplexity",
+          "label": "Perplexity"
+        },
+        {
+          "value": "none",
+          "label": "None of these / something else"
+        }
+      ]
+    },
+    {
+      "id": "email",
+      "question": "What's your main email?",
+      "options": [
+        {
+          "value": "google",
+          "label": "Gmail or Google Workspace"
+        },
+        {
+          "value": "microsoft",
+          "label": "Outlook / Microsoft 365"
+        },
+        {
+          "value": "other",
+          "label": "Something else"
+        }
+      ]
+    },
+    {
+      "id": "slack",
+      "question": "Do you use Slack?",
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes"
+        },
+        {
+          "value": "no",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "id": "docs",
+      "question": "Where do most of your documents and files live?",
+      "multi": true,
+      "options": [
+        {
+          "value": "gdrive",
+          "label": "Google Drive"
+        },
+        {
+          "value": "icloud",
+          "label": "iCloud / on my Mac"
+        },
+        {
+          "value": "onedrive",
+          "label": "OneDrive"
+        },
+        {
+          "value": "scattered",
+          "label": "Honestly, scattered everywhere"
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "question": "Which note-taking apps do you use?",
+      "multi": true,
+      "options": [
+        {
+          "value": "apple_notes",
+          "label": "Apple Notes"
+        },
+        {
+          "value": "notion",
+          "label": "Notion"
+        },
+        {
+          "value": "keep",
+          "label": "Google Keep"
+        },
+        {
+          "value": "none",
+          "label": "None of these"
+        }
+      ]
+    },
+    {
+      "id": "contacts",
+      "question": "Where are your contacts?",
+      "options": [
+        {
+          "value": "google",
+          "label": "Google Contacts (synced with Gmail)"
+        },
+        {
+          "value": "icloud",
+          "label": "iPhone / iCloud"
+        },
+        {
+          "value": "other",
+          "label": "Somewhere else / not sure"
+        }
+      ]
+    }
+  ],
+  "extras": [
+    {
+      "id": "know_about",
+      "label": "What should your brain know about?",
+      "help": "Check everything you would want your brain to remember. Nothing here signs you up for anything.",
+      "kind": "multi",
+      "required": false,
+      "maxLength": 40,
+      "options": [
+        {
+          "value": "everything",
+          "label": "Everything below"
+        },
+        {
+          "value": "docs_work",
+          "label": "Documents & work files"
+        },
+        {
+          "value": "notes_journals",
+          "label": "Notes, journals & ideas"
+        },
+        {
+          "value": "email",
+          "label": "Email"
+        },
+        {
+          "value": "texts",
+          "label": "Text messages (iMessage/SMS)"
+        },
+        {
+          "value": "slack_chat",
+          "label": "Slack / team chat"
+        },
+        {
+          "value": "whatsapp",
+          "label": "WhatsApp"
+        },
+        {
+          "value": "calendar",
+          "label": "Calendar"
+        },
+        {
+          "value": "meetings",
+          "label": "Meeting & call recordings or transcripts"
+        },
+        {
+          "value": "contacts",
+          "label": "Contacts / people I know"
+        },
+        {
+          "value": "sales",
+          "label": "Customer & sales conversations"
+        },
+        {
+          "value": "health",
+          "label": "Health & fitness"
+        },
+        {
+          "value": "meds",
+          "label": "Medications & supplements"
+        },
+        {
+          "value": "financials",
+          "label": "Personal financials"
+        },
+        {
+          "value": "social",
+          "label": "Social media / content & engagement metrics"
+        },
+        {
+          "value": "podcasts",
+          "label": "Podcasts"
+        },
+        {
+          "value": "books",
+          "label": "Books"
+        },
+        {
+          "value": "newsletters",
+          "label": "Newsletters / articles"
+        }
+      ]
+    },
+    {
+      "id": "health_tracker",
+      "label": "Where does your health data live?",
+      "kind": "multi",
+      "required": false,
+      "maxLength": 20,
+      "showIf": {
+        "field": "know_about",
+        "value": "health"
+      },
+      "options": [
+        {
+          "value": "whoop",
+          "label": "WHOOP"
+        },
+        {
+          "value": "oura",
+          "label": "Oura Ring"
+        },
+        {
+          "value": "apple_health",
+          "label": "Apple Health"
+        },
+        {
+          "value": "other",
+          "label": "Somewhere else"
+        }
+      ]
+    },
+    {
+      "id": "health_tracker_other",
+      "label": "Where else?",
+      "kind": "text",
+      "required": false,
+      "maxLength": 200,
+      "showIf": {
+        "field": "health_tracker",
+        "value": "other"
+      }
+    },
+    {
+      "id": "motivation",
+      "label": "What made you want a second brain?",
+      "kind": "textarea",
+      "required": false,
+      "maxLength": 1000
+    },
+    {
+      "id": "keep_out",
+      "label": "Anything you would want to keep OUT of your brain?",
+      "help": "Privacy boundaries we should honor from day one.",
+      "kind": "textarea",
+      "required": false,
+      "maxLength": 1000
+    },
+    {
+      "id": "start_when",
+      "label": "When would you want to start?",
+      "kind": "choice",
+      "required": false,
+      "maxLength": 20,
+      "options": [
+        {
+          "value": "asap",
+          "label": "As soon as you will have me"
+        },
+        {
+          "value": "month",
+          "label": "In the next month or so"
+        },
+        {
+          "value": "curious",
+          "label": "Just curious for now"
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "label": "Anything else you would like us to know?",
+      "kind": "textarea",
+      "required": false,
+      "maxLength": 1000
+    }
+  ],
+  "connectionsNote": "Your brain reaches sources like Slack and Google through small \"connector apps\" — the registered doorway a service uses to grant access. During setup you can let us host those doorways where supported, or create them yourself with guided steps. Either way your data, your database, and your brain stay yours: we only ever host the doorway, never what passes through it.",
+  "prerequisites": {
+    "cloud": {
+      "target": "cloud",
+      "required": [
+        {
+          "id": "openai",
+          "name": "OpenAI",
+          "what": "Turns your documents into searchable memory (the embeddings your brain searches over).",
+          "cost": "Pay for what you use, needs a card, typically a few dollars a month for one person.",
+          "costKind": "usage",
+          "signupUrl": "https://platform.openai.com/api-keys",
+          "onlyIf": null,
+          "because": [
+            "Core brain (foundation)"
+          ]
+        },
+        {
+          "id": "anthropic",
+          "name": "Anthropic",
+          "what": "Claude is the mind your brain thinks with: it sorts your email, drafts replies, and files your to-dos.",
+          "cost": "Pay for what you use, needs a card, typically a few dollars a month for one person.",
+          "costKind": "usage",
+          "signupUrl": "https://console.anthropic.com/settings/keys",
+          "onlyIf": null,
+          "because": [
+            "Gmail memory",
+            "Email triage (labels, archive, reply drafts)",
+            "Slack memory",
+            "Nightly task filing"
+          ]
+        },
+        {
+          "id": "supabase",
+          "name": "Supabase",
+          "what": "The database where your brain's memory lives, in a project only you own.",
+          "cost": "Free tier is enough to start; a busy brain outgrows it to about $25 a month.",
+          "costKind": "monthly",
+          "signupUrl": "https://supabase.com/dashboard/sign-up",
+          "conditionalWhy": "only if you want to attach files to tasks",
+          "onlyIf": null,
+          "because": [
+            "Core brain (foundation)",
+            "Daily backups"
+          ]
+        },
+        {
+          "id": "railway",
+          "name": "Railway",
+          "what": "The always-on computer in the cloud where your brain runs, so it answers from your phone with every device of yours turned off.",
+          "cost": "About $20 a month (Railway's Pro plan). Nothing is charged until your brain actually starts.",
+          "costKind": "monthly",
+          "signupUrl": "https://railway.com",
+          "onlyIf": null,
+          "because": [
+            "Core brain (foundation)",
+            "Theo (proactive Telegram agent)"
+          ]
+        }
+      ],
+      "conditional": [
+        {
+          "id": "google",
+          "name": "Google Cloud",
+          "what": "The \"connector app\" that lets your brain read your own Google Drive and Gmail. Free to create; it is a registration, not a service you buy.",
+          "cost": "Free.",
+          "costKind": "free",
+          "signupUrl": "https://console.cloud.google.com/",
+          "conditionalWhy": "only if you use Google Drive or Gmail",
+          "onlyIf": "only if you use Google Drive or Gmail",
+          "because": [
+            "Core brain (foundation)",
+            "Google Drive sync",
+            "Gmail memory",
+            "Email triage (labels, archive, reply drafts)"
+          ]
+        },
+        {
+          "id": "claude",
+          "name": "Claude (Pro or Max)",
+          "what": "The app you talk to your brain in, on your phone and desktop. Custom connectors need a paid Claude plan.",
+          "cost": "From about $20 a month, paid to Anthropic separately from the API usage above.",
+          "costKind": "monthly",
+          "signupUrl": "https://claude.ai/upgrade",
+          "onlyIf": "only if you talk to your brain in Claude",
+          "because": [
+            "Core brain (foundation)"
+          ]
+        },
+        {
+          "id": "telegram",
+          "name": "Telegram",
+          "what": "How your brain reaches YOU: the daily brief and nudges arrive as messages.",
+          "cost": "Free.",
+          "costKind": "free",
+          "signupUrl": "https://telegram.org/",
+          "onlyIf": "needed to finish, unless you take your brain's messages in Slack instead",
+          "because": [
+            "Theo (proactive Telegram agent)"
+          ]
+        },
+        {
+          "id": "notion",
+          "name": "Notion",
+          "what": "Your Notion pages become part of your brain's memory.",
+          "cost": "Whatever you already pay Notion; the connection itself is free.",
+          "costKind": "free",
+          "signupUrl": "https://www.notion.so/my-integrations",
+          "onlyIf": "only if you use Notion",
+          "because": [
+            "Notion sync"
+          ]
+        },
+        {
+          "id": "slack",
+          "name": "Slack",
+          "what": "Your brain reads the Slack conversations you can already see.",
+          "cost": "Whatever your workspace already pays; the connection itself is free.",
+          "costKind": "free",
+          "signupUrl": "https://api.slack.com/apps",
+          "onlyIf": "only if you use Slack",
+          "because": [
+            "Slack memory"
+          ]
+        },
+        {
+          "id": "plaid",
+          "name": "Plaid",
+          "what": "Pulls your account balances in so your brain can answer money questions.",
+          "cost": "Free in development mode for your own accounts.",
+          "costKind": "free",
+          "signupUrl": "https://dashboard.plaid.com/signup",
+          "onlyIf": "only if you use Plaid",
+          "because": [
+            "Finance (Plaid)"
+          ]
+        },
+        {
+          "id": "whoop",
+          "name": "WHOOP",
+          "what": "Sleep and recovery numbers land in your brain alongside everything else.",
+          "cost": "Whatever you already pay WHOOP; the developer access is free.",
+          "costKind": "free",
+          "signupUrl": "https://developer.whoop.com/",
+          "onlyIf": "only if you use WHOOP",
+          "because": [
+            "WHOOP health ingest"
+          ]
+        }
+      ],
+      "cost": "About $20 a month for hosting, plus a few dollars a month of AI usage. Your database starts on Supabase's free tier and only costs anything (about $25 a month) if you outgrow it. No hardware to buy, and it answers your phone with every device of yours switched off.",
+      "ownership": "Every account is in your name, every bill is yours, and so is the data. We never hold your accounts, your credentials, or your memory — you can cancel any of it without asking us.",
+      "notYet": [
+        "Your texts (iMessage) and your Apple Notes CAN come into your brain, and setup covers it: the helper authenticates with an append-only token your brain mints for that Mac, so no password of yours goes on the machine and you can revoke it in one line. Either way this needs a Mac in the house — that is where the messages and notes physically live — but it does NOT need your brain to run on one: a small helper on the Mac ships them to your brain wherever it lives, cloud included. There is no Windows or Android path for texts."
+      ]
+    },
+    "mac-mini": {
+      "target": "mac-mini",
+      "required": [
+        {
+          "id": "openai",
+          "name": "OpenAI",
+          "what": "Turns your documents into searchable memory (the embeddings your brain searches over).",
+          "cost": "Pay for what you use, needs a card, typically a few dollars a month for one person.",
+          "costKind": "usage",
+          "signupUrl": "https://platform.openai.com/api-keys",
+          "onlyIf": null,
+          "because": [
+            "Core brain (foundation)"
+          ]
+        },
+        {
+          "id": "anthropic",
+          "name": "Anthropic",
+          "what": "Claude is the mind your brain thinks with: it sorts your email, drafts replies, and files your to-dos.",
+          "cost": "Pay for what you use, needs a card, typically a few dollars a month for one person.",
+          "costKind": "usage",
+          "signupUrl": "https://console.anthropic.com/settings/keys",
+          "onlyIf": null,
+          "because": [
+            "Gmail memory",
+            "Email triage (labels, archive, reply drafts)",
+            "Slack memory",
+            "Nightly task filing"
+          ]
+        },
+        {
+          "id": "tailscale",
+          "name": "Tailscale",
+          "what": "Publishes your Mac's brain at a private web address so your phone and Claude can reach it without opening a hole in your home network.",
+          "cost": "Free for personal use (the free plan covers one person's devices).",
+          "costKind": "free",
+          "signupUrl": "https://login.tailscale.com/start",
+          "onlyIf": null,
+          "because": [
+            "Core brain (foundation)"
+          ]
+        },
+        {
+          "id": "cloudflare",
+          "name": "Cloudflare R2",
+          "what": "Off-machine storage for the nightly database backup, so a dead Mac is not a dead brain.",
+          "cost": "Free tier covers a personal brain's backups; needs a card on file.",
+          "costKind": "free",
+          "signupUrl": "https://dash.cloudflare.com/sign-up",
+          "onlyIf": null,
+          "because": [
+            "Daily backups"
+          ]
+        }
+      ],
+      "conditional": [
+        {
+          "id": "supabase",
+          "name": "Supabase",
+          "what": "The database where your brain's memory lives, in a project only you own.",
+          "cost": "Free tier is enough to start; a busy brain outgrows it to about $25 a month.",
+          "costKind": "monthly",
+          "signupUrl": "https://supabase.com/dashboard/sign-up",
+          "conditionalWhy": "only if you want to attach files to tasks",
+          "onlyIf": "only if you want to attach files to tasks",
+          "because": [
+            "Core brain (foundation)"
+          ]
+        },
+        {
+          "id": "google",
+          "name": "Google Cloud",
+          "what": "The \"connector app\" that lets your brain read your own Google Drive and Gmail. Free to create; it is a registration, not a service you buy.",
+          "cost": "Free.",
+          "costKind": "free",
+          "signupUrl": "https://console.cloud.google.com/",
+          "conditionalWhy": "only if you use Google Drive or Gmail",
+          "onlyIf": "only if you use Google Drive or Gmail",
+          "because": [
+            "Core brain (foundation)",
+            "Google Drive sync",
+            "Gmail memory",
+            "Email triage (labels, archive, reply drafts)"
+          ]
+        },
+        {
+          "id": "claude",
+          "name": "Claude (Pro or Max)",
+          "what": "The app you talk to your brain in, on your phone and desktop. Custom connectors need a paid Claude plan.",
+          "cost": "From about $20 a month, paid to Anthropic separately from the API usage above.",
+          "costKind": "monthly",
+          "signupUrl": "https://claude.ai/upgrade",
+          "onlyIf": "only if you talk to your brain in Claude",
+          "because": [
+            "Core brain (foundation)"
+          ]
+        },
+        {
+          "id": "telegram",
+          "name": "Telegram",
+          "what": "How your brain reaches YOU: the daily brief and nudges arrive as messages.",
+          "cost": "Free.",
+          "costKind": "free",
+          "signupUrl": "https://telegram.org/",
+          "onlyIf": "needed to finish, unless you take your brain's messages in Slack instead",
+          "because": [
+            "Theo (proactive Telegram agent)"
+          ]
+        },
+        {
+          "id": "notion",
+          "name": "Notion",
+          "what": "Your Notion pages become part of your brain's memory.",
+          "cost": "Whatever you already pay Notion; the connection itself is free.",
+          "costKind": "free",
+          "signupUrl": "https://www.notion.so/my-integrations",
+          "onlyIf": "only if you use Notion",
+          "because": [
+            "Notion sync"
+          ]
+        },
+        {
+          "id": "slack",
+          "name": "Slack",
+          "what": "Your brain reads the Slack conversations you can already see.",
+          "cost": "Whatever your workspace already pays; the connection itself is free.",
+          "costKind": "free",
+          "signupUrl": "https://api.slack.com/apps",
+          "onlyIf": "only if you use Slack",
+          "because": [
+            "Slack memory"
+          ]
+        },
+        {
+          "id": "plaid",
+          "name": "Plaid",
+          "what": "Pulls your account balances in so your brain can answer money questions.",
+          "cost": "Free in development mode for your own accounts.",
+          "costKind": "free",
+          "signupUrl": "https://dashboard.plaid.com/signup",
+          "onlyIf": "only if you use Plaid",
+          "because": [
+            "Finance (Plaid)"
+          ]
+        },
+        {
+          "id": "whoop",
+          "name": "WHOOP",
+          "what": "Sleep and recovery numbers land in your brain alongside everything else.",
+          "cost": "Whatever you already pay WHOOP; the developer access is free.",
+          "costKind": "free",
+          "signupUrl": "https://developer.whoop.com/",
+          "onlyIf": "only if you use WHOOP",
+          "because": [
+            "WHOOP health ingest"
+          ]
+        }
+      ],
+      "cost": "No monthly hosting bill: the always-on Mac you already own does the work, and its database lives on the same machine, so there is no database bill either. (The setup does offer a hosted database instead if you prefer one — that becomes its own signup and its own cost.) You still pay a few dollars a month of AI usage, and the machine has to stay awake and plugged in: when it sleeps, your brain is unreachable.",
+      "ownership": "Every account is in your name, every bill is yours, and so is the data. We never hold your accounts, your credentials, or your memory — you can cancel any of it without asking us.",
+      "notYet": [
+        "Your texts (iMessage) and your Apple Notes CAN come into your brain, and setup covers it: the helper authenticates with an append-only token your brain mints for that Mac, so no password of yours goes on the machine and you can revoke it in one line. Either way this needs a Mac in the house — that is where the messages and notes physically live — but it does NOT need your brain to run on one: a small helper on the Mac ships them to your brain wherever it lives, cloud included. There is no Windows or Android path for texts."
+      ]
+    }
+  }
+}

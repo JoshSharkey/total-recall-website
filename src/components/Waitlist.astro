@@ -1,5 +1,10 @@
 ---
-import { WAITLIST_FORM_URL, WAITLIST_ENDPOINT, CONTACT_EMAIL } from '../consts';
+// The early-access band on marketing pages. Once a Google Form + mailto
+// fallback; now a plain CTA into /early-access, the real intake form
+// (theo #298) — one question set shared with the setup wizard, so nobody
+// answers anything twice. Keeps id="waitlist" so existing #waitlist anchors
+// still land here.
+import { EARLY_ACCESS_PATH } from '../consts';
 interface Props {
   id?: string;
   tone?: 'dark' | 'light';
@@ -10,63 +15,15 @@ const {
   id = 'waitlist',
   tone = 'light',
   heading = 'Get early access',
-  sub = 'Be first to build your second brain. No spam, just a note when it opens.',
+  sub = 'Tell us about yourself once — when your access opens, your setup starts already knowing you.',
 } = Astro.props;
 ---
 <section id={id} class:list={['waitlist', tone === 'dark' && 'on-dark']}>
   <div class="container wl-inner">
     <h2>{heading}</h2>
     <p>{sub}</p>
-
-    {
-      WAITLIST_FORM_URL ? (
-        <div class="wl-cta">
-          <a class="btn btn-primary" href={WAITLIST_FORM_URL} target="_blank" rel="noopener">
-            Join the waitlist →
-          </a>
-        </div>
-      ) : (
-        <>
-          <form class="wl-form" data-endpoint={WAITLIST_ENDPOINT} data-contact={CONTACT_EMAIL}>
-            <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" />
-            <button type="submit" class="btn btn-primary">Join the waitlist</button>
-          </form>
-          <p class="wl-msg" role="status" aria-live="polite" />
-        </>
-      )
-    }
+    <div class="wl-cta">
+      <a class="btn btn-primary" href={EARLY_ACCESS_PATH}>Request early access →</a>
+    </div>
   </div>
 </section>
-
-<script>
-  // Only runs in inline-endpoint mode (no hosted form URL configured).
-  document.querySelectorAll<HTMLFormElement>('.wl-form').forEach((form) => {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const input = form.querySelector<HTMLInputElement>('input[name="email"]');
-      const msg = form.parentElement?.querySelector<HTMLElement>('.wl-msg');
-      const endpoint = form.dataset.endpoint?.trim();
-      const contact = form.dataset.contact;
-      const email = input?.value?.trim();
-      if (!email) return;
-      const ok = (t: string) => { if (msg) { msg.textContent = t; msg.classList.add('ok'); } if (input) input.value = ''; };
-      const fail = (t: string) => { if (msg) { msg.textContent = t; msg.classList.remove('ok'); } };
-      if (!endpoint) {
-        window.location.href = `mailto:${contact}?subject=Total%20Recall%20waitlist&body=Please%20add%20me%20to%20the%20waitlist:%20${encodeURIComponent(email)}`;
-        ok('Opening your email client to finish.');
-        return;
-      }
-      try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ email }),
-        });
-        if (res.ok) ok('You’re on the list. We’ll be in touch.');
-        else fail('Something went wrong. Please try again.');
-      } catch {
-        fail('Something went wrong. Please try again.');
-      }
-    });
-  });
-</script>

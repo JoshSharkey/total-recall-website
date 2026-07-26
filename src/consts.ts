@@ -10,8 +10,10 @@ export const SITE_DESCRIPTION =
 // The cockpit (theo) app — link out to the product when ready.
 export const APP_URL = 'https://asktheo.totalrecallhq.com';
 export const CONTACT_EMAIL = 'hello@totalrecallhq.com'; // needs Cloudflare Email Routing forward before launch
-// Waitlist: a hosted form the CTA links to (Google Form for now). Takes priority.
-export const WAITLIST_FORM_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLSffNSdRkqnk3CC8HDF_OuhCtNL0jSCecwA18hVILAIf8ta8xg/viewform';
-// Optional inline POST endpoint (Formspree / Tally / Buttondown). Used only if no form URL.
-export const WAITLIST_ENDPOINT = '';
+// Early access: the real intake form (theo #298). It renders from the vendored
+// question set in src/data/intake-config.json (one source: theo's wizard
+// questions) and submits to theo's public intake endpoint, which stores a
+// pending lead — admission stays a human decision. The old Google Form and the
+// mailto fallback are retired.
+export const EARLY_ACCESS_PATH = '/early-access';
+export const INTAKE_ENDPOINT = `${APP_URL}/api/intake`;
