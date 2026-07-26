@@ -1,0 +1,292 @@
+---
+// The real early-access intake (theo #298). Renders at BUILD time from the
+// vendored question set in src/data/intake-config.json — theo's own wizard
+// questions plus lead-only fields — so the form always renders even if theo is
+// unreachable; only the submit needs it up. Submissions become PENDING leads in
+// theo's admin queue; nothing here creates an account or grants access.
+//
+// To refresh the questions: run `bun run scripts/emit-intake-config.ts` in the
+// theo repo and replace src/data/intake-config.json (or fetch the same JSON
+// from GET /api/intake/questions on a deployed theo).
+import Marketing from '../layouts/Marketing.astro';
+import config from '../data/intake-config.json';
+import { INTAKE_ENDPOINT, CONTACT_EMAIL } from '../consts';
+
+const { contact, questions, extras, prerequisites } = config;
+const targets = [
+  { key: 'cloud', label: 'Cloud hosting, in your name' },
+  { key: 'mac-mini', label: 'Your own always-on Mac' },
+] as const;
+---
+<Marketing
+  title="Get early access"
+  description="Request early access to Total Recall. One short intake: when your access opens, your setup starts already knowing you."
+>
+  <section class="section">
+    <div class="container" style="max-width:720px">
+      <p class="eyebrow">Early access</p>
+      <h1 style="font-size:clamp(32px,4.6vw,52px);margin:10px 0 0">Tell us once.</h1>
+      <p class="lead" style="margin:18px 0 0">
+        This is the actual intake, not a mailing list. We review every request
+        and open access in waves; when it is your turn, you sign in and your
+        setup already knows everything you write here — you will not answer any
+        of it twice. Only your name, email, and the first section are needed;
+        everything else helps us set you up faster.
+      </p>
+
+      <form id="intake-form" data-endpoint={INTAKE_ENDPOINT} data-contact={CONTACT_EMAIL} novalidate>
+        {/* Honeypot: humans never see it; bots that fill every field do. */}
+        <div class="ea-hp" aria-hidden="true">
+          <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <h2 class="ea-h">About you</h2>
+        {contact.map((f) => (
+          <div class="ea-field" data-fid={f.id}>
+            <label for={`f_${f.id}`}>
+              {f.label}
+              {!f.required && <span class="ea-opt">optional</span>}
+            </label>
+            {f.help && <p class="ea-help">{f.help}</p>}
+            <input
+              id={`f_${f.id}`}
+              name={`f_${f.id}`}
+              type={f.id === 'email' ? 'email' : 'text'}
+              maxlength={f.maxLength}
+              required={f.required}
+            />
+          </div>
+        ))}
+
+        <h2 class="ea-h">Your setup</h2>
+        <p class="ea-help" style="margin:0 0 6px">
+          Every question is optional — answer what you can and your setup wizard
+          will already have it.
+        </p>
+        {questions.map((q) => (
+          <fieldset class="ea-q" data-qid={q.id} data-multi={q.multi ? '1' : ''}>
+            <legend>{q.question}</legend>
+            {q.help && <p class="ea-help">{q.help}</p>}
+            {q.options.map((o) => (
+              <label class="ea-choice">
+                <input
+                  type={q.multi ? 'checkbox' : 'radio'}
+                  name={`q_${q.id}`}
+                  value={o.value}
+                />
+                <span>
+                  {o.label}
+                  {o.hint && <small>{o.hint}</small>}
+                </span>
+              </label>
+            ))}
+          </fieldset>
+        ))}
+
+        <h2 class="ea-h">A little more, if you like</h2>
+        {extras.map((f) => (
+          <div class="ea-field" data-fid={f.id}>
+            <label for={`f_${f.id}`}>
+              {f.label}
+              <span class="ea-opt">optional</span>
+            </label>
+            {f.help && <p class="ea-help">{f.help}</p>}
+            {f.kind === 'textarea' ? (
+              <textarea id={`f_${f.id}`} name={`f_${f.id}`} rows="3" maxlength={f.maxLength} />
+            ) : f.kind === 'choice' ? (
+              <div>
+                {(f.options ?? []).map((o) => (
+                  <label class="ea-choice">
+                    <input type="radio" name={`f_${f.id}`} value={o.value} />
+                    <span>{o.label}</span>
+                  </label>
+                ))}
+              </div>
+            ) : (
+              <input id={`f_${f.id}`} name={`f_${f.id}`} type="text" maxlength={f.maxLength} />
+            )}
+          </div>
+        ))}
+
+        <h2 class="ea-h">Optional: get a head start</h2>
+        <p class="ea-help" style="margin:0">
+          Setup means creating a few accounts along the way — every one in your
+          name and yours to cancel. None of this is required now: the wizard
+          walks you through each signup when your access opens. But if you want
+          the setup call to fly, you can knock some out ahead of time. Pick
+          where your brain should run (the question above) and your exact list
+          appears here; check off anything you already have.
+        </p>
+        <p id="prereq-unpicked" class="ea-help" style="margin-top:10px">
+          Answer “Where should your brain run?” above to see your list.
+        </p>
+
+        {targets.map((t) => {
+          const p = (prerequisites as Record<string, typeof prerequisites.cloud>)[t.key];
+          return (
+            <div class="ea-prereqs" id={`prereqs-${t.key}`} data-target={t.key} hidden>
+              <p class="ea-target">{t.label}</p>
+              <ul>
+                {[...p.required, ...p.conditional].map((a) => (
+                  <li class="ea-acct">
+                    <label class="ea-choice">
+                      <input type="checkbox" name="acct" value={a.id} />
+                      <span>
+                        <strong>{a.name}</strong>
+                        {a.onlyIf && <em class="ea-onlyif">{a.onlyIf}</em>}
+                        <small>{a.what}</small>
+                        <small>{a.cost}</small>
+                        <a href={a.signupUrl} target="_blank" rel="noopener">Create it →</a>
+                      </span>
+                    </label>
+                  </li>
+                ))}
+              </ul>
+              {/* Cost and ownership render together, always: the reason the
+                  bills are theirs is the same reason the memory is. */}
+              <div class="ea-cost">
+                <p>{p.cost}</p>
+                <p><strong>{p.ownership}</strong></p>
+              </div>
+              {p.notYet.map((line) => (
+                <p class="ea-help" style="margin-top:10px"><strong>Straight talk:</strong> {line}</p>
+              ))}
+            </div>
+          );
+        })}
+
+        <div style="margin-top:32px">
+          <button type="submit" class="btn btn-primary">Request early access</button>
+          <p class="ea-msg" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <div id="intake-done" hidden>
+        <h2 class="ea-h">You're in the queue.</h2>
+        <p class="lead" style="margin:14px 0 0">
+          Thank you — a real person reads every request. We open access in
+          waves, and when it is your turn you will hear from us at the email
+          you gave. The moment you sign in, everything you just wrote is
+          already in place.
+        </p>
+      </div>
+    </div>
+  </section>
+</Marketing>
+
+<style>
+  .ea-hp { position: absolute; left: -9999px; height: 1px; overflow: hidden; }
+  .ea-h { margin: 40px 0 10px; font-size: clamp(20px, 2.6vw, 26px); }
+  .ea-field { margin-top: 18px; }
+  .ea-field > label { display: block; font-weight: 600; }
+  .ea-opt { margin-left: 8px; font-size: 12px; font-weight: 400; color: var(--muted); }
+  .ea-help { color: var(--muted); font-size: 14px; margin: 4px 0 6px; }
+  .ea-field input[type='text'],
+  .ea-field input[type='email'],
+  .ea-field textarea {
+    width: 100%; margin-top: 6px; padding: 10px 14px; font-size: 15px;
+    font-family: var(--sans); color: var(--ink); background: #fff;
+    border: 1px solid var(--line); border-radius: 10px;
+  }
+  .ea-field input:focus, .ea-field textarea:focus { outline: none; border-color: var(--accent); }
+  .ea-q { margin-top: 22px; border: none; padding: 0; }
+  .ea-q legend { font-weight: 600; padding: 0; }
+  .ea-choice { display: flex; gap: 10px; align-items: baseline; margin-top: 8px; cursor: pointer; }
+  .ea-choice input { flex: none; }
+  .ea-choice small { display: block; color: var(--muted); }
+  .ea-prereqs { margin-top: 18px; border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+  .ea-target { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin: 0; }
+  .ea-prereqs ul { list-style: none; padding: 0; margin: 10px 0 0; }
+  .ea-acct { margin-top: 14px; }
+  .ea-acct a { font-size: 14px; }
+  .ea-onlyif { display: block; font-size: 13px; color: var(--muted); }
+  .ea-cost { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; font-size: 14px; }
+  .ea-cost p { margin: 0 0 8px; }
+  .ea-msg { margin-top: 12px; font-size: 14px; color: var(--muted); }
+  .ea-msg.err { color: #b3261e; }
+</style>
+
+<script>
+  const form = document.getElementById('intake-form') as HTMLFormElement | null;
+  const done = document.getElementById('intake-done');
+  const msg = form?.querySelector<HTMLElement>('.ea-msg');
+  const unpicked = document.getElementById('prereq-unpicked');
+
+  // The head-start list forks on the deploy answer, mirroring the wizard.
+  const panes = Array.from(document.querySelectorAll<HTMLElement>('.ea-prereqs'));
+  form?.querySelectorAll<HTMLInputElement>('input[name="q_deploy"]').forEach((r) =>
+    r.addEventListener('change', () => {
+      if (unpicked) unpicked.hidden = true;
+      panes.forEach((p) => { p.hidden = p.dataset.target !== r.value; });
+    }),
+  );
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const payload: Record<string, unknown> = {
+      website: (form.querySelector<HTMLInputElement>('input[name="website"]')?.value ?? ''),
+      source: location.pathname,
+    };
+
+    form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[name^="f_"]').forEach((el) => {
+      if (el instanceof HTMLInputElement && el.type === 'radio' && !el.checked) return;
+      const v = el.value.trim();
+      if (v) payload[el.name.slice(2)] = v;
+    });
+
+    const answers: Record<string, string | string[]> = {};
+    form.querySelectorAll<HTMLElement>('.ea-q').forEach((q) => {
+      const id = q.dataset.qid ?? '';
+      const checked = Array.from(
+        q.querySelectorAll<HTMLInputElement>('input:checked'),
+      ).map((i) => i.value);
+      if (checked.length === 0) return;
+      answers[id] = q.dataset.multi ? checked : checked[0];
+    });
+    if (Object.keys(answers).length > 0) payload.answers = answers;
+
+    const ready = [
+      ...new Set(
+        Array.from(form.querySelectorAll<HTMLInputElement>('input[name="acct"]:checked')).map(
+          (i) => i.value,
+        ),
+      ),
+    ];
+    if (ready.length > 0) payload.accounts_ready = ready;
+
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (button) button.disabled = true;
+    if (msg) { msg.textContent = 'Sending…'; msg.classList.remove('err'); }
+
+    try {
+      const res = await fetch(form.dataset.endpoint ?? '', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        form.hidden = true;
+        if (done) done.hidden = false;
+        done?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      const body = (await res.json().catch(() => ({}))) as { error?: string };
+      if (msg) {
+        msg.textContent =
+          res.status === 429
+            ? 'Too many requests from your network right now. Please try again in an hour.'
+            : `That did not go through (${body.error ?? 'server error'}). Please try again, or email ${form.dataset.contact ?? 'us'}.`;
+        msg.classList.add('err');
+      }
+    } catch {
+      if (msg) {
+        msg.textContent = 'That did not go through — please check your connection and try again.';
+        msg.classList.add('err');
+      }
+    } finally {
+      if (button) button.disabled = false;
+    }
+  });
+</script>
