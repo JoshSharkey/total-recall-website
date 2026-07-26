@@ -27,23 +27,6 @@
   ],
   "questions": [
     {
-      "id": "tier",
-      "question": "How do you want your connections set up?",
-      "help": "Your brain reaches sources like Slack and Google through small \"connector apps\" (the registered doorway a service uses to grant access). Either way your data, your database, and your brain stay yours: managed only hosts the doorway, never what passes through it. Honest scope today: managed makes Slack a single approval, and the remaining connectors keep the guided self-hosted steps until our hosted apps clear each service's review (Google's verification in particular takes a long time).",
-      "options": [
-        {
-          "value": "managed",
-          "label": "Managed, easy setup",
-          "hint": "We host the connector apps. One approval replaces app creation where supported."
-        },
-        {
-          "value": "self-hosted",
-          "label": "Self-hosted, full control",
-          "hint": "You create each connector app yourself, in your own accounts. Everything runs in your name."
-        }
-      ]
-    },
-    {
       "id": "computer",
       "question": "What computer do you use day to day?",
       "options": [
@@ -93,8 +76,8 @@
         },
         {
           "value": "mac-mini",
-          "label": "On my own always-on Mac",
-          "hint": "No monthly hosting bill, and nothing leaves your house except what you connect. Needs a free Tailscale account to be reachable, and the Mac has to stay awake: when it sleeps, your brain is unreachable."
+          "label": "On my own always-on Mac mini",
+          "hint": "A Mac mini (or another desktop Mac) that never sleeps. A MacBook does not work for this: it sleeps when the lid closes, and a sleeping brain is unreachable. No monthly hosting bill, nothing leaves your house except what you connect, and it needs a free Tailscale account to be reachable."
         }
       ]
     },
@@ -118,7 +101,7 @@
     },
     {
       "id": "assistants",
-      "question": "Which AI assistants do you use?",
+      "question": "Which LLMs do you use primarily?",
       "help": "Your brain plugs into the AI apps you already talk to. Pick all that apply; the checklist shapes itself around them.",
       "multi": true,
       "options": [
@@ -169,11 +152,11 @@
       "options": [
         {
           "value": "yes",
-          "label": "Yes, my team lives in it"
+          "label": "Yes"
         },
         {
           "value": "no",
-          "label": "No / rarely"
+          "label": "No"
         }
       ]
     },
@@ -244,6 +227,128 @@
   ],
   "extras": [
     {
+      "id": "know_about",
+      "label": "What should your brain know about?",
+      "help": "Check everything you would want your brain to remember. Nothing here signs you up for anything.",
+      "kind": "multi",
+      "required": false,
+      "maxLength": 40,
+      "options": [
+        {
+          "value": "everything",
+          "label": "Everything below"
+        },
+        {
+          "value": "docs_work",
+          "label": "Documents & work files"
+        },
+        {
+          "value": "notes_journals",
+          "label": "Notes, journals & ideas"
+        },
+        {
+          "value": "email",
+          "label": "Email"
+        },
+        {
+          "value": "texts",
+          "label": "Text messages (iMessage/SMS)"
+        },
+        {
+          "value": "slack_chat",
+          "label": "Slack / team chat"
+        },
+        {
+          "value": "whatsapp",
+          "label": "WhatsApp"
+        },
+        {
+          "value": "calendar",
+          "label": "Calendar"
+        },
+        {
+          "value": "meetings",
+          "label": "Meeting & call recordings or transcripts"
+        },
+        {
+          "value": "contacts",
+          "label": "Contacts / people I know"
+        },
+        {
+          "value": "sales",
+          "label": "Customer & sales conversations"
+        },
+        {
+          "value": "health",
+          "label": "Health & fitness"
+        },
+        {
+          "value": "meds",
+          "label": "Medications & supplements"
+        },
+        {
+          "value": "financials",
+          "label": "Personal financials"
+        },
+        {
+          "value": "social",
+          "label": "Social media / content & engagement metrics"
+        },
+        {
+          "value": "podcasts",
+          "label": "Podcasts"
+        },
+        {
+          "value": "books",
+          "label": "Books"
+        },
+        {
+          "value": "newsletters",
+          "label": "Newsletters / articles"
+        }
+      ]
+    },
+    {
+      "id": "health_tracker",
+      "label": "Where does your health data live?",
+      "kind": "multi",
+      "required": false,
+      "maxLength": 20,
+      "showIf": {
+        "field": "know_about",
+        "value": "health"
+      },
+      "options": [
+        {
+          "value": "whoop",
+          "label": "WHOOP"
+        },
+        {
+          "value": "oura",
+          "label": "Oura Ring"
+        },
+        {
+          "value": "apple_health",
+          "label": "Apple Health"
+        },
+        {
+          "value": "other",
+          "label": "Somewhere else"
+        }
+      ]
+    },
+    {
+      "id": "health_tracker_other",
+      "label": "Where else?",
+      "kind": "text",
+      "required": false,
+      "maxLength": 200,
+      "showIf": {
+        "field": "health_tracker",
+        "value": "other"
+      }
+    },
+    {
       "id": "motivation",
       "label": "What made you want a second brain?",
       "kind": "textarea",
@@ -287,6 +392,7 @@
       "maxLength": 1000
     }
   ],
+  "connectionsNote": "Your brain reaches sources like Slack and Google through small \"connector apps\" — the registered doorway a service uses to grant access. During setup you can let us host those doorways where supported, or create them yourself with guided steps. Either way your data, your database, and your brain stay yours: we only ever host the doorway, never what passes through it.",
   "prerequisites": {
     "cloud": {
       "target": "cloud",

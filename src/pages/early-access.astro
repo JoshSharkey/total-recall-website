@@ -12,11 +12,7 @@ import Marketing from '../layouts/Marketing.astro';
 import config from '../data/intake-config.json';
 import { INTAKE_ENDPOINT, CONTACT_EMAIL } from '../consts';
 
-const { contact, questions, extras, prerequisites } = config;
-const targets = [
-  { key: 'cloud', label: 'Cloud hosting, in your name' },
-  { key: 'mac-mini', label: 'Your own always-on Mac' },
-] as const;
+const { contact, questions, extras, connectionsNote } = config;
 ---
 <Marketing
   title="Get early access"
@@ -25,13 +21,11 @@ const targets = [
   <section class="section">
     <div class="container" style="max-width:720px">
       <p class="eyebrow">Early access</p>
-      <h1 style="font-size:clamp(32px,4.6vw,52px);margin:10px 0 0">Tell us once.</h1>
+      <h1 style="font-size:clamp(32px,4.6vw,52px);margin:10px 0 0">Get early access.</h1>
       <p class="lead" style="margin:18px 0 0">
-        This is the actual intake, not a mailing list. We review every request
-        and open access in waves; when it is your turn, you sign in and your
-        setup already knows everything you write here — you will not answer any
-        of it twice. Only your name, email, and the first section are needed;
-        everything else helps us set you up faster.
+        Help us get you started faster by sharing your stack and preferences
+        below. The more you include ahead of time, the quicker your second
+        brain will be ready for action.
       </p>
 
       <form id="intake-form" data-endpoint={INTAKE_ENDPOINT} data-contact={CONTACT_EMAIL} novalidate>
@@ -63,6 +57,7 @@ const targets = [
           Every question is optional — answer what you can and your setup wizard
           will already have it.
         </p>
+        <p class="ea-help" style="margin:0 0 6px">{connectionsNote}</p>
         {questions.map((q) => (
           <fieldset class="ea-q" data-qid={q.id} data-multi={q.multi ? '1' : ''}>
             <legend>{q.question}</legend>
@@ -85,11 +80,17 @@ const targets = [
 
         <h2 class="ea-h">A little more, if you like</h2>
         {extras.map((f) =>
-          f.kind === 'choice' ? (
+          f.kind === 'choice' || f.kind === 'multi' ? (
             // fieldset/legend, not label-for: a label pointing at a radio
             // GROUP has no single control to point at, and a dangling `for`
             // makes clicking the label do nothing.
-            <fieldset class="ea-q" data-fid={f.id}>
+            <fieldset
+              class="ea-q"
+              data-fid={f.id}
+              data-showif-field={f.showIf?.field}
+              data-showif-value={f.showIf?.value}
+              hidden={!!f.showIf}
+            >
               <legend>
                 {f.label}
                 <span class="ea-opt">optional</span>
@@ -97,13 +98,19 @@ const targets = [
               {f.help && <p class="ea-help">{f.help}</p>}
               {(f.options ?? []).map((o) => (
                 <label class="ea-choice">
-                  <input type="radio" name={`f_${f.id}`} value={o.value} />
+                  <input type={f.kind === 'multi' ? 'checkbox' : 'radio'} name={`f_${f.id}`} value={o.value} />
                   <span>{o.label}</span>
                 </label>
               ))}
             </fieldset>
           ) : (
-            <div class="ea-field" data-fid={f.id}>
+            <div
+              class="ea-field"
+              data-fid={f.id}
+              data-showif-field={f.showIf?.field}
+              data-showif-value={f.showIf?.value}
+              hidden={!!f.showIf}
+            >
               <label for={`f_${f.id}`}>
                 {f.label}
                 <span class="ea-opt">optional</span>
@@ -117,53 +124,6 @@ const targets = [
             </div>
           ),
         )}
-
-        <h2 class="ea-h">Optional: get a head start</h2>
-        <p class="ea-help" style="margin:0">
-          Setup means creating a few accounts along the way — every one in your
-          name and yours to cancel. None of this is required now: the wizard
-          walks you through each signup when your access opens. But if you want
-          the setup call to fly, you can knock some out ahead of time. Pick
-          where your brain should run (the question above) and your exact list
-          appears here; check off anything you already have.
-        </p>
-        <p id="prereq-unpicked" class="ea-help" style="margin-top:10px">
-          Answer “Where should your brain run?” above to see your list.
-        </p>
-
-        {targets.map((t) => {
-          const p = (prerequisites as Record<string, typeof prerequisites.cloud>)[t.key];
-          return (
-            <div class="ea-prereqs" id={`prereqs-${t.key}`} data-target={t.key} hidden>
-              <p class="ea-target">{t.label}</p>
-              <ul>
-                {[...p.required, ...p.conditional].map((a) => (
-                  <li class="ea-acct">
-                    <label class="ea-choice">
-                      <input type="checkbox" name="acct" value={a.id} />
-                      <span>
-                        <strong>{a.name}</strong>
-                        {a.onlyIf && <em class="ea-onlyif">{a.onlyIf}</em>}
-                        <small>{a.what}</small>
-                        <small>{a.cost}</small>
-                        <a href={a.signupUrl} target="_blank" rel="noopener">Create it →</a>
-                      </span>
-                    </label>
-                  </li>
-                ))}
-              </ul>
-              {/* Cost and ownership render together, always: the reason the
-                  bills are theirs is the same reason the memory is. */}
-              <div class="ea-cost">
-                <p>{p.cost}</p>
-                <p><strong>{p.ownership}</strong></p>
-              </div>
-              {p.notYet.map((line) => (
-                <p class="ea-help" style="margin-top:10px"><strong>Straight talk:</strong> {line}</p>
-              ))}
-            </div>
-          );
-        })}
 
         <div style="margin-top:32px">
           <button type="submit" class="btn btn-primary">Request early access</button>
@@ -204,14 +164,6 @@ const targets = [
   .ea-choice { display: flex; gap: 10px; align-items: baseline; margin-top: 8px; cursor: pointer; }
   .ea-choice input { flex: none; }
   .ea-choice small { display: block; color: var(--muted); }
-  .ea-prereqs { margin-top: 18px; border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
-  .ea-target { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin: 0; }
-  .ea-prereqs ul { list-style: none; padding: 0; margin: 10px 0 0; }
-  .ea-acct { margin-top: 14px; }
-  .ea-acct a { font-size: 14px; }
-  .ea-onlyif { display: block; font-size: 13px; color: var(--muted); }
-  .ea-cost { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; font-size: 14px; }
-  .ea-cost p { margin: 0 0 8px; }
   .ea-msg { margin-top: 12px; font-size: 14px; color: var(--muted); }
   .ea-msg.err { color: #b3261e; }
 </style>
@@ -220,16 +172,32 @@ const targets = [
   const form = document.getElementById('intake-form') as HTMLFormElement | null;
   const done = document.getElementById('intake-done');
   const msg = form?.querySelector<HTMLElement>('.ea-msg');
-  const unpicked = document.getElementById('prereq-unpicked');
 
-  // The head-start list forks on the deploy answer, mirroring the wizard.
-  const panes = Array.from(document.querySelectorAll<HTMLElement>('.ea-prereqs'));
-  form?.querySelectorAll<HTMLInputElement>('input[name="q_deploy"]').forEach((r) =>
-    r.addEventListener('change', () => {
-      if (unpicked) unpicked.hidden = true;
-      panes.forEach((p) => { p.hidden = p.dataset.target !== r.value; });
-    }),
+  // Conditional fields: an element with data-showif-field/-value appears only
+  // while that value is checked in the controlling group (e.g. the health
+  // tracker question appears when "Health & fitness" is checked). Hiding also
+  // unchecks, so a retracted trigger cannot leave stale hidden answers behind.
+  const conditionals = Array.from(
+    document.querySelectorAll<HTMLElement>('[data-showif-field]'),
   );
+  const refreshConditionals = () => {
+    for (const el of conditionals) {
+      const inputs = form?.querySelectorAll<HTMLInputElement>(
+        `input[name="f_${el.dataset.showifField}"]`,
+      );
+      const on = Array.from(inputs ?? []).some(
+        (i) => i.checked && i.value === el.dataset.showifValue,
+      );
+      if (!on && !el.hidden) {
+        el.querySelectorAll<HTMLInputElement>('input').forEach((i) => {
+          if (i.type === 'checkbox' || i.type === 'radio') i.checked = false;
+          else i.value = '';
+        });
+      }
+      el.hidden = !on;
+    }
+  };
+  form?.addEventListener('change', refreshConditionals);
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -241,9 +209,20 @@ const targets = [
     };
 
     form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[name^="f_"]').forEach((el) => {
-      if (el instanceof HTMLInputElement && el.type === 'radio' && !el.checked) return;
+      const key = el.name.slice(2);
+      if (el instanceof HTMLInputElement && (el.type === 'radio' || el.type === 'checkbox')) {
+        if (!el.checked) return;
+        if (el.type === 'checkbox') {
+          (payload[key] as string[] | undefined)
+            ? (payload[key] as string[]).push(el.value)
+            : (payload[key] = [el.value]);
+          return;
+        }
+        payload[key] = el.value;
+        return;
+      }
       const v = el.value.trim();
-      if (v) payload[el.name.slice(2)] = v;
+      if (v) payload[key] = v;
     });
 
     const answers: Record<string, string | string[]> = {};
@@ -258,15 +237,6 @@ const targets = [
       answers[id] = q.dataset.multi ? checked : checked[0];
     });
     if (Object.keys(answers).length > 0) payload.answers = answers;
-
-    const ready = [
-      ...new Set(
-        Array.from(form.querySelectorAll<HTMLInputElement>('input[name="acct"]:checked')).map(
-          (i) => i.value,
-        ),
-      ),
-    ];
-    if (ready.length > 0) payload.accounts_ready = ready;
 
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
     if (button) button.disabled = true;
