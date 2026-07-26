@@ -84,29 +84,39 @@ const targets = [
         ))}
 
         <h2 class="ea-h">A little more, if you like</h2>
-        {extras.map((f) => (
-          <div class="ea-field" data-fid={f.id}>
-            <label for={`f_${f.id}`}>
-              {f.label}
-              <span class="ea-opt">optional</span>
-            </label>
-            {f.help && <p class="ea-help">{f.help}</p>}
-            {f.kind === 'textarea' ? (
-              <textarea id={`f_${f.id}`} name={`f_${f.id}`} rows="3" maxlength={f.maxLength} />
-            ) : f.kind === 'choice' ? (
-              <div>
-                {(f.options ?? []).map((o) => (
-                  <label class="ea-choice">
-                    <input type="radio" name={`f_${f.id}`} value={o.value} />
-                    <span>{o.label}</span>
-                  </label>
-                ))}
-              </div>
-            ) : (
-              <input id={`f_${f.id}`} name={`f_${f.id}`} type="text" maxlength={f.maxLength} />
-            )}
-          </div>
-        ))}
+        {extras.map((f) =>
+          f.kind === 'choice' ? (
+            // fieldset/legend, not label-for: a label pointing at a radio
+            // GROUP has no single control to point at, and a dangling `for`
+            // makes clicking the label do nothing.
+            <fieldset class="ea-q" data-fid={f.id}>
+              <legend>
+                {f.label}
+                <span class="ea-opt">optional</span>
+              </legend>
+              {f.help && <p class="ea-help">{f.help}</p>}
+              {(f.options ?? []).map((o) => (
+                <label class="ea-choice">
+                  <input type="radio" name={`f_${f.id}`} value={o.value} />
+                  <span>{o.label}</span>
+                </label>
+              ))}
+            </fieldset>
+          ) : (
+            <div class="ea-field" data-fid={f.id}>
+              <label for={`f_${f.id}`}>
+                {f.label}
+                <span class="ea-opt">optional</span>
+              </label>
+              {f.help && <p class="ea-help">{f.help}</p>}
+              {f.kind === 'textarea' ? (
+                <textarea id={`f_${f.id}`} name={`f_${f.id}`} rows="3" maxlength={f.maxLength} />
+              ) : (
+                <input id={`f_${f.id}`} name={`f_${f.id}`} type="text" maxlength={f.maxLength} />
+              )}
+            </div>
+          ),
+        )}
 
         <h2 class="ea-h">Optional: get a head start</h2>
         <p class="ea-help" style="margin:0">
@@ -237,7 +247,9 @@ const targets = [
     });
 
     const answers: Record<string, string | string[]> = {};
-    form.querySelectorAll<HTMLElement>('.ea-q').forEach((q) => {
+    // [data-qid] scopes to WIZARD questions: the extras choice fieldsets share
+    // the class for styling but carry data-fid and post as f_* fields instead.
+    form.querySelectorAll<HTMLElement>('.ea-q[data-qid]').forEach((q) => {
       const id = q.dataset.qid ?? '';
       const checked = Array.from(
         q.querySelectorAll<HTMLInputElement>('input:checked'),
